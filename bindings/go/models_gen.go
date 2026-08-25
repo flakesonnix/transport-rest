@@ -7,62 +7,62 @@ import "time"
 // Enums and aliases are represented as their underlying scalar types;
 // see schema/types.json for the known values.
 type (
-	Mode = string
+	Mode          = string
 	PrognosisType = string
-	RemarkKind = string
-	DbProfile = string
-	Products = map[string]bool
-	Ids = map[string]string
-	ServiceDays = map[string]bool
-	OpeningHours = map[string]string
+	RemarkKind    = string
+	DbProfile     = string
+	Products      = map[string]bool
+	Ids           = map[string]string
+	ServiceDays   = map[string]bool
+	OpeningHours  = map[string]string
 )
 
 // Cycle – Cycle times of a line/trip in minutes.
 type Cycle struct {
 	Min *int64 `json:"min,omitempty"`
 	Max *int64 `json:"max,omitempty"`
-	Nr *int64 `json:"nr,omitempty"`
+	Nr  *int64 `json:"nr,omitempty"`
 }
 
 // Departure – A departure or arrival board entry (OpenAPI schema name: Alternative).
 type Departure struct {
-	TripId *string `json:"tripId,omitempty"`
-	Stop *StopOrStation `json:"stop,omitempty"`
+	TripId *string        `json:"tripId,omitempty"`
+	Stop   *StopOrStation `json:"stop,omitempty"`
 	// Current vehicle position (radar).
-	Location *Location `json:"location,omitempty"`
-	Line *Line `json:"line,omitempty"`
-	Direction *string `json:"direction,omitempty"`
+	Location  *Location `json:"location,omitempty"`
+	Line      *Line     `json:"line,omitempty"`
+	Direction *string   `json:"direction,omitempty"`
 	// Origin of the vehicle (arrivals boards).
-	Provenance *string `json:"provenance,omitempty"`
-	Origin *Place `json:"origin,omitempty"`
-	Destination *Place `json:"destination,omitempty"`
+	Provenance  *string `json:"provenance,omitempty"`
+	Origin      *Place  `json:"origin,omitempty"`
+	Destination *Place  `json:"destination,omitempty"`
 	// Realtime time; null if cancelled.
-	When *time.Time `json:"when,omitempty"`
-	PlannedWhen *time.Time `json:"plannedWhen,omitempty"`
+	When          *time.Time `json:"when,omitempty"`
+	PlannedWhen   *time.Time `json:"plannedWhen,omitempty"`
 	PrognosedWhen *time.Time `json:"prognosedWhen,omitempty"`
 	// Seconds; null when unknown.
 	Delay *int64 `json:"delay,omitempty"`
 	// Realtime platform; null if cancelled.
-	Platform *string `json:"platform,omitempty"`
-	PlannedPlatform *string `json:"plannedPlatform,omitempty"`
-	PrognosedPlatform *string `json:"prognosedPlatform,omitempty"`
-	PrognosisType *PrognosisType `json:"prognosisType,omitempty"`
-	Remarks []Remark `json:"remarks,omitempty"`
-	Cancelled *bool `json:"cancelled,omitempty"`
-	LoadFactor *string `json:"loadFactor,omitempty"`
-	PreviousStopovers []Stopover `json:"previousStopovers,omitempty"`
-	NextStopovers []Stopover `json:"nextStopovers,omitempty"`
+	Platform          *string        `json:"platform,omitempty"`
+	PlannedPlatform   *string        `json:"plannedPlatform,omitempty"`
+	PrognosedPlatform *string        `json:"prognosedPlatform,omitempty"`
+	PrognosisType     *PrognosisType `json:"prognosisType,omitempty"`
+	Remarks           []Remark       `json:"remarks,omitempty"`
+	Cancelled         *bool          `json:"cancelled,omitempty"`
+	LoadFactor        *string        `json:"loadFactor,omitempty"`
+	PreviousStopovers []Stopover     `json:"previousStopovers,omitempty"`
+	NextStopovers     []Stopover     `json:"nextStopovers,omitempty"`
 	// Radar frames.
-	Frames []Frame `json:"frames,omitempty"`
-	Polyline *Polyline `json:"polyline,omitempty"`
+	Frames              []Frame   `json:"frames,omitempty"`
+	Polyline            *Polyline `json:"polyline,omitempty"`
 	CurrentTripPosition *Location `json:"currentTripPosition,omitempty"`
 }
 
 // Frame – Radar frame: position of a vehicle between two places at offset t.
 type Frame struct {
-	Origin *Place `json:"origin,omitempty"`
-	Destination *Place `json:"destination,omitempty"`
-	T *float64 `json:"t,omitempty"`
+	Origin      *Place   `json:"origin,omitempty"`
+	Destination *Place   `json:"destination,omitempty"`
+	T           *float64 `json:"t,omitempty"`
 }
 
 // GeometryPoint – GeoJSON Point geometry.
@@ -75,115 +75,115 @@ type GeometryPoint struct {
 type Journey struct {
 	Id *string `json:"id,omitempty"`
 	// Pass to refresh_journey for realtime updates.
-	RefreshToken *string `json:"refreshToken,omitempty"`
-	Legs []Leg `json:"legs"`
-	Remarks []Remark `json:"remarks,omitempty"`
-	Price *Price `json:"price,omitempty"`
-	Cycle *Cycle `json:"cycle,omitempty"`
-	ServiceDays *ServiceDays `json:"serviceDays,omitempty"`
+	RefreshToken  *string      `json:"refreshToken,omitempty"`
+	Legs          []Leg        `json:"legs"`
+	Remarks       []Remark     `json:"remarks,omitempty"`
+	Price         *Price       `json:"price,omitempty"`
+	Cycle         *Cycle       `json:"cycle,omitempty"`
+	ServiceDays   *ServiceDays `json:"serviceDays,omitempty"`
 	ScheduledDays *ServiceDays `json:"scheduledDays,omitempty"`
 }
 
 // Leg – One leg of a journey. Walking/transfer legs have walking=true and no line.
 type Leg struct {
-	TripId *string `json:"tripId,omitempty"`
-	Origin *Place `json:"origin"`
-	Destination *Place `json:"destination"`
+	TripId      *string `json:"tripId,omitempty"`
+	Origin      *Place  `json:"origin"`
+	Destination *Place  `json:"destination"`
 	// Absent for walking/transfer legs.
-	Line *Line `json:"line,omitempty"`
-	Direction *string `json:"direction,omitempty"`
-	Operator *Operator `json:"operator,omitempty"`
-	Departure *time.Time `json:"departure,omitempty"`
-	PlannedDeparture *time.Time `json:"plannedDeparture,omitempty"`
+	Line               *Line      `json:"line,omitempty"`
+	Direction          *string    `json:"direction,omitempty"`
+	Operator           *Operator  `json:"operator,omitempty"`
+	Departure          *time.Time `json:"departure,omitempty"`
+	PlannedDeparture   *time.Time `json:"plannedDeparture,omitempty"`
 	PrognosedDeparture *time.Time `json:"prognosedDeparture,omitempty"`
 	// Seconds.
-	DepartureDelay *int64 `json:"departureDelay,omitempty"`
-	DeparturePlatform *string `json:"departurePlatform,omitempty"`
-	PlannedDeparturePlatform *string `json:"plannedDeparturePlatform,omitempty"`
-	PrognosedDeparturePlatform *string `json:"prognosedDeparturePlatform,omitempty"`
-	DeparturePrognosisType *PrognosisType `json:"departurePrognosisType,omitempty"`
-	Arrival *time.Time `json:"arrival,omitempty"`
-	PlannedArrival *time.Time `json:"plannedArrival,omitempty"`
-	PrognosedArrival *time.Time `json:"prognosedArrival,omitempty"`
+	DepartureDelay             *int64         `json:"departureDelay,omitempty"`
+	DeparturePlatform          *string        `json:"departurePlatform,omitempty"`
+	PlannedDeparturePlatform   *string        `json:"plannedDeparturePlatform,omitempty"`
+	PrognosedDeparturePlatform *string        `json:"prognosedDeparturePlatform,omitempty"`
+	DeparturePrognosisType     *PrognosisType `json:"departurePrognosisType,omitempty"`
+	Arrival                    *time.Time     `json:"arrival,omitempty"`
+	PlannedArrival             *time.Time     `json:"plannedArrival,omitempty"`
+	PrognosedArrival           *time.Time     `json:"prognosedArrival,omitempty"`
 	// Seconds.
-	ArrivalDelay *int64 `json:"arrivalDelay,omitempty"`
-	ArrivalPlatform *string `json:"arrivalPlatform,omitempty"`
-	PlannedArrivalPlatform *string `json:"plannedArrivalPlatform,omitempty"`
-	PrognosedArrivalPlatform *string `json:"prognosedArrivalPlatform,omitempty"`
-	ArrivalPrognosisType *PrognosisType `json:"arrivalPrognosisType,omitempty"`
-	Stopovers []Stopover `json:"stopovers,omitempty"`
-	Remarks []Remark `json:"remarks,omitempty"`
-	Walking *bool `json:"walking,omitempty"`
-	Transfer *bool `json:"transfer,omitempty"`
+	ArrivalDelay             *int64         `json:"arrivalDelay,omitempty"`
+	ArrivalPlatform          *string        `json:"arrivalPlatform,omitempty"`
+	PlannedArrivalPlatform   *string        `json:"plannedArrivalPlatform,omitempty"`
+	PrognosedArrivalPlatform *string        `json:"prognosedArrivalPlatform,omitempty"`
+	ArrivalPrognosisType     *PrognosisType `json:"arrivalPrognosisType,omitempty"`
+	Stopovers                []Stopover     `json:"stopovers,omitempty"`
+	Remarks                  []Remark       `json:"remarks,omitempty"`
+	Walking                  *bool          `json:"walking,omitempty"`
+	Transfer                 *bool          `json:"transfer,omitempty"`
 	// Meters (walking/cycling/driving legs).
 	Distance *float64 `json:"distance,omitempty"`
-	Public *bool `json:"public,omitempty"`
+	Public   *bool    `json:"public,omitempty"`
 	// Whether the transfer into this leg is guaranteed.
-	Reachable *bool `json:"reachable,omitempty"`
-	Cancelled *bool `json:"cancelled,omitempty"`
-	LoadFactor *string `json:"loadFactor,omitempty"`
-	Cycle *Cycle `json:"cycle,omitempty"`
-	Alternatives []Departure `json:"alternatives,omitempty"`
-	Polyline *Polyline `json:"polyline,omitempty"`
-	Price *Price `json:"price,omitempty"`
-	Schedule *int64 `json:"schedule,omitempty"`
-	CurrentLocation *Location `json:"currentLocation,omitempty"`
-	Checkin *bool `json:"checkin,omitempty"`
-	ServiceDays *ServiceDays `json:"serviceDays,omitempty"`
+	Reachable       *bool        `json:"reachable,omitempty"`
+	Cancelled       *bool        `json:"cancelled,omitempty"`
+	LoadFactor      *string      `json:"loadFactor,omitempty"`
+	Cycle           *Cycle       `json:"cycle,omitempty"`
+	Alternatives    []Departure  `json:"alternatives,omitempty"`
+	Polyline        *Polyline    `json:"polyline,omitempty"`
+	Price           *Price       `json:"price,omitempty"`
+	Schedule        *int64       `json:"schedule,omitempty"`
+	CurrentLocation *Location    `json:"currentLocation,omitempty"`
+	Checkin         *bool        `json:"checkin,omitempty"`
+	ServiceDays     *ServiceDays `json:"serviceDays,omitempty"`
 	// hafas-client style; db-vendo uses serviceDays.
 	ScheduledDays *ServiceDays `json:"scheduledDays,omitempty"`
 }
 
 // Line – A public transport line.
 type Line struct {
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Id             *string `json:"id,omitempty"`
+	Name           *string `json:"name,omitempty"`
 	AdditionalName *string `json:"additionalName,omitempty"`
-	AdminCode *string `json:"adminCode,omitempty"`
-	FahrtNr *string `json:"fahrtNr,omitempty"`
+	AdminCode      *string `json:"adminCode,omitempty"`
+	FahrtNr        *string `json:"fahrtNr,omitempty"`
 	// Profile-specific product key (open string).
-	Product *string `json:"product,omitempty"`
-	ProductName *string `json:"productName,omitempty"`
-	Mode *Mode `json:"mode,omitempty"`
-	Operator *Operator `json:"operator,omitempty"`
-	Express *bool `json:"express,omitempty"`
-	Metro *bool `json:"metro,omitempty"`
-	Night *bool `json:"night,omitempty"`
-	Nr *int64 `json:"nr,omitempty"`
-	Symbol *string `json:"symbol,omitempty"`
-	Public *bool `json:"public,omitempty"`
-	Directions []string `json:"directions,omitempty"`
+	Product     *string   `json:"product,omitempty"`
+	ProductName *string   `json:"productName,omitempty"`
+	Mode        *Mode     `json:"mode,omitempty"`
+	Operator    *Operator `json:"operator,omitempty"`
+	Express     *bool     `json:"express,omitempty"`
+	Metro       *bool     `json:"metro,omitempty"`
+	Night       *bool     `json:"night,omitempty"`
+	Nr          *int64    `json:"nr,omitempty"`
+	Symbol      *string   `json:"symbol,omitempty"`
+	Public      *bool     `json:"public,omitempty"`
+	Directions  []string  `json:"directions,omitempty"`
 	// Route ids.
 	Routes []string `json:"routes,omitempty"`
 }
 
 // Location – A point: POI, address or bare coordinate.
 type Location struct {
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Poi *bool `json:"poi,omitempty"`
-	Address *string `json:"address,omitempty"`
-	Latitude *float64 `json:"latitude,omitempty"`
+	Id        *string  `json:"id,omitempty"`
+	Name      *string  `json:"name,omitempty"`
+	Poi       *bool    `json:"poi,omitempty"`
+	Address   *string  `json:"address,omitempty"`
+	Latitude  *float64 `json:"latitude,omitempty"`
 	Longitude *float64 `json:"longitude,omitempty"`
-	Altitude *float64 `json:"altitude,omitempty"`
+	Altitude  *float64 `json:"altitude,omitempty"`
 	// Walking distance in meters (nearby results).
 	Distance *float64 `json:"distance,omitempty"`
 }
 
 // Movement – A vehicle currently moving in the radar area.
 type Movement struct {
-	Direction *string `json:"direction,omitempty"`
-	TripId *string `json:"tripId,omitempty"`
-	Line *Line `json:"line,omitempty"`
-	Location *Location `json:"location,omitempty"`
+	Direction     *string    `json:"direction,omitempty"`
+	TripId        *string    `json:"tripId,omitempty"`
+	Line          *Line      `json:"line,omitempty"`
+	Location      *Location  `json:"location,omitempty"`
 	NextStopovers []Stopover `json:"nextStopovers,omitempty"`
-	Frames []Frame `json:"frames,omitempty"`
-	Polyline *Polyline `json:"polyline,omitempty"`
+	Frames        []Frame    `json:"frames,omitempty"`
+	Polyline      *Polyline  `json:"polyline,omitempty"`
 }
 
 // Operator – Transit operator. Note: the upstream OpenAPI spec declares Trip.operator as number, but the wire format is an object; parsers must tolerate both.
 type Operator struct {
-	Id *string `json:"id,omitempty"`
+	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
@@ -195,109 +195,109 @@ type Polyline struct {
 // PolylineFeature – GeoJSON Feature; properties describe the stop located at this position.
 type PolylineFeature struct {
 	Properties *LocationResult `json:"properties,omitempty"`
-	Geometry *GeometryPoint `json:"geometry,omitempty"`
+	Geometry   *GeometryPoint  `json:"geometry,omitempty"`
 }
 
 // Price – Price information for a journey.
 type Price struct {
-	Amount *float64 `json:"amount,omitempty"`
-	Currency *string `json:"currency,omitempty"`
-	Hint *string `json:"hint,omitempty"`
+	Amount   *float64 `json:"amount,omitempty"`
+	Currency *string  `json:"currency,omitempty"`
+	Hint     *string  `json:"hint,omitempty"`
 }
 
 // ReachableDuration – Reachability result: travel duration and reachable stations.
 type ReachableDuration struct {
 	// Seconds.
-	Duration *int64 `json:"duration,omitempty"`
+	Duration *int64           `json:"duration,omitempty"`
 	Stations []LocationResult `json:"stations,omitempty"`
 }
 
 // Remark – Hint, status or warning attached to journeys/legs/departures/trips/stops. Merged model of FPTF hint/status/warning.
 type Remark struct {
-	Kind *RemarkKind `json:"type"`
-	Code *string `json:"code,omitempty"`
-	Summary *string `json:"summary,omitempty"`
-	Text *string `json:"text,omitempty"`
-	TripId *string `json:"tripId,omitempty"`
+	Kind    *RemarkKind `json:"type"`
+	Code    *string     `json:"code,omitempty"`
+	Summary *string     `json:"summary,omitempty"`
+	Text    *string     `json:"text,omitempty"`
+	TripId  *string     `json:"tripId,omitempty"`
 	// Warning id.
-	Id *string `json:"id,omitempty"`
-	Priority *int64 `json:"priority,omitempty"`
-	Category *string `json:"category,omitempty"`
-	Products *Products `json:"products,omitempty"`
-	Company *string `json:"company,omitempty"`
-	ValidFrom *time.Time `json:"validFrom,omitempty"`
-	ValidUntil *time.Time `json:"validUntil,omitempty"`
-	Modified *time.Time `json:"modified,omitempty"`
-	AffectedLines []Line `json:"affectedLines,omitempty"`
-	FromStops []LocationResult `json:"fromStops,omitempty"`
-	ToStops []LocationResult `json:"toStops,omitempty"`
+	Id            *string          `json:"id,omitempty"`
+	Priority      *int64           `json:"priority,omitempty"`
+	Category      *string          `json:"category,omitempty"`
+	Products      *Products        `json:"products,omitempty"`
+	Company       *string          `json:"company,omitempty"`
+	ValidFrom     *time.Time       `json:"validFrom,omitempty"`
+	ValidUntil    *time.Time       `json:"validUntil,omitempty"`
+	Modified      *time.Time       `json:"modified,omitempty"`
+	AffectedLines []Line           `json:"affectedLines,omitempty"`
+	FromStops     []LocationResult `json:"fromStops,omitempty"`
+	ToStops       []LocationResult `json:"toStops,omitempty"`
 }
 
 // Station – A larger station area possibly containing multiple stops.
 type Station struct {
-	Id *string `json:"id"`
-	Name *string `json:"name,omitempty"`
-	Station *Station `json:"station,omitempty"`
+	Id       *string   `json:"id"`
+	Name     *string   `json:"name,omitempty"`
+	Station  *Station  `json:"station,omitempty"`
 	Location *Location `json:"location,omitempty"`
 	Products *Products `json:"products,omitempty"`
-	Lines []Line `json:"lines,omitempty"`
-	IsMeta *bool `json:"isMeta,omitempty"`
+	Lines    []Line    `json:"lines,omitempty"`
+	IsMeta   *bool     `json:"isMeta,omitempty"`
 	// Region ids.
-	Regions []string `json:"regions,omitempty"`
-	Facilities map[string]any `json:"facilities,omitempty"`
-	OpeningHours *OpeningHours `json:"reisezentrumOpeningHours,omitempty"`
+	Regions      []string       `json:"regions,omitempty"`
+	Facilities   map[string]any `json:"facilities,omitempty"`
+	OpeningHours *OpeningHours  `json:"reisezentrumOpeningHours,omitempty"`
 	// Sub-stops.
-	Stops []LocationResult `json:"stops,omitempty"`
-	Entrances []Location `json:"entrances,omitempty"`
-	TransitAuthority *string `json:"transitAuthority,omitempty"`
-	Distance *float64 `json:"distance,omitempty"`
+	Stops            []LocationResult `json:"stops,omitempty"`
+	Entrances        []Location       `json:"entrances,omitempty"`
+	TransitAuthority *string          `json:"transitAuthority,omitempty"`
+	Distance         *float64         `json:"distance,omitempty"`
 }
 
 // Stop – A single physical stop (platform, bus stop sign, ...).
 type Stop struct {
-	Id *string `json:"id"`
+	Id   *string `json:"id"`
 	Name *string `json:"name,omitempty"`
 	// Parent station.
-	Station *Station `json:"station,omitempty"`
-	Location *Location `json:"location,omitempty"`
-	Products *Products `json:"products,omitempty"`
-	Ids *Ids `json:"ids,omitempty"`
-	Lines []Line `json:"lines,omitempty"`
-	Entrances []Location `json:"entrances,omitempty"`
-	IsMeta *bool `json:"isMeta,omitempty"`
+	Station      *Station      `json:"station,omitempty"`
+	Location     *Location     `json:"location,omitempty"`
+	Products     *Products     `json:"products,omitempty"`
+	Ids          *Ids          `json:"ids,omitempty"`
+	Lines        []Line        `json:"lines,omitempty"`
+	Entrances    []Location    `json:"entrances,omitempty"`
+	IsMeta       *bool         `json:"isMeta,omitempty"`
 	OpeningHours *OpeningHours `json:"reisezentrumOpeningHours,omitempty"`
 	// Open value set: low/medium/high/...
-	LoadFactor *string `json:"loadFactor,omitempty"`
-	TransitAuthority *string `json:"transitAuthority,omitempty"`
-	Distance *float64 `json:"distance,omitempty"`
+	LoadFactor       *string  `json:"loadFactor,omitempty"`
+	TransitAuthority *string  `json:"transitAuthority,omitempty"`
+	Distance         *float64 `json:"distance,omitempty"`
 }
 
 // Stopover – A vehicle stopping at a stop at specific times.
 type Stopover struct {
 	Stop *StopOrStation `json:"stop,omitempty"`
 	// Null/absent on the first stopover.
-	Arrival *time.Time `json:"arrival,omitempty"`
-	PlannedArrival *time.Time `json:"plannedArrival,omitempty"`
+	Arrival          *time.Time `json:"arrival,omitempty"`
+	PlannedArrival   *time.Time `json:"plannedArrival,omitempty"`
 	PrognosedArrival *time.Time `json:"prognosedArrival,omitempty"`
 	// Seconds.
-	ArrivalDelay *int64 `json:"arrivalDelay,omitempty"`
-	ArrivalPlatform *string `json:"arrivalPlatform,omitempty"`
-	PlannedArrivalPlatform *string `json:"plannedArrivalPlatform,omitempty"`
-	PrognosedArrivalPlatform *string `json:"prognosedArrivalPlatform,omitempty"`
-	ArrivalPrognosisType *PrognosisType `json:"arrivalPrognosisType,omitempty"`
+	ArrivalDelay             *int64         `json:"arrivalDelay,omitempty"`
+	ArrivalPlatform          *string        `json:"arrivalPlatform,omitempty"`
+	PlannedArrivalPlatform   *string        `json:"plannedArrivalPlatform,omitempty"`
+	PrognosedArrivalPlatform *string        `json:"prognosedArrivalPlatform,omitempty"`
+	ArrivalPrognosisType     *PrognosisType `json:"arrivalPrognosisType,omitempty"`
 	// Null/absent on the last stopover.
-	Departure *time.Time `json:"departure,omitempty"`
-	PlannedDeparture *time.Time `json:"plannedDeparture,omitempty"`
+	Departure          *time.Time `json:"departure,omitempty"`
+	PlannedDeparture   *time.Time `json:"plannedDeparture,omitempty"`
 	PrognosedDeparture *time.Time `json:"prognosedDeparture,omitempty"`
 	// Seconds.
-	DepartureDelay *int64 `json:"departureDelay,omitempty"`
-	DeparturePlatform *string `json:"departurePlatform,omitempty"`
-	PlannedDeparturePlatform *string `json:"plannedDeparturePlatform,omitempty"`
-	PrognosedDeparturePlatform *string `json:"prognosedDeparturePlatform,omitempty"`
-	DeparturePrognosisType *PrognosisType `json:"departurePrognosisType,omitempty"`
-	Remarks []Remark `json:"remarks,omitempty"`
+	DepartureDelay             *int64         `json:"departureDelay,omitempty"`
+	DeparturePlatform          *string        `json:"departurePlatform,omitempty"`
+	PlannedDeparturePlatform   *string        `json:"plannedDeparturePlatform,omitempty"`
+	PrognosedDeparturePlatform *string        `json:"prognosedDeparturePlatform,omitempty"`
+	DeparturePrognosisType     *PrognosisType `json:"departurePrognosisType,omitempty"`
+	Remarks                    []Remark       `json:"remarks,omitempty"`
 	// Vehicle passes without stopping.
-	PassBy *bool `json:"passBy,omitempty"`
+	PassBy    *bool `json:"passBy,omitempty"`
 	Cancelled *bool `json:"cancelled,omitempty"`
 	// Extra, unscheduled stop.
 	Additional *bool `json:"additional,omitempty"`
@@ -305,94 +305,93 @@ type Stopover struct {
 
 // Trip – A specific vehicle stopping at a set of stops at specific times.
 type Trip struct {
-	Id *string `json:"id"`
-	Origin *Place `json:"origin,omitempty"`
-	Destination *Place `json:"destination,omitempty"`
-	Line *Line `json:"line,omitempty"`
-	Direction *string `json:"direction,omitempty"`
-	Operator *Operator `json:"operator,omitempty"`
-	Departure *time.Time `json:"departure,omitempty"`
-	PlannedDeparture *time.Time `json:"plannedDeparture,omitempty"`
-	PrognosedDeparture *time.Time `json:"prognosedDeparture,omitempty"`
-	DepartureDelay *int64 `json:"departureDelay,omitempty"`
-	DeparturePlatform *string `json:"departurePlatform,omitempty"`
-	PlannedDeparturePlatform *string `json:"plannedDeparturePlatform,omitempty"`
-	PrognosedDeparturePlatform *string `json:"prognosedDeparturePlatform,omitempty"`
-	DeparturePrognosisType *PrognosisType `json:"departurePrognosisType,omitempty"`
-	Arrival *time.Time `json:"arrival,omitempty"`
-	PlannedArrival *time.Time `json:"plannedArrival,omitempty"`
-	PrognosedArrival *time.Time `json:"prognosedArrival,omitempty"`
-	ArrivalDelay *int64 `json:"arrivalDelay,omitempty"`
-	ArrivalPlatform *string `json:"arrivalPlatform,omitempty"`
-	PlannedArrivalPlatform *string `json:"plannedArrivalPlatform,omitempty"`
-	PrognosedArrivalPlatform *string `json:"prognosedArrivalPlatform,omitempty"`
-	ArrivalPrognosisType *PrognosisType `json:"arrivalPrognosisType,omitempty"`
-	Stopovers []Stopover `json:"stopovers,omitempty"`
-	Remarks []Remark `json:"remarks,omitempty"`
-	Walking *bool `json:"walking,omitempty"`
-	Transfer *bool `json:"transfer,omitempty"`
-	Distance *float64 `json:"distance,omitempty"`
-	Public *bool `json:"public,omitempty"`
-	Cancelled *bool `json:"cancelled,omitempty"`
-	LoadFactor *string `json:"loadFactor,omitempty"`
-	Cycle *Cycle `json:"cycle,omitempty"`
-	Alternatives []Departure `json:"alternatives,omitempty"`
-	Polyline *Polyline `json:"polyline,omitempty"`
-	Price *Price `json:"price,omitempty"`
-	Schedule *int64 `json:"schedule,omitempty"`
-	CurrentLocation *Location `json:"currentLocation,omitempty"`
-	Checkin *bool `json:"checkin,omitempty"`
-	ServiceDays *ServiceDays `json:"serviceDays,omitempty"`
-	ScheduledDays *ServiceDays `json:"scheduledDays,omitempty"`
+	Id                         *string        `json:"id"`
+	Origin                     *Place         `json:"origin,omitempty"`
+	Destination                *Place         `json:"destination,omitempty"`
+	Line                       *Line          `json:"line,omitempty"`
+	Direction                  *string        `json:"direction,omitempty"`
+	Operator                   *Operator      `json:"operator,omitempty"`
+	Departure                  *time.Time     `json:"departure,omitempty"`
+	PlannedDeparture           *time.Time     `json:"plannedDeparture,omitempty"`
+	PrognosedDeparture         *time.Time     `json:"prognosedDeparture,omitempty"`
+	DepartureDelay             *int64         `json:"departureDelay,omitempty"`
+	DeparturePlatform          *string        `json:"departurePlatform,omitempty"`
+	PlannedDeparturePlatform   *string        `json:"plannedDeparturePlatform,omitempty"`
+	PrognosedDeparturePlatform *string        `json:"prognosedDeparturePlatform,omitempty"`
+	DeparturePrognosisType     *PrognosisType `json:"departurePrognosisType,omitempty"`
+	Arrival                    *time.Time     `json:"arrival,omitempty"`
+	PlannedArrival             *time.Time     `json:"plannedArrival,omitempty"`
+	PrognosedArrival           *time.Time     `json:"prognosedArrival,omitempty"`
+	ArrivalDelay               *int64         `json:"arrivalDelay,omitempty"`
+	ArrivalPlatform            *string        `json:"arrivalPlatform,omitempty"`
+	PlannedArrivalPlatform     *string        `json:"plannedArrivalPlatform,omitempty"`
+	PrognosedArrivalPlatform   *string        `json:"prognosedArrivalPlatform,omitempty"`
+	ArrivalPrognosisType       *PrognosisType `json:"arrivalPrognosisType,omitempty"`
+	Stopovers                  []Stopover     `json:"stopovers,omitempty"`
+	Remarks                    []Remark       `json:"remarks,omitempty"`
+	Walking                    *bool          `json:"walking,omitempty"`
+	Transfer                   *bool          `json:"transfer,omitempty"`
+	Distance                   *float64       `json:"distance,omitempty"`
+	Public                     *bool          `json:"public,omitempty"`
+	Cancelled                  *bool          `json:"cancelled,omitempty"`
+	LoadFactor                 *string        `json:"loadFactor,omitempty"`
+	Cycle                      *Cycle         `json:"cycle,omitempty"`
+	Alternatives               []Departure    `json:"alternatives,omitempty"`
+	Polyline                   *Polyline      `json:"polyline,omitempty"`
+	Price                      *Price         `json:"price,omitempty"`
+	Schedule                   *int64         `json:"schedule,omitempty"`
+	CurrentLocation            *Location      `json:"currentLocation,omitempty"`
+	Checkin                    *bool          `json:"checkin,omitempty"`
+	ServiceDays                *ServiceDays   `json:"serviceDays,omitempty"`
+	ScheduledDays              *ServiceDays   `json:"scheduledDays,omitempty"`
 }
 
 // ArrivalsResponse – Response of GET /stops/{id}/arrivals.
 type ArrivalsResponse struct {
-	Arrivals []Departure `json:"arrivals"`
-	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
+	Arrivals              []Departure `json:"arrivals"`
+	RealtimeDataUpdatedAt *int64      `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // DeparturesResponse – Response of GET /stops/{id}/departures.
 type DeparturesResponse struct {
-	Departures []Departure `json:"departures"`
-	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
+	Departures            []Departure `json:"departures"`
+	RealtimeDataUpdatedAt *int64      `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // JourneyResponse – Response of GET /journeys/{ref}.
 type JourneyResponse struct {
-	Journey *Journey `json:"journey"`
-	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
+	Journey               *Journey `json:"journey"`
+	RealtimeDataUpdatedAt *int64   `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // JourneysResponse – Response of GET /journeys.
 type JourneysResponse struct {
-	Journeys []Journey `json:"journeys"`
-	EarlierRef *string `json:"earlierRef,omitempty"`
-	LaterRef *string `json:"laterRef,omitempty"`
-	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
+	Journeys              []Journey `json:"journeys"`
+	EarlierRef            *string   `json:"earlierRef,omitempty"`
+	LaterRef              *string   `json:"laterRef,omitempty"`
+	RealtimeDataUpdatedAt *int64    `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // RadarResponse – Response of GET /radar.
 type RadarResponse struct {
-	Movements []Movement `json:"movements"`
-	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
+	Movements             []Movement `json:"movements"`
+	RealtimeDataUpdatedAt *int64     `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // ReachableFromResponse – Response of GET /stops/reachable-from.
 type ReachableFromResponse struct {
-	Reachable []ReachableDuration `json:"reachable"`
-	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
+	Reachable             []ReachableDuration `json:"reachable"`
+	RealtimeDataUpdatedAt *int64              `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // TripResponse – Response of GET /trips/{id}.
 type TripResponse struct {
-	Trip *Trip `json:"trip"`
+	Trip                  *Trip  `json:"trip"`
 	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // TripsResponse – Response of GET /trips (trips by name).
 type TripsResponse struct {
-	Trips []Trip `json:"trips"`
+	Trips                 []Trip `json:"trips"`
 	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
 }
-
