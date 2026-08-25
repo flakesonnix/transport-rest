@@ -1,0 +1,29 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/transport-rest",
+    "crates/transport-rest-gen",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/natasha/transport-rest"
+homepage = "https://github.com/natasha/transport-rest"
+documentation = "https://docs.rs/transport-rest"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+unwrap_used = "warn"
+expect_used = "warn"
+panic_in_result_fn = "warn"
+missing_panics_doc = "allow"
+module_name_repetitions = "allow"
+
+[profile.release]
+lto = "thin"
+strip = "debuginfo"
