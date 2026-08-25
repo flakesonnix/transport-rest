@@ -8,6 +8,7 @@ mod csharp;
 mod go;
 mod java;
 mod meta;
+mod python;
 mod schema;
 mod ts;
 
@@ -23,6 +24,8 @@ enum Lang {
     Java,
     /// Canonical endpoint/provider metadata (JSON), consumed by native clients.
     Meta,
+    /// Pure-Python dataclass models.
+    Python,
 }
 
 #[derive(Parser)]
@@ -57,6 +60,7 @@ impl Lang {
             Lang::Csharp => "Models.Generated.cs",
             Lang::Java => "GeneratedModels.java",
             Lang::Meta => "api-meta.json",
+            Lang::Python => "models_gen.py",
         }
     }
 }
@@ -68,6 +72,7 @@ fn emit(ir: &schema::Ir, lang: Lang) -> String {
         Lang::Csharp => csharp::emit(ir),
         Lang::Java => java::emit(ir),
         Lang::Meta => meta::emit(ir),
+        Lang::Python => python::emit(ir),
     }
 }
 

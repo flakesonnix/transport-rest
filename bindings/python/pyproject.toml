@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "transport-rest"
+version = "0.1.0"
+description = "Typed client for the transport.rest public transit APIs (DB, BVG, VBB, Poland)"
+readme = "README.md"
+license = { text = "MIT OR Apache-2.0" }
+requires-python = ">=3.10"
+authors = [{ name = "natasha" }]
+keywords = ["transport", "transit", "hafas", "bahn", "bvg", "api"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+
+[project.urls]
+Homepage = "https://github.com/natasha/transport-rest"
+Repository = "https://github.com/natasha/transport-rest"
+
+[tool.setuptools]
+packages = ["transport_rest"]
+
+[tool.setuptools.package-data]
+transport_rest = ["py.typed"]
