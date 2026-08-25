@@ -45,16 +45,16 @@ fn from_dict_body(_class: &str, fields: &[crate::schema::FieldDef]) -> String {
                 }
             }
             t if is_model_ref(t) => {
-                if f.opt {
-                    format!("({t}.from_dict({raw}) if isinstance({raw}, dict) else {raw})")
-                } else {
-                    format!("({t}.from_dict({raw}) if isinstance({raw}, dict) else {raw})")
-                }
+                format!("({t}.from_dict({raw}) if isinstance({raw}, dict) else {raw})")
             }
-            t if t.starts_with("list<") && is_model_ref(t.trim_start_matches("list<").trim_end_matches('>')) => format!(
-                "[{t2}.from_dict(i) if isinstance(i, dict) else i for i in ({raw} or [])]",
-                t2 = t.trim_start_matches("list<").trim_end_matches('>')
-            ),
+            t if t.starts_with("list<")
+                && is_model_ref(t.trim_start_matches("list<").trim_end_matches('>')) =>
+            {
+                format!(
+                    "[{t2}.from_dict(i) if isinstance(i, dict) else i for i in ({raw} or [])]",
+                    t2 = t.trim_start_matches("list<").trim_end_matches('>')
+                )
+            }
             _ => raw,
         };
         out.push_str(&format!("        {py_name} = {expr}\n"));
@@ -73,10 +73,25 @@ fn from_dict_body(_class: &str, fields: &[crate::schema::FieldDef]) -> String {
 fn is_model_ref(ty: &str) -> bool {
     matches!(
         ty,
-        "Location" | "Stop" | "Station" | "Line" | "Operator" | "Remark" | "Price"
-            | "Cycle" | "Stopover" | "Leg" | "Journey" | "Trip" | "Departure"
-            | "Frame" | "Movement" | "ReachableDuration" | "Polyline"
-            | "PolylineFeature" | "GeometryPoint"
+        "Location"
+            | "Stop"
+            | "Station"
+            | "Line"
+            | "Operator"
+            | "Remark"
+            | "Price"
+            | "Cycle"
+            | "Stopover"
+            | "Leg"
+            | "Journey"
+            | "Trip"
+            | "Departure"
+            | "Frame"
+            | "Movement"
+            | "ReachableDuration"
+            | "Polyline"
+            | "PolylineFeature"
+            | "GeometryPoint"
     )
 }
 
@@ -104,7 +119,10 @@ pub fn emit(ir: &Ir) -> String {
     // forward references: emit all classes first, then attach from_dict methods
     for (name, def) in &ir.rest.enums {
         let doc = def.doc.as_deref().unwrap_or(name);
-        out.push_str(&format!("{name} = str  # open enum: {}\n", doc.replace('\n', " ")));
+        out.push_str(&format!(
+            "{name} = str  # open enum: {}\n",
+            doc.replace('\n', " ")
+        ));
     }
 
     for (name, def) in ir.rest.models.iter() {
@@ -130,7 +148,9 @@ pub fn emit(ir: &Ir) -> String {
 
     for (name, def) in ir.rest.unions.iter() {
         out.push_str(&docstring(def.doc.as_deref(), 0));
-        out.push_str(&format!("{name} = object  # see from_dict dispatch below\n\n"));
+        out.push_str(&format!(
+            "{name} = object  # see from_dict dispatch below\n\n"
+        ));
         let _ = def;
     }
 
