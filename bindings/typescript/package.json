@@ -12,7 +12,7 @@
   "keywords": ["transport", "transit", "hafas", "bahn", "bvg", "api"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/natasha/transport-rest"
+    "url": "https://github.com/flakesonnix/transport-rest"
   },
   "engines": {
     "node": ">=18"

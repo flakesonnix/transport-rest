@@ -22,8 +22,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/natasha/transport-rest"
-Repository = "https://github.com/natasha/transport-rest"
+Homepage = "https://github.com/flakesonnix/transport-rest"
+Repository = "https://github.com/flakesonnix/transport-rest"
 
 [tool.setuptools]
 packages = ["transport_rest"]
