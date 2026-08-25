@@ -55,12 +55,12 @@ public final class Errors {
     }
 
     /** Structured error body {"message": "..."} from the instance. */
-    public static final class ApiException extends TransportRestException {
+    public static class ApiException extends TransportRestException {
         public final int status;
         public final String url;
         public final JsonNode body;
 
-        ApiException(int status, String url, String message, JsonNode body) {
+        public ApiException(int status, String url, String message, JsonNode body) {
             super(message == null || message.isEmpty()
                 ? "API error (HTTP " + status + ")" : message);
             this.status = status;

@@ -11,8 +11,4 @@
     <RepositoryUrl>https://github.com/natasha/transport-rest</RepositoryUrl>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="Client.cs" />
-    <Compile Include="Models.Generated.cs" />
-  </ItemGroup>
 </Project>

@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static io.transportrest.Errors.ApiException;
+import io.transportrest.Errors.TransportRestException;
 import static io.transportrest.Errors.CapabilityNotSupportedException;
 import static io.transportrest.Errors.HttpException;
 import static io.transportrest.Errors.InvalidParameterException;
@@ -100,6 +101,11 @@ public final class TransportRestClient {
     // -- resource accessors --------------------------------------------------
 
     public LocationsBuilder locations() { return new LocationsBuilder(this); }
+
+    public StopBuilder stop(String stopId) {
+        requireNonEmpty(stopId, "stop_id");
+        return new StopBuilder(this, "/stops/" + encodePath(stopId));
+    }
 
     public DeparturesBuilder departures(String stopId) {
         requireNonEmpty(stopId, "stop_id");
