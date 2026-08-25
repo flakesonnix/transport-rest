@@ -1,0 +1,253 @@
+{
+  "models": {
+    "Stopover": {
+      "doc": "A vehicle stopping at a stop at specific times.",
+      "fields": [
+        { "name": "stop", "json": "stop", "type": "StopOrStation", "opt": true },
+        { "name": "arrival", "json": "arrival", "type": "datetime", "opt": true, "doc": "Null/absent on the first stopover." },
+        { "name": "planned_arrival", "json": "plannedArrival", "type": "datetime", "opt": true },
+        { "name": "prognosed_arrival", "json": "prognosedArrival", "type": "datetime", "opt": true },
+        { "name": "arrival_delay", "json": "arrivalDelay", "type": "int", "opt": true, "doc": "Seconds." },
+        { "name": "arrival_platform", "json": "arrivalPlatform", "type": "string", "opt": true },
+        { "name": "planned_arrival_platform", "json": "plannedArrivalPlatform", "type": "string", "opt": true },
+        { "name": "prognosed_arrival_platform", "json": "prognosedArrivalPlatform", "type": "string", "opt": true },
+        { "name": "arrival_prognosis_type", "json": "arrivalPrognosisType", "type": "PrognosisType", "opt": true },
+        { "name": "departure", "json": "departure", "type": "datetime", "opt": true, "doc": "Null/absent on the last stopover." },
+        { "name": "planned_departure", "json": "plannedDeparture", "type": "datetime", "opt": true },
+        { "name": "prognosed_departure", "json": "prognosedDeparture", "type": "datetime", "opt": true },
+        { "name": "departure_delay", "json": "departureDelay", "type": "int", "opt": true, "doc": "Seconds." },
+        { "name": "departure_platform", "json": "departurePlatform", "type": "string", "opt": true },
+        { "name": "planned_departure_platform", "json": "plannedDeparturePlatform", "type": "string", "opt": true },
+        { "name": "prognosed_departure_platform", "json": "prognosedDeparturePlatform", "type": "string", "opt": true },
+        { "name": "departure_prognosis_type", "json": "departurePrognosisType", "type": "PrognosisType", "opt": true },
+        { "name": "remarks", "json": "remarks", "type": "list<Remark>", "opt": true },
+        { "name": "pass_by", "json": "passBy", "type": "bool", "opt": true, "doc": "Vehicle passes without stopping." },
+        { "name": "cancelled", "json": "cancelled", "type": "bool", "opt": true },
+        { "name": "additional", "json": "additional", "type": "bool", "opt": true, "doc": "Extra, unscheduled stop." }
+      ]
+    },
+    "Leg": {
+      "doc": "One leg of a journey. Walking/transfer legs have walking=true and no line.",
+      "fields": [
+        { "name": "trip_id", "json": "tripId", "type": "string", "opt": true },
+        { "name": "origin", "json": "origin", "type": "Place" },
+        { "name": "destination", "json": "destination", "type": "Place" },
+        { "name": "line", "json": "line", "type": "Line", "opt": true, "doc": "Absent for walking/transfer legs." },
+        { "name": "direction", "json": "direction", "type": "string", "opt": true },
+        { "name": "operator", "json": "operator", "type": "Operator", "opt": true },
+        { "name": "departure", "json": "departure", "type": "datetime", "opt": true },
+        { "name": "planned_departure", "json": "plannedDeparture", "type": "datetime", "opt": true },
+        { "name": "prognosed_departure", "json": "prognosedDeparture", "type": "datetime", "opt": true },
+        { "name": "departure_delay", "json": "departureDelay", "type": "int", "opt": true, "doc": "Seconds." },
+        { "name": "departure_platform", "json": "departurePlatform", "type": "string", "opt": true },
+        { "name": "planned_departure_platform", "json": "plannedDeparturePlatform", "type": "string", "opt": true },
+        { "name": "prognosed_departure_platform", "json": "prognosedDeparturePlatform", "type": "string", "opt": true },
+        { "name": "departure_prognosis_type", "json": "departurePrognosisType", "type": "PrognosisType", "opt": true },
+        { "name": "arrival", "json": "arrival", "type": "datetime", "opt": true },
+        { "name": "planned_arrival", "json": "plannedArrival", "type": "datetime", "opt": true },
+        { "name": "prognosed_arrival", "json": "prognosedArrival", "type": "datetime", "opt": true },
+        { "name": "arrival_delay", "json": "arrivalDelay", "type": "int", "opt": true, "doc": "Seconds." },
+        { "name": "arrival_platform", "json": "arrivalPlatform", "type": "string", "opt": true },
+        { "name": "planned_arrival_platform", "json": "plannedArrivalPlatform", "type": "string", "opt": true },
+        { "name": "prognosed_arrival_platform", "json": "prognosedArrivalPlatform", "type": "string", "opt": true },
+        { "name": "arrival_prognosis_type", "json": "arrivalPrognosisType", "type": "PrognosisType", "opt": true },
+        { "name": "stopovers", "json": "stopovers", "type": "list<Stopover>", "opt": true },
+        { "name": "remarks", "json": "remarks", "type": "list<Remark>", "opt": true },
+        { "name": "walking", "json": "walking", "type": "bool", "opt": true },
+        { "name": "transfer", "json": "transfer", "type": "bool", "opt": true },
+        { "name": "distance", "json": "distance", "type": "float", "opt": true, "doc": "Meters (walking/cycling/driving legs)." },
+        { "name": "public", "json": "public", "type": "bool", "opt": true },
+        { "name": "reachable", "json": "reachable", "type": "bool", "opt": true, "doc": "Whether the transfer into this leg is guaranteed." },
+        { "name": "cancelled", "json": "cancelled", "type": "bool", "opt": true },
+        { "name": "load_factor", "json": "loadFactor", "type": "string", "opt": true },
+        { "name": "cycle", "json": "cycle", "type": "Cycle", "opt": true },
+        { "name": "alternatives", "json": "alternatives", "type": "list<Departure>", "opt": true },
+        { "name": "polyline", "json": "polyline", "type": "Polyline", "opt": true },
+        { "name": "price", "json": "price", "type": "Price", "opt": true },
+        { "name": "schedule", "json": "schedule", "type": "int", "opt": true },
+        { "name": "current_location", "json": "currentLocation", "type": "Location", "opt": true },
+        { "name": "checkin", "json": "checkin", "type": "bool", "opt": true },
+        { "name": "service_days", "json": "serviceDays", "type": "ServiceDays", "opt": true },
+        { "name": "scheduled_days", "json": "scheduledDays", "type": "ServiceDays", "opt": true, "doc": "hafas-client style; db-vendo uses serviceDays." }
+      ]
+    },
+    "Journey": {
+      "doc": "A computed set of directions to get from A to B at a specific time.",
+      "fields": [
+        { "name": "id", "json": "id", "type": "string", "opt": true },
+        { "name": "refresh_token", "json": "refreshToken", "type": "string", "opt": true, "doc": "Pass to refresh_journey for realtime updates." },
+        { "name": "legs", "json": "legs", "type": "list<Leg>", "opt": false },
+        { "name": "remarks", "json": "remarks", "type": "list<Remark>", "opt": true },
+        { "name": "price", "json": "price", "type": "Price", "opt": true },
+        { "name": "cycle", "json": "cycle", "type": "Cycle", "opt": true },
+        { "name": "service_days", "json": "serviceDays", "type": "ServiceDays", "opt": true },
+        { "name": "scheduled_days", "json": "scheduledDays", "type": "ServiceDays", "opt": true }
+      ]
+    },
+    "Trip": {
+      "doc": "A specific vehicle stopping at a set of stops at specific times.",
+      "fields": [
+        { "name": "id", "json": "id", "type": "string" },
+        { "name": "origin", "json": "origin", "type": "Place", "opt": true },
+        { "name": "destination", "json": "destination", "type": "Place", "opt": true },
+        { "name": "line", "json": "line", "type": "Line", "opt": true },
+        { "name": "direction", "json": "direction", "type": "string", "opt": true },
+        { "name": "operator", "json": "operator", "type": "Operator", "opt": true },
+        { "name": "departure", "json": "departure", "type": "datetime", "opt": true },
+        { "name": "planned_departure", "json": "plannedDeparture", "type": "datetime", "opt": true },
+        { "name": "prognosed_departure", "json": "prognosedDeparture", "type": "datetime", "opt": true },
+        { "name": "departure_delay", "json": "departureDelay", "type": "int", "opt": true },
+        { "name": "departure_platform", "json": "departurePlatform", "type": "string", "opt": true },
+        { "name": "planned_departure_platform", "json": "plannedDeparturePlatform", "type": "string", "opt": true },
+        { "name": "prognosed_departure_platform", "json": "prognosedDeparturePlatform", "type": "string", "opt": true },
+        { "name": "departure_prognosis_type", "json": "departurePrognosisType", "type": "PrognosisType", "opt": true },
+        { "name": "arrival", "json": "arrival", "type": "datetime", "opt": true },
+        { "name": "planned_arrival", "json": "plannedArrival", "type": "datetime", "opt": true },
+        { "name": "prognosed_arrival", "json": "prognosedArrival", "type": "datetime", "opt": true },
+        { "name": "arrival_delay", "json": "arrivalDelay", "type": "int", "opt": true },
+        { "name": "arrival_platform", "json": "arrivalPlatform", "type": "string", "opt": true },
+        { "name": "planned_arrival_platform", "json": "plannedArrivalPlatform", "type": "string", "opt": true },
+        { "name": "prognosed_arrival_platform", "json": "prognosedArrivalPlatform", "type": "string", "opt": true },
+        { "name": "arrival_prognosis_type", "json": "arrivalPrognosisType", "type": "PrognosisType", "opt": true },
+        { "name": "stopovers", "json": "stopovers", "type": "list<Stopover>", "opt": true },
+        { "name": "remarks", "json": "remarks", "type": "list<Remark>", "opt": true },
+        { "name": "walking", "json": "walking", "type": "bool", "opt": true },
+        { "name": "transfer", "json": "transfer", "type": "bool", "opt": true },
+        { "name": "distance", "json": "distance", "type": "float", "opt": true },
+        { "name": "public", "json": "public", "type": "bool", "opt": true },
+        { "name": "cancelled", "json": "cancelled", "type": "bool", "opt": true },
+        { "name": "load_factor", "json": "loadFactor", "type": "string", "opt": true },
+        { "name": "cycle", "json": "cycle", "type": "Cycle", "opt": true },
+        { "name": "alternatives", "json": "alternatives", "type": "list<Departure>", "opt": true },
+        { "name": "polyline", "json": "polyline", "type": "Polyline", "opt": true },
+        { "name": "price", "json": "price", "type": "Price", "opt": true },
+        { "name": "schedule", "json": "schedule", "type": "int", "opt": true },
+        { "name": "current_location", "json": "currentLocation", "type": "Location", "opt": true },
+        { "name": "checkin", "json": "checkin", "type": "bool", "opt": true },
+        { "name": "service_days", "json": "serviceDays", "type": "ServiceDays", "opt": true },
+        { "name": "scheduled_days", "json": "scheduledDays", "type": "ServiceDays", "opt": true }
+      ]
+    },
+    "Departure": {
+      "doc": "A departure or arrival board entry (OpenAPI schema name: Alternative).",
+      "fields": [
+        { "name": "trip_id", "json": "tripId", "type": "string", "opt": true },
+        { "name": "stop", "json": "stop", "type": "StopOrStation", "opt": true },
+        { "name": "location", "json": "location", "type": "Location", "opt": true, "doc": "Current vehicle position (radar)." },
+        { "name": "line", "json": "line", "type": "Line", "opt": true },
+        { "name": "direction", "json": "direction", "type": "string", "opt": true },
+        { "name": "provenance", "json": "provenance", "type": "string", "opt": true, "doc": "Origin of the vehicle (arrivals boards)." },
+        { "name": "origin", "json": "origin", "type": "Place", "opt": true },
+        { "name": "destination", "json": "destination", "type": "Place", "opt": true },
+        { "name": "when", "json": "when", "type": "datetime", "opt": true, "doc": "Realtime time; null if cancelled." },
+        { "name": "planned_when", "json": "plannedWhen", "type": "datetime", "opt": true },
+        { "name": "prognosed_when", "json": "prognosedWhen", "type": "datetime", "opt": true },
+        { "name": "delay", "json": "delay", "type": "int", "opt": true, "doc": "Seconds; null when unknown." },
+        { "name": "platform", "json": "platform", "type": "string", "opt": true, "doc": "Realtime platform; null if cancelled." },
+        { "name": "planned_platform", "json": "plannedPlatform", "type": "string", "opt": true },
+        { "name": "prognosed_platform", "json": "prognosedPlatform", "type": "string", "opt": true },
+        { "name": "prognosis_type", "json": "prognosisType", "type": "PrognosisType", "opt": true },
+        { "name": "remarks", "json": "remarks", "type": "list<Remark>", "opt": true },
+        { "name": "cancelled", "json": "cancelled", "type": "bool", "opt": true },
+        { "name": "load_factor", "json": "loadFactor", "type": "string", "opt": true },
+        { "name": "previous_stopovers", "json": "previousStopovers", "type": "list<Stopover>", "opt": true },
+        { "name": "next_stopovers", "json": "nextStopovers", "type": "list<Stopover>", "opt": true },
+        { "name": "frames", "json": "frames", "type": "list<Frame>", "opt": true, "doc": "Radar frames." },
+        { "name": "polyline", "json": "polyline", "type": "Polyline", "opt": true },
+        { "name": "current_trip_position", "json": "currentTripPosition", "type": "Location", "opt": true }
+      ]
+    },
+    "Frame": {
+      "doc": "Radar frame: position of a vehicle between two places at offset t.",
+      "fields": [
+        { "name": "origin", "json": "origin", "type": "Place", "opt": true },
+        { "name": "destination", "json": "destination", "type": "Place", "opt": true },
+        { "name": "t", "json": "t", "type": "float", "opt": true }
+      ]
+    },
+    "Movement": {
+      "doc": "A vehicle currently moving in the radar area.",
+      "fields": [
+        { "name": "direction", "json": "direction", "type": "string", "opt": true },
+        { "name": "trip_id", "json": "tripId", "type": "string", "opt": true },
+        { "name": "line", "json": "line", "type": "Line", "opt": true },
+        { "name": "location", "json": "location", "type": "Location", "opt": true },
+        { "name": "next_stopovers", "json": "nextStopovers", "type": "list<Stopover>", "opt": true },
+        { "name": "frames", "json": "frames", "type": "list<Frame>", "opt": true },
+        { "name": "polyline", "json": "polyline", "type": "Polyline", "opt": true }
+      ]
+    },
+    "ReachableDuration": {
+      "doc": "Reachability result: travel duration and reachable stations.",
+      "fields": [
+        { "name": "duration", "json": "duration", "type": "int", "opt": true, "doc": "Seconds." },
+        { "name": "stations", "json": "stations", "type": "list<LocationResult>", "opt": true }
+      ]
+    }
+  },
+  "envelopes": {
+    "DeparturesResponse": {
+      "doc": "Response of GET /stops/{id}/departures.",
+      "fields": [
+        { "name": "departures", "json": "departures", "type": "list<Departure>" },
+        { "name": "realtime_data_updated_at", "json": "realtimeDataUpdatedAt", "type": "int", "opt": true }
+      ]
+    },
+    "ArrivalsResponse": {
+      "doc": "Response of GET /stops/{id}/arrivals.",
+      "fields": [
+        { "name": "arrivals", "json": "arrivals", "type": "list<Departure>" },
+        { "name": "realtime_data_updated_at", "json": "realtimeDataUpdatedAt", "type": "int", "opt": true }
+      ]
+    },
+    "JourneysResponse": {
+      "doc": "Response of GET /journeys.",
+      "fields": [
+        { "name": "journeys", "json": "journeys", "type": "list<Journey>" },
+        { "name": "earlier_ref", "json": "earlierRef", "type": "string", "opt": true },
+        { "name": "later_ref", "json": "laterRef", "type": "string", "opt": true },
+        { "name": "realtime_data_updated_at", "json": "realtimeDataUpdatedAt", "type": "int", "opt": true }
+      ]
+    },
+    "JourneyResponse": {
+      "doc": "Response of GET /journeys/{ref}.",
+      "fields": [
+        { "name": "journey", "json": "journey", "type": "Journey" },
+        { "name": "realtime_data_updated_at", "json": "realtimeDataUpdatedAt", "type": "int", "opt": true }
+      ]
+    },
+    "TripResponse": {
+      "doc": "Response of GET /trips/{id}.",
+      "fields": [
+        { "name": "trip", "json": "trip", "type": "Trip" },
+        { "name": "realtime_data_updated_at", "json": "realtimeDataUpdatedAt", "type": "int", "opt": true }
+      ]
+    },
+    "TripsResponse": {
+      "doc": "Response of GET /trips (trips by name).",
+      "fields": [
+        { "name": "trips", "json": "trips", "type": "list<Trip>" },
+        { "name": "realtime_data_updated_at", "json": "realtimeDataUpdatedAt", "type": "int", "opt": true }
+      ]
+    },
+    "RadarResponse": {
+      "doc": "Response of GET /radar.",
+      "fields": [
+        { "name": "movements", "json": "movements", "type": "list<Movement>" },
+        { "name": "realtime_data_updated_at", "json": "realtimeDataUpdatedAt", "type": "int", "opt": true }
+      ]
+    },
+    "ReachableFromResponse": {
+      "doc": "Response of GET /stops/reachable-from.",
+      "fields": [
+        { "name": "reachable", "json": "reachable", "type": "list<ReachableDuration>" },
+        { "name": "realtime_data_updated_at", "json": "realtimeDataUpdatedAt", "type": "int", "opt": true }
+      ]
+    }
+  },
+  "listResponses": {
+    "LocationsResultList": "list<LocationResult>",
+    "StopOrStationSingle": "StopOrStation",
+    "StationsList": "list<Station>"
+  }
+}

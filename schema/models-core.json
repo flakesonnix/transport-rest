@@ -1,0 +1,139 @@
+{
+  "models": {
+    "Location": {
+      "doc": "A point: POI, address or bare coordinate.",
+      "fields": [
+        { "name": "id", "json": "id", "type": "string", "opt": true },
+        { "name": "name", "json": "name", "type": "string", "opt": true },
+        { "name": "poi", "json": "poi", "type": "bool", "opt": true },
+        { "name": "address", "json": "address", "type": "string", "opt": true },
+        { "name": "latitude", "json": "latitude", "type": "float", "opt": true },
+        { "name": "longitude", "json": "longitude", "type": "float", "opt": true },
+        { "name": "altitude", "json": "altitude", "type": "float", "opt": true },
+        { "name": "distance", "json": "distance", "type": "float", "opt": true, "doc": "Walking distance in meters (nearby results)." }
+      ]
+    },
+    "Operator": {
+      "doc": "Transit operator. Note: the upstream OpenAPI spec declares Trip.operator as number, but the wire format is an object; parsers must tolerate both.",
+      "fields": [
+        { "name": "id", "json": "id", "type": "string", "opt": true },
+        { "name": "name", "json": "name", "type": "string", "opt": true }
+      ]
+    },
+    "Line": {
+      "doc": "A public transport line.",
+      "fields": [
+        { "name": "id", "json": "id", "type": "string", "opt": true },
+        { "name": "name", "json": "name", "type": "string", "opt": true },
+        { "name": "additional_name", "json": "additionalName", "type": "string", "opt": true },
+        { "name": "admin_code", "json": "adminCode", "type": "string", "opt": true },
+        { "name": "fahrt_nr", "json": "fahrtNr", "type": "string", "opt": true },
+        { "name": "product", "json": "product", "type": "string", "opt": true, "doc": "Profile-specific product key (open string)." },
+        { "name": "product_name", "json": "productName", "type": "string", "opt": true },
+        { "name": "mode", "json": "mode", "type": "Mode", "opt": true },
+        { "name": "operator", "json": "operator", "type": "Operator", "opt": true },
+        { "name": "express", "json": "express", "type": "bool", "opt": true },
+        { "name": "metro", "json": "metro", "type": "bool", "opt": true },
+        { "name": "night", "json": "night", "type": "bool", "opt": true },
+        { "name": "nr", "json": "nr", "type": "int", "opt": true },
+        { "name": "symbol", "json": "symbol", "type": "string", "opt": true },
+        { "name": "public", "json": "public", "type": "bool", "opt": true },
+        { "name": "directions", "json": "directions", "type": "list<string>", "opt": true },
+        { "name": "routes", "json": "routes", "type": "list<string>", "opt": true, "doc": "Route ids." }
+      ]
+    },
+    "Stop": {
+      "doc": "A single physical stop (platform, bus stop sign, ...).",
+      "fields": [
+        { "name": "id", "json": "id", "type": "string" },
+        { "name": "name", "json": "name", "type": "string", "opt": true },
+        { "name": "station", "json": "station", "type": "Station", "opt": true, "doc": "Parent station." },
+        { "name": "location", "json": "location", "type": "Location", "opt": true },
+        { "name": "products", "json": "products", "type": "Products", "opt": true },
+        { "name": "ids", "json": "ids", "type": "Ids", "opt": true },
+        { "name": "lines", "json": "lines", "type": "list<Line>", "opt": true },
+        { "name": "entrances", "json": "entrances", "type": "list<Location>", "opt": true },
+        { "name": "is_meta", "json": "isMeta", "type": "bool", "opt": true },
+        { "name": "opening_hours", "json": "reisezentrumOpeningHours", "type": "OpeningHours", "opt": true },
+        { "name": "load_factor", "json": "loadFactor", "type": "string", "opt": true, "doc": "Open value set: low/medium/high/..." },
+        { "name": "transit_authority", "json": "transitAuthority", "type": "string", "opt": true },
+        { "name": "distance", "json": "distance", "type": "float", "opt": true }
+      ]
+    },
+    "Station": {
+      "doc": "A larger station area possibly containing multiple stops.",
+      "fields": [
+        { "name": "id", "json": "id", "type": "string" },
+        { "name": "name", "json": "name", "type": "string", "opt": true },
+        { "name": "station", "json": "station", "type": "Station", "opt": true },
+        { "name": "location", "json": "location", "type": "Location", "opt": true },
+        { "name": "products", "json": "products", "type": "Products", "opt": true },
+        { "name": "lines", "json": "lines", "type": "list<Line>", "opt": true },
+        { "name": "is_meta", "json": "isMeta", "type": "bool", "opt": true },
+        { "name": "regions", "json": "regions", "type": "list<string>", "opt": true, "doc": "Region ids." },
+        { "name": "facilities", "json": "facilities", "type": "map<string>", "opt": true },
+        { "name": "opening_hours", "json": "reisezentrumOpeningHours", "type": "OpeningHours", "opt": true },
+        { "name": "stops", "json": "stops", "type": "list<LocationResult>", "opt": true, "doc": "Sub-stops." },
+        { "name": "entrances", "json": "entrances", "type": "list<Location>", "opt": true },
+        { "name": "transit_authority", "json": "transitAuthority", "type": "string", "opt": true },
+        { "name": "distance", "json": "distance", "type": "float", "opt": true }
+      ]
+    },
+    "Remark": {
+      "doc": "Hint, status or warning attached to journeys/legs/departures/trips/stops. Merged model of FPTF hint/status/warning.",
+      "fields": [
+        { "name": "kind", "json": "type", "type": "RemarkKind" },
+        { "name": "code", "json": "code", "type": "string", "opt": true },
+        { "name": "summary", "json": "summary", "type": "string", "opt": true },
+        { "name": "text", "json": "text", "type": "string", "opt": true },
+        { "name": "trip_id", "json": "tripId", "type": "string", "opt": true },
+        { "name": "id", "json": "id", "type": "string", "opt": true, "doc": "Warning id." },
+        { "name": "priority", "json": "priority", "type": "int", "opt": true },
+        { "name": "category", "json": "category", "type": "string", "opt": true },
+        { "name": "products", "json": "products", "type": "Products", "opt": true },
+        { "name": "company", "json": "company", "type": "string", "opt": true },
+        { "name": "valid_from", "json": "validFrom", "type": "datetime", "opt": true },
+        { "name": "valid_until", "json": "validUntil", "type": "datetime", "opt": true },
+        { "name": "modified", "json": "modified", "type": "datetime", "opt": true },
+        { "name": "affected_lines", "json": "affectedLines", "type": "list<Line>", "opt": true },
+        { "name": "from_stops", "json": "fromStops", "type": "list<LocationResult>", "opt": true },
+        { "name": "to_stops", "json": "toStops", "type": "list<LocationResult>", "opt": true }
+      ]
+    },
+    "Price": {
+      "doc": "Price information for a journey.",
+      "fields": [
+        { "name": "amount", "json": "amount", "type": "float", "opt": true },
+        { "name": "currency", "json": "currency", "type": "string", "opt": true },
+        { "name": "hint", "json": "hint", "type": "string", "opt": true }
+      ]
+    },
+    "Cycle": {
+      "doc": "Cycle times of a line/trip in minutes.",
+      "fields": [
+        { "name": "min", "json": "min", "type": "int", "opt": true },
+        { "name": "max", "json": "max", "type": "int", "opt": true },
+        { "name": "nr", "json": "nr", "type": "int", "opt": true }
+      ]
+    },
+    "GeometryPoint": {
+      "doc": "GeoJSON Point geometry.",
+      "fields": [
+        { "name": "coordinates", "json": "coordinates", "type": "list<float>", "opt": true, "doc": "[longitude, latitude]." }
+      ]
+    },
+    "PolylineFeature": {
+      "doc": "GeoJSON Feature; properties describe the stop located at this position.",
+      "fields": [
+        { "name": "properties", "json": "properties", "type": "LocationResult", "opt": true },
+        { "name": "geometry", "json": "geometry", "type": "GeometryPoint", "opt": true }
+      ]
+    },
+    "Polyline": {
+      "doc": "GeoJSON FeatureCollection describing a trip/leg shape.",
+      "fields": [
+        { "name": "features", "json": "features", "type": "list<PolylineFeature>", "opt": true }
+      ]
+    }
+  }
+}

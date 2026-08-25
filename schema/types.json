@@ -1,0 +1,77 @@
+{
+  "enums": {
+    "Mode": {
+      "doc": "Means of transport mode (FPTF). Open enum: unknown wire values map to the fallback variant.",
+      "open": true,
+      "values": ["aircraft", "bicycle", "bus", "car", "gondola", "taxi", "train", "walking", "watercraft"]
+    },
+    "PrognosisType": {
+      "doc": "Reliability class of a prognosis.",
+      "open": true,
+      "values": ["calculated", "prognosed"]
+    },
+    "WalkingSpeed": { "open": false, "values": ["slow", "normal", "fast"] },
+    "Accessibility": { "open": true, "values": ["partial", "complete"] },
+    "LoyaltyCard": {
+      "open": true,
+      "values": [
+        "bahncard-1st-25", "bahncard-2nd-25", "bahncard-1st-50", "bahncard-2nd-50",
+        "bahncard-1st-100", "bahncard-2nd-100", "vorteilscard", "halbtaxabo",
+        "generalabonnement-1st", "generalabonnement-2nd", "nl-40", "at-klimaticket"
+      ]
+    },
+    "AgeGroup": { "open": true, "values": ["B", "E", "K", "S", "Y"] },
+    "RoutingMode": {
+      "doc": "REALTIME is the default and excludes cancelled journeys; HYBRID includes them and fully supports pagination.",
+      "open": true,
+      "values": ["FULL", "HYBRID", "INFOS", "OFF", "REALTIME", "SERVER_DEFAULT"]
+    },
+    "RemarkKind": {
+      "doc": "Discriminator of remark objects; FPTF hint/status/warning are merged into one model.",
+      "open": true,
+      "values": ["hint", "status", "warning", "foreign-id", "local-fare-zone", "stop-dhid", "stop-website", "transit-authority"]
+    },
+    "DbProfile": {
+      "doc": "db-vendo backend profile selector of the DB instance.",
+      "open": false,
+      "values": ["dbnav", "db", "dbweb"]
+    }
+  },
+  "aliases": {
+    "Products": { "type": "map<bool>", "doc": "Profile-specific product flags keyed by product name." },
+    "Ids": { "type": "map<string>", "doc": "External identifiers (e.g. dhid, MDV, NASA)." },
+    "ServiceDays": { "type": "map<bool>", "doc": "ISO date -> served. db-vendo: serviceDays; hafas-client: scheduledDays." },
+    "OpeningHours": { "type": "map<string>", "doc": "Weekday abbreviation -> hours string." }
+  },
+  "unions": {
+    "LocationResult": {
+      "tag": "type",
+      "open": true,
+      "doc": "Result of location search / nearby: a stop, station, plain location or an unknown future type.",
+      "variants": [
+        { "value": "stop", "type": "Stop" },
+        { "value": "station", "type": "Station" },
+        { "value": "location", "type": "Location" }
+      ]
+    },
+    "StopOrStation": {
+      "tag": "type",
+      "open": true,
+      "doc": "A stop or a station.",
+      "variants": [
+        { "value": "stop", "type": "Stop" },
+        { "value": "station", "type": "Station" }
+      ]
+    },
+    "Place": {
+      "tag": "type",
+      "open": true,
+      "doc": "Any place referenced by legs/trips/stopovers/frames.",
+      "variants": [
+        { "value": "stop", "type": "Stop" },
+        { "value": "station", "type": "Station" },
+        { "value": "location", "type": "Location" }
+      ]
+    }
+  }
+}

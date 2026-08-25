@@ -1,0 +1,31 @@
+{
+  "$schema-version": 1,
+  "name": "transport-rest",
+  "title": "transport.rest transit APIs",
+  "description": "Internal representation of the transport.rest v6 REST APIs (hafas-rest-api / db-vendo). Derived from db-vendo-client docs/openapi.yaml (v6), hafas-rest-api routes, db-rest@6 and bvg-rest@6. See docs/API_ANALYSIS.md.",
+  "conventions": {
+    "unknownFields": "ignore",
+    "openEnums": "fallback variant",
+    "timestamps": "ISO-8601 string with UTC offset",
+    "delays": "seconds, nullable",
+    "realtimeDataUpdatedAt": "unix epoch seconds or null"
+  },
+  "capabilities": {
+    "core": [
+      "locations", "nearby", "stop", "departures", "arrivals",
+      "journeys", "refresh_journey", "trip"
+    ],
+    "perProvider": {
+      "db": ["stations"],
+      "bvg": ["stops_search", "radar", "reachable_from", "trips_by_name"],
+      "vbb": ["radar", "reachable_from", "trips_by_name"],
+      "poland": ["radar", "reachable_from", "trips_by_name"]
+    }
+  },
+  "providers": {
+    "db": { "baseUrl": "https://v6.db.transport.rest", "region": "Germany (Deutsche Bahn)" },
+    "bvg": { "baseUrl": "https://v6.bvg.transport.rest", "region": "Berlin & Brandenburg (BVG)" },
+    "vbb": { "baseUrl": "https://v6.vbb.transport.rest", "region": "Berlin & Brandenburg (VBB)" },
+    "poland": { "baseUrl": "https://poland.transport.rest", "region": "Poland" }
+  }
+}

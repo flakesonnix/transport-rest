@@ -1,0 +1,265 @@
+{
+  "endpoints": [
+    {
+      "id": "locations",
+      "method": "GET",
+      "path": "/locations",
+      "doc": "Find stops/stations, POIs and addresses matching a query.",
+      "responseType": "list<LocationResult>",
+      "params": [
+        { "name": "query", "in": "query", "type": "string", "required": true },
+        { "name": "fuzzy", "in": "query", "type": "bool", "default": true },
+        { "name": "results", "in": "query", "type": "int" },
+        { "name": "stops", "in": "query", "type": "bool", "default": true },
+        { "name": "addresses", "in": "query", "type": "bool", "default": true },
+        { "name": "poi", "in": "query", "type": "bool", "default": true },
+        { "name": "lines_of_stops", "json": "linesOfStops", "in": "query", "type": "bool", "default": false },
+        { "name": "language", "in": "query", "type": "string", "default": "en" }
+      ]
+    },
+    {
+      "id": "nearby",
+      "method": "GET",
+      "path": "/locations/nearby",
+      "doc": "Find stops/stations & POIs close to a geolocation.",
+      "responseType": "list<LocationResult>",
+      "params": [
+        { "name": "latitude", "in": "query", "type": "float", "required": true },
+        { "name": "longitude", "in": "query", "type": "float", "required": true },
+        { "name": "results", "in": "query", "type": "int", "default": 8 },
+        { "name": "distance", "in": "query", "type": "int", "doc": "Max walking distance in meters." },
+        { "name": "stops", "in": "query", "type": "bool", "default": true },
+        { "name": "poi", "in": "query", "type": "bool", "default": false },
+        { "name": "lines_of_stops", "json": "linesOfStops", "in": "query", "type": "bool", "default": false },
+        { "name": "language", "in": "query", "type": "string", "default": "en" }
+      ]
+    },
+    {
+      "id": "stop",
+      "method": "GET",
+      "path": "/stops/{id}",
+      "doc": "Find a stop/station by ID.",
+      "responseType": "StopOrStation",
+      "params": [
+        { "name": "id", "in": "path", "type": "string", "required": true },
+        { "name": "lines_of_stops", "json": "linesOfStops", "in": "query", "type": "bool", "default": false },
+        { "name": "language", "in": "query", "type": "string", "default": "en" }
+      ]
+    },
+    {
+      "id": "departures",
+      "method": "GET",
+      "path": "/stops/{id}/departures",
+      "doc": "Fetch departures at a stop/station (departure board).",
+      "responseType": "DeparturesResponse",
+      "params": [
+        { "name": "id", "in": "path", "type": "string", "required": true },
+        { "name": "when", "in": "query", "type": "datetime" },
+        { "name": "direction", "in": "query", "type": "string", "doc": "Stop ID or name; db-vendo supports this on the dbweb profile." },
+        { "name": "duration", "in": "query", "type": "int", "doc": "Show departures for n minutes." },
+        { "name": "results", "in": "query", "type": "int", "doc": "Max number of departures." },
+        { "name": "stopovers", "in": "query", "type": "bool", "default": false },
+        { "name": "include_related_stations", "json": "includeRelatedStations", "in": "query", "type": "bool", "default": true },
+        { "name": "lines_of_stops", "json": "linesOfStops", "in": "query", "type": "bool", "default": false },
+        { "name": "remarks", "in": "query", "type": "bool", "default": true },
+        { "name": "language", "in": "query", "type": "string", "default": "en" },
+        { "name": "more_stops", "json": "moreStops", "in": "query", "type": "string", "doc": "Comma-separated additional EVA numbers; DB instance only, not with dbnav/dbweb profiles." },
+        { "name": "products", "in": "query", "type": "products" }
+      ]
+    },
+    {
+      "id": "arrivals",
+      "method": "GET",
+      "path": "/stops/{id}/arrivals",
+      "doc": "Fetch arrivals at a stop/station (arrival board).",
+      "responseType": "ArrivalsResponse",
+      "params": [
+        { "name": "id", "in": "path", "type": "string", "required": true },
+        { "name": "when", "in": "query", "type": "datetime" },
+        { "name": "direction", "in": "query", "type": "string" },
+        { "name": "duration", "in": "query", "type": "int" },
+        { "name": "results", "in": "query", "type": "int" },
+        { "name": "stopovers", "in": "query", "type": "bool", "default": false },
+        { "name": "include_related_stations", "json": "includeRelatedStations", "in": "query", "type": "bool", "default": true },
+        { "name": "lines_of_stops", "json": "linesOfStops", "in": "query", "type": "bool", "default": false },
+        { "name": "remarks", "in": "query", "type": "bool", "default": true },
+        { "name": "language", "in": "query", "type": "string", "default": "en" },
+        { "name": "more_stops", "json": "moreStops", "in": "query", "type": "string" },
+        { "name": "products", "in": "query", "type": "products" }
+      ]
+    },
+    {
+      "id": "journeys",
+      "method": "GET",
+      "path": "/journeys",
+      "doc": "Find journeys from A to B.",
+      "responseType": "JourneysResponse",
+      "pagination": { "requestParams": ["earlierThan", "laterThan"], "responseFields": ["earlierRef", "laterRef"] },
+      "params": [
+        { "name": "from", "in": "location-group", "group": "from", "type": "LocationFilter", "required": true },
+        { "name": "to", "in": "location-group", "group": "to", "type": "LocationFilter", "required": true },
+        { "name": "via", "in": "location-group", "group": "via", "type": "LocationFilter" },
+        { "name": "departure", "in": "query", "type": "datetime", "doc": "Mutually exclusive with arrival and earlierThan/laterThan." },
+        { "name": "arrival", "in": "query", "type": "datetime", "doc": "Mutually exclusive with departure and earlierThan/laterThan." },
+        { "name": "earlier_than", "json": "earlierThan", "in": "query", "type": "string", "doc": "Pagination ref from a previous response." },
+        { "name": "later_than", "json": "laterThan", "in": "query", "type": "string", "doc": "Pagination ref from a previous response." },
+        { "name": "results", "in": "query", "type": "int", "default": 3 },
+        { "name": "stopovers", "in": "query", "type": "bool", "default": false },
+        { "name": "transfers", "in": "query", "type": "int" },
+        { "name": "transfer_time", "json": "transferTime", "in": "query", "type": "int", "doc": "Minutes." },
+        { "name": "accessibility", "in": "query", "type": "Accessibility" },
+        { "name": "bike", "in": "query", "type": "bool", "default": false },
+        { "name": "start_with_walking", "json": "startWithWalking", "in": "query", "type": "bool", "default": true },
+        { "name": "walking_speed", "json": "walkingSpeed", "in": "query", "type": "WalkingSpeed", "default": "normal" },
+        { "name": "tickets", "in": "query", "type": "bool", "default": false },
+        { "name": "polylines", "in": "query", "type": "bool", "default": false },
+        { "name": "sub_stops", "json": "subStops", "in": "query", "type": "bool" },
+        { "name": "entrances", "in": "query", "type": "bool" },
+        { "name": "remarks", "in": "query", "type": "bool", "default": true },
+        { "name": "scheduled_days", "json": "scheduledDays", "in": "query", "type": "bool", "default": false },
+        { "name": "not_only_fast_routes", "json": "notOnlyFastRoutes", "in": "query", "type": "bool", "dbOnly": true, "default": false },
+        { "name": "bestprice", "in": "query", "type": "bool", "dbOnly": true, "default": false },
+        { "name": "deutschland_ticket_connections_only", "json": "deutschlandTicketConnectionsOnly", "in": "query", "type": "bool", "dbOnly": true, "default": false },
+        { "name": "loyalty_card", "json": "loyaltyCard", "in": "query", "type": "LoyaltyCard", "dbOnly": true },
+        { "name": "first_class", "json": "firstClass", "in": "query", "type": "bool", "dbOnly": true, "default": false },
+        { "name": "age", "in": "query", "type": "int", "dbOnly": true },
+        { "name": "age_group", "json": "ageGroup", "in": "query", "type": "AgeGroup", "dbOnly": true },
+        { "name": "routing_mode", "json": "routingMode", "in": "query", "type": "RoutingMode", "dbOnly": true },
+        { "name": "products", "in": "query", "type": "products" }
+      ]
+    },
+    {
+      "id": "refresh_journey",
+      "method": "GET",
+      "path": "/journeys/{ref}",
+      "doc": "Refresh a previously computed journey using its refreshToken to obtain up-to-date realtime data.",
+      "responseType": "JourneyResponse",
+      "params": [
+        { "name": "ref", "in": "path", "type": "string", "required": true },
+        { "name": "stopovers", "in": "query", "type": "bool", "default": false },
+        { "name": "tickets", "in": "query", "type": "bool", "default": false, "doc": "Mutually exclusive with polylines." },
+        { "name": "polylines", "in": "query", "type": "bool", "default": false, "doc": "Mutually exclusive with tickets." },
+        { "name": "sub_stops", "json": "subStops", "in": "query", "type": "bool" },
+        { "name": "entrances", "in": "query", "type": "bool" },
+        { "name": "remarks", "in": "query", "type": "bool", "default": true },
+        { "name": "scheduled_days", "json": "scheduledDays", "in": "query", "type": "bool", "default": false },
+        { "name": "not_only_fast_routes", "json": "notOnlyFastRoutes", "in": "query", "type": "bool", "dbOnly": true, "default": false },
+        { "name": "bestprice", "in": "query", "type": "bool", "dbOnly": true, "default": false },
+        { "name": "language", "in": "query", "type": "string", "default": "en" }
+      ]
+    },
+    {
+      "id": "trip",
+      "method": "GET",
+      "path": "/trips/{id}",
+      "doc": "Fetch a trip by ID.",
+      "responseType": "TripResponse",
+      "params": [
+        { "name": "id", "in": "path", "type": "string", "required": true },
+        { "name": "stopovers", "in": "query", "type": "bool", "default": true },
+        { "name": "remarks", "in": "query", "type": "bool", "default": true },
+        { "name": "polyline", "in": "query", "type": "bool", "default": false },
+        { "name": "language", "in": "query", "type": "string", "default": "en" }
+      ]
+    },
+    {
+      "id": "radar",
+      "method": "GET",
+      "path": "/radar",
+      "doc": "Get all vehicles currently moving inside a bounding box. Not available on the DB instance.",
+      "capability": "radar",
+      "responseType": "RadarResponse",
+      "params": [
+        { "name": "north", "in": "query", "type": "float", "required": true },
+        { "name": "west", "in": "query", "type": "float", "required": true },
+        { "name": "south", "in": "query", "type": "float", "required": true },
+        { "name": "east", "in": "query", "type": "float", "required": true },
+        { "name": "results", "in": "query", "type": "int", "default": 256 },
+        { "name": "frames", "in": "query", "type": "int", "default": 3 },
+        { "name": "duration", "in": "query", "type": "int", "default": 20, "doc": "Compute frames for the next n seconds." },
+        { "name": "polylines", "in": "query", "type": "bool", "default": false },
+        { "name": "when", "in": "query", "type": "datetime" },
+        { "name": "language", "in": "query", "type": "string", "default": "en" },
+        { "name": "products", "in": "query", "type": "products" }
+      ]
+    },
+    {
+      "id": "reachable_from",
+      "method": "GET",
+      "path": "/stops/reachable-from",
+      "doc": "Find stops reachable within a certain time from a location. Not available on the DB instance.",
+      "capability": "reachable_from",
+      "responseType": "ReachableFromResponse",
+      "params": [
+        { "name": "latitude", "in": "query", "type": "float", "required": true },
+        { "name": "longitude", "in": "query", "type": "float", "required": true },
+        { "name": "when", "in": "query", "type": "datetime" },
+        { "name": "max_transfers", "json": "maxTransfers", "in": "query", "type": "int", "default": 5 },
+        { "name": "max_duration", "json": "maxDuration", "in": "query", "type": "int", "default": 20, "doc": "Minutes." },
+        { "name": "polylines", "in": "query", "type": "bool", "default": false },
+        { "name": "language", "in": "query", "type": "string", "default": "en" },
+        { "name": "products", "in": "query", "type": "products" }
+      ]
+    },
+    {
+      "id": "trips_by_name",
+      "method": "GET",
+      "path": "/trips",
+      "doc": "Find trips by name. Not available on the DB instance.",
+      "capability": "trips_by_name",
+      "responseType": "TripsResponse",
+      "params": [
+        { "name": "query", "in": "query", "type": "string", "doc": "Trip name, default '*'.", "default": "*" },
+        { "name": "from_when", "json": "fromWhen", "in": "query", "type": "datetime" },
+        { "name": "until_when", "json": "untilWhen", "in": "query", "type": "datetime" },
+        { "name": "only_currently_running", "json": "onlyCurrentlyRunning", "in": "query", "type": "bool", "default": true },
+        { "name": "currently_stopping_at", "json": "currentlyStoppingAt", "in": "query", "type": "string", "doc": "Stop ID." },
+        { "name": "line_name", "json": "lineName", "in": "query", "type": "string" },
+        { "name": "operator_names", "json": "operatorNames", "in": "query", "type": "list<string>" },
+        { "name": "when", "in": "query", "type": "datetime" },
+        { "name": "products", "in": "query", "type": "products" }
+      ]
+    },
+    {
+      "id": "stations",
+      "method": "GET",
+      "path": "/stations",
+      "doc": "Search the static db-stations directory (DB instance only).",
+      "capability": "stations",
+      "responseType": "list<Station>",
+      "params": [
+        { "name": "query", "in": "query", "type": "string" },
+        { "name": "results", "in": "query", "type": "int", "default": 3, "doc": "Limit; only used together with query." },
+        { "name": "fuzzy", "in": "query", "type": "bool", "default": false },
+        { "name": "completion", "in": "query", "type": "bool", "default": true }
+      ]
+    },
+    {
+      "id": "station",
+      "method": "GET",
+      "path": "/stations/{id}",
+      "doc": "Get one station from the static db-stations directory (DB instance only).",
+      "capability": "stations",
+      "responseType": "Station",
+      "params": [
+        { "name": "id", "in": "path", "type": "string", "required": true }
+      ]
+    },
+    {
+      "id": "stops_search",
+      "method": "GET",
+      "path": "/stops",
+      "doc": "Search stops by name against the static stations dataset (BVG/VBB instances).",
+      "capability": "stops_search",
+      "responseType": "list<LocationResult>",
+      "params": [
+        { "name": "query", "in": "query", "type": "string" },
+        { "name": "limit", "in": "query", "type": "int", "default": 5 },
+        { "name": "fuzzy", "in": "query", "type": "bool", "default": false },
+        { "name": "completion", "in": "query", "type": "bool", "default": true }
+      ]
+    }
+  ],
+  "productKeysDb": ["nationalExpress", "national", "regionalExpress", "regional", "suburban", "bus", "ferry", "subway", "tram", "taxi"],
+  "productKeysBvg": ["suburban", "subway", "tram", "bus", "ferry", "express", "regional"]
+}
