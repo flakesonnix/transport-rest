@@ -20,7 +20,7 @@ const PATH_SEGMENT: &AsciiSet = &CONTROLS
 ///
 /// Trip IDs and refresh tokens regularly contain `/`, `:` and other
 /// characters that must not appear unescaped in a path segment.
-pub(crate) fn encode_path_segment(value: &str) -> String {
+pub fn encode_path_segment(value: &str) -> String {
     utf8_percent_encode(value, PATH_SEGMENT).to_string()
 }
 

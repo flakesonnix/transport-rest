@@ -1,6 +1,8 @@
 //! Model deserialization tests against wire-format fixtures taken from the
 //! official transport.rest documentation (docs/API_ANALYSIS.md sources).
 
+#![allow(clippy::unwrap_used, clippy::expect_used)]
+
 use transport_rest::models::*;
 
 /// Example `GET /stops/8010159` response from v6.db.transport.rest docs.
@@ -39,10 +41,7 @@ fn parse_documented_stop() {
     let stop = parsed.as_stop().expect("tagged as stop");
     assert_eq!(stop.id, "8010159");
     assert_eq!(stop.name.as_deref(), Some("Halle (Saale) Hbf"));
-    assert_eq!(
-        parsed.coordinates(),
-        Some((51.477079, 11.98699))
-    );
+    assert_eq!(parsed.coordinates(), Some((51.477079, 11.98699)));
     let dhid = stop
         .ids
         .as_ref()
@@ -62,7 +61,10 @@ fn roundtrip_stop_preserves_type_tag() {
 fn unknown_location_type_is_captured() {
     let raw = r#"{"type": "hovercraft", "id": "x", "name": "Future Thing"}"#;
     let parsed: LocationResult = serde_json::from_str(raw).unwrap();
-    assert!(parsed.id().is_none(), "unknown types expose no typed accessors");
+    assert!(
+        parsed.id().is_none(),
+        "unknown types expose no typed accessors"
+    );
     let other = parsed.as_other_value().expect("captured verbatim");
     assert_eq!(other["type"], "hovercraft");
 }

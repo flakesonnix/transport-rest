@@ -37,6 +37,10 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 #![warn(clippy::unwrap_used, clippy::expect_used)]
+// Errors intentionally carry rich debugging context (URL, body snippet,
+// parsed JSON); boxing every payload would hurt ergonomics for no real
+// benefit, since callers match on variants instead of passing Results around.
+#![allow(clippy::result_large_err)]
 
 pub mod api;
 pub mod error;
@@ -52,8 +56,8 @@ mod util;
 
 pub use error::{
     ApiError, CapabilityNotSupportedError, HttpError, InvalidParameterError, NetworkError,
-    RateLimitedError, Result, SerializationError, SerializationErrorKind, TimeoutError, TimeoutKind,
-    TransportRestError,
+    RateLimitedError, Result, SerializationError, SerializationErrorKind, TimeoutError,
+    TimeoutKind, TransportRestError,
 };
 
 pub use api::departures::{ArrivalsBuilder, DeparturesBuilder};
@@ -66,6 +70,11 @@ pub use api::stations::{StationBuilder, StationsBuilder, StopsSearchBuilder};
 pub use api::stops::StopBuilder;
 pub use api::trips::{TripBuilder, TripsByNameBuilder};
 pub use builder::TransportRestClientBuilder;
+pub use models::{
+    ArrivalsResponse, DeparturesResponse, Journey, JourneyResponse, JourneysResponse,
+    LocationsResponse, RadarResponse, ReachableFromResponse, StopOrStation, Trip, TripResponse,
+    TripsResponse,
+};
 pub use products::ProductSelection;
 pub use request::JourneyPlace;
 
@@ -235,7 +244,9 @@ impl TransportRestClient {
     /// [`TransportRestClientBuilder::build`] if you need fallibility.
     #[allow(clippy::expect_used)]
     pub fn new() -> Self {
-        Self::builder().build().expect("default TLS backend failed to initialize")
+        Self::builder()
+            .build()
+            .expect("default TLS backend failed to initialize")
     }
 
     /// Start configuring a client.
@@ -265,4 +276,12 @@ impl Default for TransportRestClient {
     fn default() -> Self {
         Self::new()
     }
+}
+
+/// Test-only access to the internal path segment encoder.
+///
+/// Exposed `pub` solely for integration tests of this crate.
+#[doc(hidden)]
+pub fn __test_encode_path_segment(value: &str) -> String {
+    util::encode_path_segment(value)
 }

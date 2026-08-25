@@ -129,12 +129,11 @@ impl JourneyPlace {
     pub(crate) fn validate(&self) -> Result<(), TransportRestError> {
         match self {
             Self::Poi { id, .. } if id.trim().is_empty() => Err(invalid_poi()),
-            Self::Address { address, .. } if address.trim().is_empty() => Err(
-                TransportRestError::InvalidParameter(InvalidParameterError::new(
-                    "address",
-                    "address must not be empty",
-                )),
-            ),
+            Self::Address { address, .. } if address.trim().is_empty() => {
+                Err(TransportRestError::InvalidParameter(
+                    InvalidParameterError::new("address", "address must not be empty"),
+                ))
+            }
             _ => Ok(()),
         }
     }
@@ -145,4 +144,64 @@ fn invalid_poi() -> TransportRestError {
         "poi",
         "POI id must not be empty",
     ))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn encode_of(f: impl FnOnce(&mut Query)) -> String {
+        let mut q = Query::new();
+        f(&mut q);
+        q.encode()
+    }
+
+    #[test]
+    fn journey_place_encoding_forms() {
+        let s = encode_of(|q| {
+            JourneyPlace::StopId("8011160".into()).encode("from", q);
+            JourneyPlace::Name("Leipzig Hbf".into()).encode("to", q);
+        });
+        assert!(s.contains("from=8011160"));
+        assert!(s.contains("to.name=Leipzig%20Hbf"), "got {s}");
+    }
+
+    #[test]
+    fn poi_and_address_forms() {
+        let s = encode_of(|q| {
+            JourneyPlace::Poi {
+                id: "p1".into(),
+                latitude: 51.5,
+                longitude: 12.2,
+            }
+            .encode("from", q);
+        });
+        assert_eq!(s, "from.id=p1&from.latitude=51.5&from.longitude=12.2");
+
+        let s = encode_of(|q| {
+            JourneyPlace::Address {
+                latitude: 52.5,
+                longitude: 13.4,
+                address: "Alexanderplatz 1".into(),
+            }
+            .encode("via", q);
+        });
+        assert_eq!(
+            s,
+            "via.latitude=52.5&via.longitude=13.4&via.address=Alexanderplatz%201"
+        );
+    }
+
+    #[test]
+    fn special_characters_are_escaped() {
+        let s = encode_of(|q| q.push("query", "a&b=c d/e?".into()));
+        assert_eq!(s, "query=a%26b%3Dc%20d%2Fe%3F");
+    }
+
+    #[test]
+    fn path_segments_are_percent_encoded() {
+        let seg = crate::util::encode_path_segment("2|#A|1#1005##");
+        assert!(!seg.contains('#'));
+        assert!(!seg.contains('/'));
+    }
 }

@@ -117,13 +117,14 @@ macro_rules! board_setters {
                 mut self,
                 stops: I,
             ) -> Self {
-                self.base.more_stops =
-                    Some(stops.into_iter().map(Into::into).collect());
+                self.base.more_stops = Some(stops.into_iter().map(Into::into).collect());
                 self
             }
 
             /// Filter included transport products.
-            pub fn products<F: FnOnce(crate::products::ProductSelection) -> crate::products::ProductSelection>(
+            pub fn products<
+                F: FnOnce(crate::products::ProductSelection) -> crate::products::ProductSelection,
+            >(
                 mut self,
                 f: F,
             ) -> Self {
@@ -147,11 +148,12 @@ impl DeparturesBuilder {
     /// Execute the request.
     pub async fn get(self) -> Result<DeparturesResponse, TransportRestError> {
         validate_id(&self.base.stop_id)?;
-        let path = format!("/stops/{}/departures", encode_path_segment(&self.base.stop_id));
+        let path = format!(
+            "/stops/{}/departures",
+            encode_path_segment(&self.base.stop_id)
+        );
         let (state, query) = self.base.into_parts();
-        TransportRestClient { state }
-            .get_json(&path, query)
-            .await
+        TransportRestClient { state }.get_json(&path, query).await
     }
 }
 
@@ -165,11 +167,12 @@ impl ArrivalsBuilder {
     /// Execute the request.
     pub async fn get(self) -> Result<ArrivalsResponse, TransportRestError> {
         validate_id(&self.base.stop_id)?;
-        let path = format!("/stops/{}/arrivals", encode_path_segment(&self.base.stop_id));
+        let path = format!(
+            "/stops/{}/arrivals",
+            encode_path_segment(&self.base.stop_id)
+        );
         let (state, query) = self.base.into_parts();
-        TransportRestClient { state }
-            .get_json(&path, query)
-            .await
+        TransportRestClient { state }.get_json(&path, query).await
     }
 }
 
@@ -199,7 +202,10 @@ impl BoardBase {
     pub(crate) fn into_query(self) -> Query {
         let mut q = Query::new();
         if let Some(when) = self.when {
-            q.push("when", when.to_rfc3339_opts(chrono::SecondsFormat::Secs, true));
+            q.push(
+                "when",
+                when.to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+            );
         }
         q.opt("direction", self.direction);
         q.opt("duration", self.duration);

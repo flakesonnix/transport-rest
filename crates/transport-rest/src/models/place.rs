@@ -262,22 +262,38 @@ impl LocationResult {
 
     /// Borrow the inner [`Stop`], if this is one.
     pub fn as_stop(&self) -> Option<&Stop> {
-        if let Self::Stop(s) = self { Some(s) } else { None }
+        if let Self::Stop(s) = self {
+            Some(s)
+        } else {
+            None
+        }
     }
 
     /// Borrow the inner [`Station`], if this is one.
     pub fn as_station(&self) -> Option<&Station> {
-        if let Self::Station(s) = self { Some(s) } else { None }
+        if let Self::Station(s) = self {
+            Some(s)
+        } else {
+            None
+        }
     }
 
     /// Borrow the inner [`Location`], if this is one.
     pub fn as_location(&self) -> Option<&Location> {
-        if let Self::Location(l) = self { Some(l) } else { None }
+        if let Self::Location(l) = self {
+            Some(l)
+        } else {
+            None
+        }
     }
 
     /// Raw JSON for unknown values, else `None`.
     pub fn as_other_value(&self) -> Option<&Value> {
-        if let Self::Other(v) = self { Some(v) } else { None }
+        if let Self::Other(v) = self {
+            Some(v)
+        } else {
+            None
+        }
     }
 }
 
@@ -311,17 +327,29 @@ impl StopOrStation {
 
     /// Borrow the inner [`Stop`], if this is one.
     pub fn as_stop(&self) -> Option<&Stop> {
-        if let Self::Stop(s) = self { Some(s) } else { None }
+        if let Self::Stop(s) = self {
+            Some(s)
+        } else {
+            None
+        }
     }
 
     /// Borrow the inner [`Station`], if this is one.
     pub fn as_station(&self) -> Option<&Station> {
-        if let Self::Station(s) = self { Some(s) } else { None }
+        if let Self::Station(s) = self {
+            Some(s)
+        } else {
+            None
+        }
     }
 
     /// Raw JSON for unknown values, else `None`.
     pub fn as_other_value(&self) -> Option<&Value> {
-        if let Self::Other(v) = self { Some(v) } else { None }
+        if let Self::Other(v) = self {
+            Some(v)
+        } else {
+            None
+        }
     }
 }
 
@@ -358,22 +386,38 @@ impl Place {
 
     /// Borrow the inner [`Stop`], if this is one.
     pub fn as_stop(&self) -> Option<&Stop> {
-        if let Self::Stop(s) = self { Some(s) } else { None }
+        if let Self::Stop(s) = self {
+            Some(s)
+        } else {
+            None
+        }
     }
 
     /// Borrow the inner [`Station`], if this is one.
     pub fn as_station(&self) -> Option<&Station> {
-        if let Self::Station(s) = self { Some(s) } else { None }
+        if let Self::Station(s) = self {
+            Some(s)
+        } else {
+            None
+        }
     }
 
     /// Borrow the inner [`Location`], if this is one.
     pub fn as_location(&self) -> Option<&Location> {
-        if let Self::Location(l) = self { Some(l) } else { None }
+        if let Self::Location(l) = self {
+            Some(l)
+        } else {
+            None
+        }
     }
 
     /// Raw JSON for unknown values, else `None`.
     pub fn as_other_value(&self) -> Option<&Value> {
-        if let Self::Other(v) = self { Some(v) } else { None }
+        if let Self::Other(v) = self {
+            Some(v)
+        } else {
+            None
+        }
     }
 }
 

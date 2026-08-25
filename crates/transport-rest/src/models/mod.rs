@@ -8,13 +8,11 @@ pub mod enums;
 pub mod journey;
 pub mod place;
 pub mod polyline;
-pub(crate) mod transit;
 pub mod response;
+pub(crate) mod transit;
 
 pub use enums::{DbProfile, Mode, PrognosisType, RemarkKind};
-pub use journey::{
-    Departure, Frame, Journey, Leg, Movement, ReachableDuration, Stopover, Trip,
-};
+pub use journey::{Departure, Frame, Journey, Leg, Movement, ReachableDuration, Stopover, Trip};
 pub use place::{Location, LocationResult, Place, Station, Stop, StopOrStation};
 pub use polyline::{GeometryPoint, Polyline, PolylineFeature};
 pub use response::{

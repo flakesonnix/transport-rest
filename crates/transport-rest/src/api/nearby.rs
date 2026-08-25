@@ -1,7 +1,7 @@
 //! `GET /locations/nearby` – stops/stations & POIs close to coordinates.
 
 use crate::error::TransportRestError;
-use crate::models::{LocationsResponse, LocationResult};
+use crate::models::{LocationResult, LocationsResponse};
 use crate::request::Query;
 use crate::{ClientState, TransportRestClient};
 

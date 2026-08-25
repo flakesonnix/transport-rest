@@ -5,8 +5,8 @@ use std::time::Duration;
 
 use url::Url;
 
-use crate::{Capability, ClientState, Provider, TransportRestClient};
 use crate::error::{InvalidParameterError, TransportRestError};
+use crate::{Capability, ClientState, Provider, TransportRestClient};
 
 const DEFAULT_REQUEST_TIMEOUT: Duration = Duration::from_secs(30);
 const DEFAULT_CONNECT_TIMEOUT: Duration = Duration::from_secs(10);
@@ -115,14 +115,16 @@ impl TransportRestClientBuilder {
         let base_url = match (&self.base_url, &self.provider) {
             (Some(url), _) => url.clone(),
             (None, Provider::Custom { base_url }) => base_url.clone(),
-            (None, provider) => provider
-                .default_base_url()
-                .map(str::to_owned)
-                .ok_or_else(|| {
-                    TransportRestError::InvalidParameter(InvalidParameterError::other(
-                        "custom provider requires base_url",
-                    ))
-                })?,
+            (None, provider) => {
+                provider
+                    .default_base_url()
+                    .map(str::to_owned)
+                    .ok_or_else(|| {
+                        TransportRestError::InvalidParameter(InvalidParameterError::other(
+                            "custom provider requires base_url",
+                        ))
+                    })?
+            }
         };
         let mut base_url = Url::parse(&base_url).map_err(|_| {
             TransportRestError::InvalidParameter(InvalidParameterError::new(

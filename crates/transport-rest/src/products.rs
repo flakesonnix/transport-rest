@@ -73,3 +73,26 @@ impl ProductSelection {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn toggles_dedupe_and_keep_order() {
+        let p = ProductSelection::default().bus(false).bus(true).tram(false);
+        assert!(!p.is_empty());
+        let mut q = crate::request::Query::new();
+        p.encode(&mut q);
+        // later value wins, insertion order preserved
+        assert_eq!(q.encode(), "bus=true&tram=false");
+    }
+
+    #[test]
+    fn arbitrary_keys_supported() {
+        let p = ProductSelection::default().set("cablecar", false);
+        let mut q = crate::request::Query::new();
+        p.encode(&mut q);
+        assert_eq!(q.encode(), "cablecar=false");
+    }
+}

@@ -41,7 +41,12 @@ pub struct DeparturesResponse {
     #[serde(default)]
     pub departures: Vec<Departure>,
     /// When the realtime data was last updated (unix epoch seconds), if known.
-    #[serde(rename = "realtimeDataUpdatedAt", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "realtimeDataUpdatedAt",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub realtime_data_updated_at: Option<i64>,
 }
 
@@ -52,7 +57,12 @@ pub struct ArrivalsResponse {
     #[serde(default)]
     pub arrivals: Vec<Departure>,
     /// When the realtime data was last updated (unix epoch seconds), if known.
-    #[serde(rename = "realtimeDataUpdatedAt", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "realtimeDataUpdatedAt",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub realtime_data_updated_at: Option<i64>,
 }
 
@@ -63,13 +73,22 @@ pub struct JourneysResponse {
     #[serde(default)]
     pub journeys: Vec<Journey>,
     /// Pass as `earlier_than` to fetch earlier journeys.
-    #[serde(rename = "earlierRef", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "earlierRef",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub earlier_ref: Option<String>,
     /// Pass as `later_than` to fetch later journeys.
     #[serde(rename = "laterRef", default, skip_serializing_if = "Option::is_none")]
     pub later_ref: Option<String>,
     /// When the realtime data was last updated (unix epoch seconds), if known.
-    #[serde(rename = "realtimeDataUpdatedAt", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "realtimeDataUpdatedAt",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub realtime_data_updated_at: Option<i64>,
 }
 
@@ -79,7 +98,12 @@ pub struct JourneyResponse {
     /// The refreshed journey.
     pub journey: Journey,
     /// When the realtime data was last updated (unix epoch seconds), if known.
-    #[serde(rename = "realtimeDataUpdatedAt", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "realtimeDataUpdatedAt",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub realtime_data_updated_at: Option<i64>,
 }
 
@@ -89,7 +113,12 @@ pub struct TripResponse {
     /// The requested trip.
     pub trip: Trip,
     /// When the realtime data was last updated (unix epoch seconds), if known.
-    #[serde(rename = "realtimeDataUpdatedAt", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "realtimeDataUpdatedAt",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub realtime_data_updated_at: Option<i64>,
 }
 
@@ -100,7 +129,12 @@ pub struct TripsResponse {
     #[serde(default)]
     pub trips: Vec<Trip>,
     /// When the realtime data was last updated (unix epoch seconds), if known.
-    #[serde(rename = "realtimeDataUpdatedAt", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "realtimeDataUpdatedAt",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub realtime_data_updated_at: Option<i64>,
 }
 
@@ -111,7 +145,12 @@ pub struct RadarResponse {
     #[serde(default)]
     pub movements: Vec<Movement>,
     /// When the realtime data was last updated (unix epoch seconds), if known.
-    #[serde(rename = "realtimeDataUpdatedAt", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "realtimeDataUpdatedAt",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub realtime_data_updated_at: Option<i64>,
 }
 
@@ -122,6 +161,11 @@ pub struct ReachableFromResponse {
     #[serde(default)]
     pub reachable: Vec<ReachableDuration>,
     /// When the realtime data was last updated (unix epoch seconds), if known.
-    #[serde(rename = "realtimeDataUpdatedAt", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "realtimeDataUpdatedAt",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub realtime_data_updated_at: Option<i64>,
 }

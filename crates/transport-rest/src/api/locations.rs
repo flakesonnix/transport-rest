@@ -1,7 +1,7 @@
 //! `GET /locations` – search stops/stations, POIs and addresses.
 
 use crate::error::TransportRestError;
-use crate::models::{LocationsResponse, LocationResult};
+use crate::models::{LocationResult, LocationsResponse};
 use crate::request::Query;
 use crate::{ClientState, TransportRestClient};
 
@@ -89,7 +89,10 @@ impl LocationsBuilder {
             Some(q) if !q.trim().is_empty() => q.to_owned(),
             _ => {
                 return Err(TransportRestError::InvalidParameter(
-                    crate::error::InvalidParameterError::new("query", "a non-empty search term is required"),
+                    crate::error::InvalidParameterError::new(
+                        "query",
+                        "a non-empty search term is required",
+                    ),
                 ))
             }
         };

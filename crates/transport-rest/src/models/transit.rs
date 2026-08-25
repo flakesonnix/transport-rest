@@ -50,14 +50,19 @@ impl Operator {
 pub(crate) mod operator_lenient {
     use super::*;
 
-    pub(crate) fn serialize<S: serde::Serializer>(op: &Option<Operator>, s: S) -> Result<S::Ok, S::Error> {
+    pub(crate) fn serialize<S: serde::Serializer>(
+        op: &Option<Operator>,
+        s: S,
+    ) -> Result<S::Ok, S::Error> {
         match op {
             Some(op) => op.serialize(s),
             None => s.serialize_none(),
         }
     }
 
-    pub(crate) fn deserialize<'de, D: serde::Deserializer<'de>>(d: D) -> Result<Option<Operator>, D::Error> {
+    pub(crate) fn deserialize<'de, D: serde::Deserializer<'de>>(
+        d: D,
+    ) -> Result<Option<Operator>, D::Error> {
         let v = Option::<Value>::deserialize(d)?;
         Ok(v.map(Operator::from_lenient))
     }
@@ -73,7 +78,11 @@ pub struct Line {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// Additional name context (e.g. route description).
-    #[serde(rename = "additionalName", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "additionalName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub additional_name: Option<String>,
     /// Internal admin code of the line.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -85,7 +94,11 @@ pub struct Line {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub product: Option<String>,
     /// Human readable product name.
-    #[serde(rename = "productName", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "productName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub product_name: Option<String>,
     /// Mode of transport on this line.
     #[serde(default, skip_serializing_if = "Option::is_none")]

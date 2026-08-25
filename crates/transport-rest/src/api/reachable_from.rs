@@ -102,9 +102,7 @@ impl ReachableFromBuilder {
         };
         if !(-90.0..=90.0).contains(&lat) || !(-180.0..=180.0).contains(&lon) {
             return Err(TransportRestError::InvalidParameter(
-                crate::error::InvalidParameterError::other(
-                    "coordinates out of range",
-                ),
+                crate::error::InvalidParameterError::other("coordinates out of range"),
             ));
         }
         let mut q = Query::new();

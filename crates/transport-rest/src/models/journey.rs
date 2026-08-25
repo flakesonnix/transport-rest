@@ -3,8 +3,8 @@
 use serde::{Deserialize, Serialize};
 
 use super::enums::PrognosisType;
-use super::polyline::Polyline;
 use super::place::{Place, StopOrStation};
+use super::polyline::Polyline;
 use super::transit::{Cycle, Line, Operator, Price, Remark};
 use super::Aliases;
 
@@ -18,49 +18,107 @@ pub struct Stopover {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Scheduled arrival.
-    #[serde(rename = "plannedArrival", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedArrival",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Prognosed arrival.
-    #[serde(rename = "prognosedArrival", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedArrival",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Arrival delay in seconds.
-    #[serde(rename = "arrivalDelay", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalDelay",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_delay: Option<i64>,
     /// Realtime arrival platform.
-    #[serde(rename = "arrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_platform: Option<String>,
     /// Scheduled arrival platform.
-    #[serde(rename = "plannedArrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedArrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_arrival_platform: Option<String>,
     /// Prognosed arrival platform.
-    #[serde(rename = "prognosedArrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedArrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_arrival_platform: Option<String>,
     /// Arrival prognosis class.
-    #[serde(rename = "arrivalPrognosisType", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalPrognosisType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_prognosis_type: Option<PrognosisType>,
     /// Realtime departure; `None` on the last stopover or if cancelled.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Scheduled departure.
-    #[serde(rename = "plannedDeparture", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedDeparture",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Prognosed departure.
-    #[serde(rename = "prognosedDeparture", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedDeparture",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Departure delay in seconds.
-    #[serde(rename = "departureDelay", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departureDelay",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_delay: Option<i64>,
     /// Realtime departure platform.
-    #[serde(rename = "departurePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departurePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_platform: Option<String>,
     /// Scheduled departure platform.
-    #[serde(rename = "plannedDeparturePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedDeparturePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_departure_platform: Option<String>,
     /// Prognosed departure platform.
-    #[serde(rename = "prognosedDeparturePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedDeparturePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_departure_platform: Option<String>,
     /// Departure prognosis class.
-    #[serde(rename = "departurePrognosisType", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departurePrognosisType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_prognosis_type: Option<PrognosisType>,
     /// Remarks/hints/warnings for this stopover.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -75,7 +133,6 @@ pub struct Stopover {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub additional: Option<bool>,
 }
-
 
 /// One leg of a journey.
 ///
@@ -102,49 +159,107 @@ pub struct Leg {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Scheduled departure time.
-    #[serde(rename = "plannedDeparture", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedDeparture",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Prognosed departure time.
-    #[serde(rename = "prognosedDeparture", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedDeparture",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Departure delay in seconds.
-    #[serde(rename = "departureDelay", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departureDelay",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_delay: Option<i64>,
     /// Realtime departure platform.
-    #[serde(rename = "departurePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departurePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_platform: Option<String>,
     /// Scheduled departure platform.
-    #[serde(rename = "plannedDeparturePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedDeparturePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_departure_platform: Option<String>,
     /// Prognosed departure platform.
-    #[serde(rename = "prognosedDeparturePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedDeparturePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_departure_platform: Option<String>,
     /// Departure prognosis class.
-    #[serde(rename = "departurePrognosisType", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departurePrognosisType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_prognosis_type: Option<PrognosisType>,
     /// Realtime arrival time.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Scheduled arrival time.
-    #[serde(rename = "plannedArrival", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedArrival",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Prognosed arrival time.
-    #[serde(rename = "prognosedArrival", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedArrival",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Arrival delay in seconds.
-    #[serde(rename = "arrivalDelay", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalDelay",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_delay: Option<i64>,
     /// Realtime arrival platform.
-    #[serde(rename = "arrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_platform: Option<String>,
     /// Scheduled arrival platform.
-    #[serde(rename = "plannedArrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedArrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_arrival_platform: Option<String>,
     /// Prognosed arrival platform.
-    #[serde(rename = "prognosedArrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedArrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_arrival_platform: Option<String>,
     /// Arrival prognosis class.
-    #[serde(rename = "arrivalPrognosisType", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalPrognosisType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_prognosis_type: Option<PrognosisType>,
     /// Intermediate stops of this leg (`stopovers=true`).
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -171,7 +286,11 @@ pub struct Leg {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cancelled: Option<bool>,
     /// Expected occupancy; open value set.
-    #[serde(rename = "loadFactor", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "loadFactor",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub load_factor: Option<String>,
     /// Cycle/headway info.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -189,16 +308,28 @@ pub struct Leg {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub schedule: Option<i64>,
     /// Current vehicle position (live legs).
-    #[serde(rename = "currentLocation", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "currentLocation",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub current_location: Option<super::place::Location>,
     /// Check-in capable leg (db).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub checkin: Option<bool>,
     /// Days this leg is served (db-vendo `serviceDays`).
-    #[serde(rename = "serviceDays", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "serviceDays",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub service_days: Option<Aliases::ServiceDays>,
     /// Days served (hafas-client style `scheduledDays`).
-    #[serde(rename = "scheduledDays", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "scheduledDays",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub scheduled_days: Option<Aliases::ServiceDays>,
 }
 
@@ -210,7 +341,11 @@ pub struct Journey {
     pub id: Option<String>,
     /// Pass to [`crate::TransportRestClient::refresh_journey`] to obtain
     /// updated realtime data for this exact journey.
-    #[serde(rename = "refreshToken", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "refreshToken",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub refresh_token: Option<String>,
     /// Legs of the journey in order.
     #[serde(default)]
@@ -225,10 +360,18 @@ pub struct Journey {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cycle: Option<Cycle>,
     /// Days this journey is served (db-vendo `serviceDays`).
-    #[serde(rename = "serviceDays", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "serviceDays",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub service_days: Option<Aliases::ServiceDays>,
     /// Days served (hafas-client style `scheduledDays`).
-    #[serde(rename = "scheduledDays", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "scheduledDays",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub scheduled_days: Option<Aliases::ServiceDays>,
 }
 
@@ -257,49 +400,107 @@ pub struct Trip {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Scheduled departure time.
-    #[serde(rename = "plannedDeparture", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedDeparture",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Prognosed departure time.
-    #[serde(rename = "prognosedDeparture", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedDeparture",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_departure: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Departure delay in seconds.
-    #[serde(rename = "departureDelay", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departureDelay",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_delay: Option<i64>,
     /// Realtime departure platform.
-    #[serde(rename = "departurePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departurePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_platform: Option<String>,
     /// Scheduled departure platform.
-    #[serde(rename = "plannedDeparturePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedDeparturePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_departure_platform: Option<String>,
     /// Prognosed departure platform.
-    #[serde(rename = "prognosedDeparturePlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedDeparturePlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_departure_platform: Option<String>,
     /// Departure prognosis class.
-    #[serde(rename = "departurePrognosisType", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "departurePrognosisType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub departure_prognosis_type: Option<PrognosisType>,
     /// Realtime arrival time.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Scheduled arrival time.
-    #[serde(rename = "plannedArrival", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedArrival",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Prognosed arrival time.
-    #[serde(rename = "prognosedArrival", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedArrival",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_arrival: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Arrival delay in seconds.
-    #[serde(rename = "arrivalDelay", default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalDelay",
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_delay: Option<i64>,
     /// Realtime arrival platform.
-    #[serde(rename = "arrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_platform: Option<String>,
     /// Scheduled arrival platform.
-    #[serde(rename = "plannedArrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedArrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_arrival_platform: Option<String>,
     /// Prognosed arrival platform.
-    #[serde(rename = "prognosedArrivalPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedArrivalPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_arrival_platform: Option<String>,
     /// Arrival prognosis class.
-    #[serde(rename = "arrivalPrognosisType", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "arrivalPrognosisType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub arrival_prognosis_type: Option<PrognosisType>,
     /// All stops of the trip (`stopovers=true`).
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -323,7 +524,11 @@ pub struct Trip {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cancelled: Option<bool>,
     /// Expected occupancy; open value set.
-    #[serde(rename = "loadFactor", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "loadFactor",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub load_factor: Option<String>,
     /// Cycle/headway info.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -341,16 +546,28 @@ pub struct Trip {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub schedule: Option<i64>,
     /// Current vehicle position.
-    #[serde(rename = "currentLocation", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "currentLocation",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub current_location: Option<super::place::Location>,
     /// Check-in capable trip (db).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub checkin: Option<bool>,
     /// Days this trip is served (db-vendo `serviceDays`).
-    #[serde(rename = "serviceDays", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "serviceDays",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub service_days: Option<Aliases::ServiceDays>,
     /// Days served (hafas-client style `scheduledDays`).
-    #[serde(rename = "scheduledDays", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "scheduledDays",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub scheduled_days: Option<Aliases::ServiceDays>,
 }
 
@@ -386,25 +603,49 @@ pub struct Departure {
     #[serde(rename = "when", default, skip_serializing_if = "Option::is_none")]
     pub when: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Scheduled time of the event.
-    #[serde(rename = "plannedWhen", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedWhen",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_when: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Prognosed time of the event.
-    #[serde(rename = "prognosedWhen", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedWhen",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_when: Option<crate::datetime::DateTime<crate::datetime::FixedOffset>>,
     /// Delay in seconds; `None` when unknown.
-    #[serde(default, with = "crate::util::lenient_i64", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        default,
+        with = "crate::util::lenient_i64",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub delay: Option<i64>,
     /// Realtime platform; may change or be `None` when cancelled.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
     /// Scheduled platform.
-    #[serde(rename = "plannedPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "plannedPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub planned_platform: Option<String>,
     /// Prognosed platform.
-    #[serde(rename = "prognosedPlatform", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosedPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosed_platform: Option<String>,
     /// Prognosis class.
-    #[serde(rename = "prognosisType", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "prognosisType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub prognosis_type: Option<PrognosisType>,
     /// Remarks/hints/warnings.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -413,13 +654,25 @@ pub struct Departure {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cancelled: Option<bool>,
     /// Expected occupancy; open value set.
-    #[serde(rename = "loadFactor", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "loadFactor",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub load_factor: Option<String>,
     /// Stops already served (`stopovers=true`, departures).
-    #[serde(rename = "previousStopovers", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "previousStopovers",
+        default,
+        skip_serializing_if = "Vec::is_empty"
+    )]
     pub previous_stopovers: Vec<Stopover>,
     /// Upcoming stops (`stopovers=true`).
-    #[serde(rename = "nextStopovers", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "nextStopovers",
+        default,
+        skip_serializing_if = "Vec::is_empty"
+    )]
     pub next_stopovers: Vec<Stopover>,
     /// Radar frames.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -428,7 +681,11 @@ pub struct Departure {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub polyline: Option<Polyline>,
     /// Current position of the trip on its route.
-    #[serde(rename = "currentTripPosition", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "currentTripPosition",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     pub current_trip_position: Option<super::place::Location>,
 }
 
@@ -462,7 +719,11 @@ pub struct Movement {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub location: Option<super::place::Location>,
     /// Upcoming stops.
-    #[serde(rename = "nextStopovers", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "nextStopovers",
+        default,
+        skip_serializing_if = "Vec::is_empty"
+    )]
     pub next_stopovers: Vec<Stopover>,
     /// Predicted frames.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

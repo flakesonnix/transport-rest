@@ -225,7 +225,11 @@ impl std::fmt::Display for NetworkError {
 impl std::fmt::Display for TimeoutError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match &self.url {
-            Some(url) => write!(f, "request timed out ({}) for {}: {}", self.kind, url, self.source),
+            Some(url) => write!(
+                f,
+                "request timed out ({}) for {}: {}",
+                self.kind, url, self.source
+            ),
             None => write!(f, "request timed out ({}): {}", self.kind, self.source),
         }
     }
@@ -250,7 +254,11 @@ impl std::fmt::Display for ApiError {
 impl std::fmt::Display for RateLimitedError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.retry_after {
-            Some(d) => write!(f, "rate limited (HTTP 429), retry after {d:?}: {}", self.api.message),
+            Some(d) => write!(
+                f,
+                "rate limited (HTTP 429), retry after {d:?}: {}",
+                self.api.message
+            ),
             None => write!(f, "rate limited (HTTP 429): {}", self.api.message),
         }
     }
@@ -259,12 +267,15 @@ impl std::fmt::Display for RateLimitedError {
 impl std::fmt::Display for SerializationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match &self.url {
-            Some(url) => write!(f, "failed to deserialize response for {}: {}", url, self.source),
+            Some(url) => write!(
+                f,
+                "failed to deserialize response for {}: {}",
+                url, self.source
+            ),
             None => write!(f, "failed to deserialize response: {}", self.source),
         }
     }
 }
-
 
 /// Internal helper: classify a [`reqwest::Error`] into our taxonomy.
 ///
@@ -278,7 +289,11 @@ pub(crate) fn map_reqwest_error(url: Option<Url>, err: reqwest::Error) -> Transp
         } else {
             TimeoutKind::Request
         };
-        TransportRestError::Timeout(TimeoutError { kind, url, source: err })
+        TransportRestError::Timeout(TimeoutError {
+            kind,
+            url,
+            source: err,
+        })
     } else {
         TransportRestError::Network(NetworkError { url, source: err })
     }

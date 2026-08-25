@@ -51,7 +51,10 @@ impl TransportRestClient {
     }
 
     /// Refresh a previously computed journey by its `refreshToken`.
-    pub fn refresh_journey(&self, refresh_token: impl Into<String>) -> journeys::RefreshJourneyBuilder {
+    pub fn refresh_journey(
+        &self,
+        refresh_token: impl Into<String>,
+    ) -> journeys::RefreshJourneyBuilder {
         journeys::RefreshJourneyBuilder::new(self.state.clone(), refresh_token.into())
     }
 

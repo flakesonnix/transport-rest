@@ -12,7 +12,10 @@ use crate::{Capability, TransportRestClient};
 /// Hard limit for how long we wait on any single response body chunk beyond
 /// the client timeout; reqwest's overall timeout governs this.
 impl TransportRestClient {
-    pub(crate) fn check_capability(&self, capability: Capability) -> Result<(), TransportRestError> {
+    pub(crate) fn check_capability(
+        &self,
+        capability: Capability,
+    ) -> Result<(), TransportRestError> {
         if self.state.capabilities.contains(capability) {
             Ok(())
         } else {
@@ -76,10 +79,7 @@ impl TransportRestClient {
             ))
         })?;
         serde_json::from_value(value).map_err(|e| {
-            TransportRestError::Serialization(SerializationError::schema(
-                e,
-                Some(url.clone()),
-            ))
+            TransportRestError::Serialization(SerializationError::schema(e, Some(url.clone())))
         })
     }
 
@@ -203,5 +203,7 @@ fn parse_retry_after(value: &reqwest::header::HeaderValue) -> Option<std::time::
     }
     let date = chrono::DateTime::parse_from_rfc2822(s).ok()?;
     let delta = date.signed_duration_since(chrono::Utc::now());
-    (delta > chrono::TimeDelta::zero()).then(|| delta.to_std().ok()).flatten()
+    (delta > chrono::TimeDelta::zero())
+        .then(|| delta.to_std().ok())
+        .flatten()
 }

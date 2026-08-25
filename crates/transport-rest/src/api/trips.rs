@@ -151,10 +151,7 @@ impl TripsByNameBuilder {
     }
 
     /// Filter by operator names.
-    pub fn operator_names<I: IntoIterator<Item = impl Into<String>>>(
-        mut self,
-        names: I,
-    ) -> Self {
+    pub fn operator_names<I: IntoIterator<Item = impl Into<String>>>(mut self, names: I) -> Self {
         self.operator_names = Some(names.into_iter().map(Into::into).collect());
         self
     }
@@ -175,10 +172,16 @@ impl TripsByNameBuilder {
             q.push("when", t.to_rfc3339_opts(chrono::SecondsFormat::Secs, true));
         }
         if let Some(t) = self.from_when {
-            q.push("fromWhen", t.to_rfc3339_opts(chrono::SecondsFormat::Secs, true));
+            q.push(
+                "fromWhen",
+                t.to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+            );
         }
         if let Some(t) = self.until_when {
-            q.push("untilWhen", t.to_rfc3339_opts(chrono::SecondsFormat::Secs, true));
+            q.push(
+                "untilWhen",
+                t.to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+            );
         }
         q.opt("onlyCurrentlyRunning", self.only_currently_running);
         q.opt("currentlyStoppingAt", self.currently_stopping_at);

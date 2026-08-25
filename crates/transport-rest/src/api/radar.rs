@@ -118,9 +118,7 @@ impl RadarBuilder {
             (Some(n), Some(w), Some(s), Some(e)) => (n, w, s, e),
             _ => {
                 return Err(TransportRestError::InvalidParameter(
-                    InvalidParameterError::other(
-                        "north, west, south and east are all required",
-                    ),
+                    InvalidParameterError::other("north, west, south and east are all required"),
                 ))
             }
         };

@@ -50,7 +50,11 @@ pub struct JourneysBuilder {
 }
 
 impl JourneysBuilder {
-    pub(crate) fn new(state: std::sync::Arc<ClientState>, from: JourneyPlace, to: JourneyPlace) -> Self {
+    pub(crate) fn new(
+        state: std::sync::Arc<ClientState>,
+        from: JourneyPlace,
+        to: JourneyPlace,
+    ) -> Self {
         Self {
             state,
             from,
@@ -274,9 +278,7 @@ impl JourneysBuilder {
         }
         if self.departure.is_some() && self.arrival.is_some() {
             return Err(TransportRestError::InvalidParameter(
-                InvalidParameterError::other(
-                    "departure and arrival are mutually exclusive",
-                ),
+                InvalidParameterError::other("departure and arrival are mutually exclusive"),
             ));
         }
         if (self.earlier_than.is_some() || self.later_than.is_some())
@@ -306,10 +308,7 @@ impl JourneysBuilder {
         if let Some(acc) = &self.accessibility {
             if !matches!(acc.as_str(), "partial" | "complete") {
                 return Err(TransportRestError::InvalidParameter(
-                    InvalidParameterError::new(
-                        "accessibility",
-                        "must be 'partial' or 'complete'",
-                    ),
+                    InvalidParameterError::new("accessibility", "must be 'partial' or 'complete'"),
                 ));
             }
         }
@@ -322,10 +321,16 @@ impl JourneysBuilder {
             via.encode("via", &mut q);
         }
         if let Some(d) = self.departure {
-            q.push("departure", d.to_rfc3339_opts(chrono::SecondsFormat::Secs, true));
+            q.push(
+                "departure",
+                d.to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+            );
         }
         if let Some(a) = self.arrival {
-            q.push("arrival", a.to_rfc3339_opts(chrono::SecondsFormat::Secs, true));
+            q.push(
+                "arrival",
+                a.to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+            );
         }
         q.opt("earlierThan", self.earlier_than);
         q.opt("laterThan", self.later_than);
