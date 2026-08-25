@@ -1,6 +1,8 @@
 // Handwritten builder model for the transport.rest Java binding.
 package io.transportrest;
 
+import java.util.List;
+
 /** A place referenced by journey queries. */
 public final class JourneyPlace {
     private final String form;
@@ -48,9 +50,9 @@ public final class JourneyPlace {
 
     void validate(String parameter) {
         if ("poi".equals(form) && (id == null || id.isBlank()))
-            throw new InvalidParameterException(parameter + ".id", "POI id must not be empty");
+            throw new Errors.InvalidParameterException(parameter + ".id", "POI id must not be empty");
         if ("address".equals(form) && (addressText == null || addressText.isBlank()))
-            throw new InvalidParameterException(parameter + ".address", "address must not be empty");
+            throw new Errors.InvalidParameterException(parameter + ".address", "address must not be empty");
     }
 }
 

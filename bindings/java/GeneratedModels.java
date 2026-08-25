@@ -16,9 +16,9 @@ import java.util.Map;
 public enum Accessibility
 {
     @JsonProperty("partial")
-    partial,
+    PARTIAL,
     @JsonProperty("complete")
-    complete,
+    COMPLETE,
 }
 
 /** AgeGroup */
@@ -40,93 +40,93 @@ public enum AgeGroup
 public enum DbProfile
 {
     @JsonProperty("dbnav")
-    dbnav,
+    DBNAV,
     @JsonProperty("db")
-    db,
+    DB,
     @JsonProperty("dbweb")
-    dbweb,
+    DBWEB,
 }
 
 /** LoyaltyCard */
 public enum LoyaltyCard
 {
     @JsonProperty("bahncard-1st-25")
-    bahncard-1st-25,
+    BAHNCARD_1ST_25,
     @JsonProperty("bahncard-2nd-25")
-    bahncard-2nd-25,
+    BAHNCARD_2ND_25,
     @JsonProperty("bahncard-1st-50")
-    bahncard-1st-50,
+    BAHNCARD_1ST_50,
     @JsonProperty("bahncard-2nd-50")
-    bahncard-2nd-50,
+    BAHNCARD_2ND_50,
     @JsonProperty("bahncard-1st-100")
-    bahncard-1st-100,
+    BAHNCARD_1ST_100,
     @JsonProperty("bahncard-2nd-100")
-    bahncard-2nd-100,
+    BAHNCARD_2ND_100,
     @JsonProperty("vorteilscard")
-    vorteilscard,
+    VORTEILSCARD,
     @JsonProperty("halbtaxabo")
-    halbtaxabo,
+    HALBTAXABO,
     @JsonProperty("generalabonnement-1st")
-    generalabonnement-1st,
+    GENERALABONNEMENT_1ST,
     @JsonProperty("generalabonnement-2nd")
-    generalabonnement-2nd,
+    GENERALABONNEMENT_2ND,
     @JsonProperty("nl-40")
-    nl-40,
+    NL_40,
     @JsonProperty("at-klimaticket")
-    at-klimaticket,
+    AT_KLIMATICKET,
 }
 
 /** Means of transport mode (FPTF). Open enum: unknown wire values map to the fallback variant. */
 public enum Mode
 {
     @JsonProperty("aircraft")
-    aircraft,
+    AIRCRAFT,
     @JsonProperty("bicycle")
-    bicycle,
+    BICYCLE,
     @JsonProperty("bus")
-    bus,
+    BUS,
     @JsonProperty("car")
-    car,
+    CAR,
     @JsonProperty("gondola")
-    gondola,
+    GONDOLA,
     @JsonProperty("taxi")
-    taxi,
+    TAXI,
     @JsonProperty("train")
-    train,
+    TRAIN,
     @JsonProperty("walking")
-    walking,
+    WALKING,
     @JsonProperty("watercraft")
-    watercraft,
+    WATERCRAFT,
 }
 
 /** Reliability class of a prognosis. */
 public enum PrognosisType
 {
     @JsonProperty("calculated")
-    calculated,
+    CALCULATED,
     @JsonProperty("prognosed")
-    prognosed,
+    PROGNOSED,
 }
 
 /** Discriminator of remark objects; FPTF hint/status/warning are merged into one model. */
 public enum RemarkKind
 {
     @JsonProperty("hint")
-    hint,
+    HINT,
     @JsonProperty("status")
-    status,
+    STATUS,
     @JsonProperty("warning")
-    warning,
+    WARNING,
     @JsonProperty("foreign-id")
-    foreign-id,
+    FOREIGN_ID,
     @JsonProperty("local-fare-zone")
-    local-fare-zone,
+    LOCAL_FARE_ZONE,
     @JsonProperty("stop-dhid")
-    stop-dhid,
+    STOP_DHID,
     @JsonProperty("stop-website")
-    stop-website,
+    STOP_WEBSITE,
     @JsonProperty("transit-authority")
-    transit-authority,
+    TRANSIT_AUTHORITY,
 }
 
 /** REALTIME is the default and excludes cancelled journeys; HYBRID includes them and fully supports pagination. */
@@ -150,11 +150,11 @@ public enum RoutingMode
 public enum WalkingSpeed
 {
     @JsonProperty("slow")
-    slow,
+    SLOW,
     @JsonProperty("normal")
-    normal,
+    NORMAL,
     @JsonProperty("fast")
-    fast,
+    FAST,
 }
 
 /** Cycle times of a line/trip in minutes. */

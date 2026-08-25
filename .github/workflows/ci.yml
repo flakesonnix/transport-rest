@@ -32,10 +32,15 @@ jobs:
       - run: |
           cargo run -q -p transport-rest-gen -- --schema-dir schema type-script --out bindings/typescript/src --check
           cargo run -q -p transport-rest-gen -- --schema-dir schema python --out bindings/python/transport_rest --check
-          cargo run -q -p transport-rest-gen -- --schema-dir schema go --out bindings/go --check
           cargo run -q -p transport-rest-gen -- --schema-dir schema csharp --out bindings/csharp --check
           cargo run -q -p transport-rest-gen -- --schema-dir schema java --out bindings/java --check
           cargo run -q -p transport-rest-gen -- --schema-dir schema meta --out bindings --check
+      # Go output is normalized through gofmt before comparing.
+      - name: Go drift check (gofmt-normalized)
+        run: |
+          cargo run -q -p transport-rest-gen -- --schema-dir schema go --out /tmp/gen-go
+          gofmt /tmp/gen-go/models_gen.go > /tmp/gen-go/formatted.go
+          diff -u bindings/go/models_gen.go /tmp/gen-go/formatted.go
 
   python:
     name: Python binding (stdlib)

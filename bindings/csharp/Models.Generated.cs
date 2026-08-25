@@ -45,29 +45,29 @@ public enum DbProfile : string
 public enum LoyaltyCard : string
 {
     [JsonStringEnumMemberName("bahncard-1st-25")]
-    bahncard-1st-25,
+    bahncard_1st_25,
     [JsonStringEnumMemberName("bahncard-2nd-25")]
-    bahncard-2nd-25,
+    bahncard_2nd_25,
     [JsonStringEnumMemberName("bahncard-1st-50")]
-    bahncard-1st-50,
+    bahncard_1st_50,
     [JsonStringEnumMemberName("bahncard-2nd-50")]
-    bahncard-2nd-50,
+    bahncard_2nd_50,
     [JsonStringEnumMemberName("bahncard-1st-100")]
-    bahncard-1st-100,
+    bahncard_1st_100,
     [JsonStringEnumMemberName("bahncard-2nd-100")]
-    bahncard-2nd-100,
+    bahncard_2nd_100,
     [JsonStringEnumMemberName("vorteilscard")]
     vorteilscard,
     [JsonStringEnumMemberName("halbtaxabo")]
     halbtaxabo,
     [JsonStringEnumMemberName("generalabonnement-1st")]
-    generalabonnement-1st,
+    generalabonnement_1st,
     [JsonStringEnumMemberName("generalabonnement-2nd")]
-    generalabonnement-2nd,
+    generalabonnement_2nd,
     [JsonStringEnumMemberName("nl-40")]
-    nl-40,
+    nl_40,
     [JsonStringEnumMemberName("at-klimaticket")]
-    at-klimaticket,
+    at_klimaticket,
 }
 
 /// <summary>Means of transport mode (FPTF). Open enum: unknown wire values map to the fallback variant.</summary>
@@ -112,15 +112,15 @@ public enum RemarkKind : string
     [JsonStringEnumMemberName("warning")]
     warning,
     [JsonStringEnumMemberName("foreign-id")]
-    foreign-id,
+    foreign_id,
     [JsonStringEnumMemberName("local-fare-zone")]
-    local-fare-zone,
+    local_fare_zone,
     [JsonStringEnumMemberName("stop-dhid")]
-    stop-dhid,
+    stop_dhid,
     [JsonStringEnumMemberName("stop-website")]
-    stop-website,
+    stop_website,
     [JsonStringEnumMemberName("transit-authority")]
-    transit-authority,
+    transit_authority,
 }
 
 /// <summary>REALTIME is the default and excludes cancelled journeys; HYBRID includes them and fully supports pagination.</summary>

@@ -1,6 +1,10 @@
 // Handwritten builder model for the transport.rest Java binding.
 package io.transportrest;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 /** Product filter; unset keys are omitted. */
 public final class ProductSelection {
     private final Map<String, Boolean> entries = new LinkedHashMap<>();
