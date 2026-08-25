@@ -1,0 +1,29 @@
+{
+  "name": "transport-rest",
+  "version": "0.1.0",
+  "description": "Typed client for the transport.rest public transit APIs (DB, BVG, VBB, Poland)",
+  "license": "MIT OR Apache-2.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "keywords": ["transport", "transit", "hafas", "bahn", "bvg", "api"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natasha/transport-rest"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^20.0.0",
+    "@types/bun": "^1.1.0"
+  }
+}

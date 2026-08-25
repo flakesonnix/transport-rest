@@ -1,0 +1,1577 @@
+{
+  "$generated-by": "transport-rest-gen",
+  "endpoints": [
+    {
+      "capability": null,
+      "doc": "Find stops/stations, POIs and addresses matching a query.",
+      "id": "locations",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "query",
+          "name": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "fuzzy",
+          "name": "fuzzy",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "results",
+          "name": "results",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "stops",
+          "name": "stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "addresses",
+          "name": "addresses",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "poi",
+          "name": "poi",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "linesOfStops",
+          "name": "lines_of_stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "path": "/locations",
+      "responseType": "list<LocationResult>"
+    },
+    {
+      "capability": null,
+      "doc": "Find stops/stations & POIs close to a geolocation.",
+      "id": "nearby",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "latitude",
+          "name": "latitude",
+          "required": true,
+          "type": "float"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "longitude",
+          "name": "longitude",
+          "required": true,
+          "type": "float"
+        },
+        {
+          "dbOnly": false,
+          "default": 8,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "results",
+          "name": "results",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Max walking distance in meters.",
+          "group": null,
+          "in": "query",
+          "json": "distance",
+          "name": "distance",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "stops",
+          "name": "stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "poi",
+          "name": "poi",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "linesOfStops",
+          "name": "lines_of_stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "path": "/locations/nearby",
+      "responseType": "list<LocationResult>"
+    },
+    {
+      "capability": null,
+      "doc": "Find a stop/station by ID.",
+      "id": "stop",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "path",
+          "json": "id",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "linesOfStops",
+          "name": "lines_of_stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "path": "/stops/{id}",
+      "responseType": "StopOrStation"
+    },
+    {
+      "capability": null,
+      "doc": "Fetch departures at a stop/station (departure board).",
+      "id": "departures",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "path",
+          "json": "id",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "when",
+          "name": "when",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Stop ID or name; db-vendo supports this on the dbweb profile.",
+          "group": null,
+          "in": "query",
+          "json": "direction",
+          "name": "direction",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Show departures for n minutes.",
+          "group": null,
+          "in": "query",
+          "json": "duration",
+          "name": "duration",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Max number of departures.",
+          "group": null,
+          "in": "query",
+          "json": "results",
+          "name": "results",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "stopovers",
+          "name": "stopovers",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "includeRelatedStations",
+          "name": "include_related_stations",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "linesOfStops",
+          "name": "lines_of_stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "remarks",
+          "name": "remarks",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Comma-separated additional EVA numbers; DB instance only, not with dbnav/dbweb profiles.",
+          "group": null,
+          "in": "query",
+          "json": "moreStops",
+          "name": "more_stops",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "products",
+          "name": "products",
+          "required": false,
+          "type": "products"
+        }
+      ],
+      "path": "/stops/{id}/departures",
+      "responseType": "DeparturesResponse"
+    },
+    {
+      "capability": null,
+      "doc": "Fetch arrivals at a stop/station (arrival board).",
+      "id": "arrivals",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "path",
+          "json": "id",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "when",
+          "name": "when",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "direction",
+          "name": "direction",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "duration",
+          "name": "duration",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "results",
+          "name": "results",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "stopovers",
+          "name": "stopovers",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "includeRelatedStations",
+          "name": "include_related_stations",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "linesOfStops",
+          "name": "lines_of_stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "remarks",
+          "name": "remarks",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "moreStops",
+          "name": "more_stops",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "products",
+          "name": "products",
+          "required": false,
+          "type": "products"
+        }
+      ],
+      "path": "/stops/{id}/arrivals",
+      "responseType": "ArrivalsResponse"
+    },
+    {
+      "capability": null,
+      "doc": "Find journeys from A to B.",
+      "id": "journeys",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": "from",
+          "in": "location-group",
+          "json": "from",
+          "name": "from",
+          "required": true,
+          "type": "LocationFilter"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": "to",
+          "in": "location-group",
+          "json": "to",
+          "name": "to",
+          "required": true,
+          "type": "LocationFilter"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": "via",
+          "in": "location-group",
+          "json": "via",
+          "name": "via",
+          "required": false,
+          "type": "LocationFilter"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Mutually exclusive with arrival and earlierThan/laterThan.",
+          "group": null,
+          "in": "query",
+          "json": "departure",
+          "name": "departure",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Mutually exclusive with departure and earlierThan/laterThan.",
+          "group": null,
+          "in": "query",
+          "json": "arrival",
+          "name": "arrival",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Pagination ref from a previous response.",
+          "group": null,
+          "in": "query",
+          "json": "earlierThan",
+          "name": "earlier_than",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Pagination ref from a previous response.",
+          "group": null,
+          "in": "query",
+          "json": "laterThan",
+          "name": "later_than",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": 3,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "results",
+          "name": "results",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "stopovers",
+          "name": "stopovers",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "transfers",
+          "name": "transfers",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Minutes.",
+          "group": null,
+          "in": "query",
+          "json": "transferTime",
+          "name": "transfer_time",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "accessibility",
+          "name": "accessibility",
+          "required": false,
+          "type": "Accessibility"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "bike",
+          "name": "bike",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "startWithWalking",
+          "name": "start_with_walking",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "normal",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "walkingSpeed",
+          "name": "walking_speed",
+          "required": false,
+          "type": "WalkingSpeed"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "tickets",
+          "name": "tickets",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "polylines",
+          "name": "polylines",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "subStops",
+          "name": "sub_stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "entrances",
+          "name": "entrances",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "remarks",
+          "name": "remarks",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "scheduledDays",
+          "name": "scheduled_days",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "notOnlyFastRoutes",
+          "name": "not_only_fast_routes",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "bestprice",
+          "name": "bestprice",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "deutschlandTicketConnectionsOnly",
+          "name": "deutschland_ticket_connections_only",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "loyaltyCard",
+          "name": "loyalty_card",
+          "required": false,
+          "type": "LoyaltyCard"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "firstClass",
+          "name": "first_class",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "age",
+          "name": "age",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "ageGroup",
+          "name": "age_group",
+          "required": false,
+          "type": "AgeGroup"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "routingMode",
+          "name": "routing_mode",
+          "required": false,
+          "type": "RoutingMode"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "products",
+          "name": "products",
+          "required": false,
+          "type": "products"
+        }
+      ],
+      "path": "/journeys",
+      "responseType": "JourneysResponse"
+    },
+    {
+      "capability": null,
+      "doc": "Refresh a previously computed journey using its refreshToken to obtain up-to-date realtime data.",
+      "id": "refresh_journey",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "path",
+          "json": "ref",
+          "name": "ref",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "stopovers",
+          "name": "stopovers",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": "Mutually exclusive with polylines.",
+          "group": null,
+          "in": "query",
+          "json": "tickets",
+          "name": "tickets",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": "Mutually exclusive with tickets.",
+          "group": null,
+          "in": "query",
+          "json": "polylines",
+          "name": "polylines",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "subStops",
+          "name": "sub_stops",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "entrances",
+          "name": "entrances",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "remarks",
+          "name": "remarks",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "scheduledDays",
+          "name": "scheduled_days",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "notOnlyFastRoutes",
+          "name": "not_only_fast_routes",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "bestprice",
+          "name": "bestprice",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "path": "/journeys/{ref}",
+      "responseType": "JourneyResponse"
+    },
+    {
+      "capability": null,
+      "doc": "Fetch a trip by ID.",
+      "id": "trip",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "path",
+          "json": "id",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "stopovers",
+          "name": "stopovers",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "remarks",
+          "name": "remarks",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "polyline",
+          "name": "polyline",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "path": "/trips/{id}",
+      "responseType": "TripResponse"
+    },
+    {
+      "capability": "radar",
+      "doc": "Get all vehicles currently moving inside a bounding box. Not available on the DB instance.",
+      "id": "radar",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "north",
+          "name": "north",
+          "required": true,
+          "type": "float"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "west",
+          "name": "west",
+          "required": true,
+          "type": "float"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "south",
+          "name": "south",
+          "required": true,
+          "type": "float"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "east",
+          "name": "east",
+          "required": true,
+          "type": "float"
+        },
+        {
+          "dbOnly": false,
+          "default": 256,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "results",
+          "name": "results",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": 3,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "frames",
+          "name": "frames",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": 20,
+          "doc": "Compute frames for the next n seconds.",
+          "group": null,
+          "in": "query",
+          "json": "duration",
+          "name": "duration",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "polylines",
+          "name": "polylines",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "when",
+          "name": "when",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "products",
+          "name": "products",
+          "required": false,
+          "type": "products"
+        }
+      ],
+      "path": "/radar",
+      "responseType": "RadarResponse"
+    },
+    {
+      "capability": "reachable_from",
+      "doc": "Find stops reachable within a certain time from a location. Not available on the DB instance.",
+      "id": "reachable_from",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "latitude",
+          "name": "latitude",
+          "required": true,
+          "type": "float"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "longitude",
+          "name": "longitude",
+          "required": true,
+          "type": "float"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "when",
+          "name": "when",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": 5,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "maxTransfers",
+          "name": "max_transfers",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": 20,
+          "doc": "Minutes.",
+          "group": null,
+          "in": "query",
+          "json": "maxDuration",
+          "name": "max_duration",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "polylines",
+          "name": "polylines",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": "en",
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "language",
+          "name": "language",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "products",
+          "name": "products",
+          "required": false,
+          "type": "products"
+        }
+      ],
+      "path": "/stops/reachable-from",
+      "responseType": "ReachableFromResponse"
+    },
+    {
+      "capability": "trips_by_name",
+      "doc": "Find trips by name. Not available on the DB instance.",
+      "id": "trips_by_name",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": "*",
+          "doc": "Trip name, default '*'.",
+          "group": null,
+          "in": "query",
+          "json": "query",
+          "name": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "fromWhen",
+          "name": "from_when",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "untilWhen",
+          "name": "until_when",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "onlyCurrentlyRunning",
+          "name": "only_currently_running",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": "Stop ID.",
+          "group": null,
+          "in": "query",
+          "json": "currentlyStoppingAt",
+          "name": "currently_stopping_at",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "lineName",
+          "name": "line_name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "operatorNames",
+          "name": "operator_names",
+          "required": false,
+          "type": "list<string>"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "when",
+          "name": "when",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "products",
+          "name": "products",
+          "required": false,
+          "type": "products"
+        }
+      ],
+      "path": "/trips",
+      "responseType": "TripsResponse"
+    },
+    {
+      "capability": "stations",
+      "doc": "Search the static db-stations directory (DB instance only).",
+      "id": "stations",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "query",
+          "name": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": 3,
+          "doc": "Limit; only used together with query.",
+          "group": null,
+          "in": "query",
+          "json": "results",
+          "name": "results",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "fuzzy",
+          "name": "fuzzy",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "completion",
+          "name": "completion",
+          "required": false,
+          "type": "bool"
+        }
+      ],
+      "path": "/stations",
+      "responseType": "list<Station>"
+    },
+    {
+      "capability": "stations",
+      "doc": "Get one station from the static db-stations directory (DB instance only).",
+      "id": "station",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "path",
+          "json": "id",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "path": "/stations/{id}",
+      "responseType": "Station"
+    },
+    {
+      "capability": "stops_search",
+      "doc": "Search stops by name against the static stations dataset (BVG/VBB instances).",
+      "id": "stops_search",
+      "method": "GET",
+      "params": [
+        {
+          "dbOnly": false,
+          "default": null,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "query",
+          "name": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "dbOnly": false,
+          "default": 5,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "limit",
+          "name": "limit",
+          "required": false,
+          "type": "int"
+        },
+        {
+          "dbOnly": false,
+          "default": false,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "fuzzy",
+          "name": "fuzzy",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "dbOnly": false,
+          "default": true,
+          "doc": null,
+          "group": null,
+          "in": "query",
+          "json": "completion",
+          "name": "completion",
+          "required": false,
+          "type": "bool"
+        }
+      ],
+      "path": "/stops",
+      "responseType": "list<LocationResult>"
+    }
+  ],
+  "productKeys": {
+    "bvg": [
+      "suburban",
+      "subway",
+      "tram",
+      "bus",
+      "ferry",
+      "express",
+      "regional"
+    ],
+    "db": [
+      "nationalExpress",
+      "national",
+      "regionalExpress",
+      "regional",
+      "suburban",
+      "bus",
+      "ferry",
+      "subway",
+      "tram",
+      "taxi"
+    ]
+  },
+  "providers": [
+    {
+      "baseUrl": "https://v6.bvg.transport.rest",
+      "id": "bvg",
+      "region": "Berlin & Brandenburg (BVG)"
+    },
+    {
+      "baseUrl": "https://v6.db.transport.rest",
+      "id": "db",
+      "region": "Germany (Deutsche Bahn)"
+    },
+    {
+      "baseUrl": "https://poland.transport.rest",
+      "id": "poland",
+      "region": "Poland"
+    },
+    {
+      "baseUrl": "https://v6.vbb.transport.rest",
+      "id": "vbb",
+      "region": "Berlin & Brandenburg (VBB)"
+    }
+  ],
+  "schemaVersion": 1
+}
