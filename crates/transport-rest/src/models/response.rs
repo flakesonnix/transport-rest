@@ -6,6 +6,7 @@ use super::journey::{Departure, Journey, Movement, ReachableDuration, Trip};
 use super::place::LocationResult;
 
 /// Shared map types used across models.
+#[allow(non_snake_case)]
 pub mod Aliases {
     /// Profile-specific product flags keyed by product name
     /// (e.g. `"bus": true`). Which keys exist depends on the provider.

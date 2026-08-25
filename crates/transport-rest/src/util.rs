@@ -43,24 +43,8 @@ pub mod de {
         Ok(v.and_then(|n| n.as_i64().or_else(|| n.as_f64().map(|f| f.round() as i64))))
     }
 
-    /// `Option<i64>` from an integer *or* float *or* null (same as
-    /// [`opt_i64_lenient`], separate name for documentation clarity).
-    pub fn opt_epoch_seconds<'de, D>(de: D) -> Result<Option<i64>, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        opt_i64_lenient(de)
-    }
-
-    /// `i64` from an integer or float, defaulting to `0` on absence/null.
-    pub fn i64_default_zero<'de, D>(de: D) -> Result<i64, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        Ok(opt_i64_lenient(de)?.unwrap_or(0))
-    }
-
     /// `Option<f64>` from any JSON number or null.
+    #[allow(dead_code)] // kept for generated models of future endpoints
     pub fn opt_f64_lenient<'de, D>(de: D) -> Result<Option<f64>, D::Error>
     where
         D: Deserializer<'de>,
@@ -73,7 +57,7 @@ pub mod de {
 /// Serde module for `Option<i64>` fields that may arrive as int, float or null
 /// and are serialized back as plain integers.
 pub mod lenient_i64 {
-    use serde::{Deserialize, Deserializer, Serializer};
+    use serde::{Deserializer, Serializer};
 
     pub(crate) fn serialize<S: Serializer>(v: &Option<i64>, s: S) -> Result<S::Ok, S::Error> {
         match v {

@@ -26,7 +26,7 @@ pub(crate) const DEFAULT_USER_AGENT: &str =
 ///     .user_agent("my-app/1.0 (+https://example.org)")
 ///     .build()
 ///     .unwrap();
-/// assert_eq!(client.base_url().as_str(), "https://v6.bvg.transport.rest");
+/// assert_eq!(client.base_url().as_str(), "https://v6.bvg.transport.rest/");
 /// ```
 #[derive(Debug, Clone)]
 pub struct TransportRestClientBuilder {

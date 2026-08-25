@@ -82,8 +82,8 @@ impl std::fmt::Display for TimeoutKind {
 #[derive(Debug, thiserror::Error)]
 pub struct NetworkError {
     /// URL the failing request targeted, when already known.
-    /// URL the failing request targeted, when already known.
     pub url: Option<Url>,
+    /// Underlying reqwest error.
     #[source]
     pub source: reqwest::Error,
 }
@@ -95,6 +95,7 @@ pub struct TimeoutError {
     pub kind: TimeoutKind,
     /// URL the timing out request targeted, when already known.
     pub url: Option<Url>,
+    /// Underlying reqwest error.
     #[source]
     pub source: reqwest::Error,
 }
@@ -143,6 +144,7 @@ pub struct RateLimitedError {
 pub struct SerializationError {
     /// URL the offending response came from.
     pub url: Option<Url>,
+    /// Underlying cause.
     #[source]
     pub source: SerializationErrorKind,
 }

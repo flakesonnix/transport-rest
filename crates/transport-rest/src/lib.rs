@@ -22,7 +22,7 @@
 //!         .await?;
 //!
 //!     for location in &locations {
-//!         println!("{}", location.id());
+//!         println!("{}", location.name().unwrap_or("<unnamed>"));
 //!     }
 //!     Ok(())
 //! }
@@ -38,7 +38,12 @@
 #![warn(missing_docs)]
 #![warn(clippy::unwrap_used, clippy::expect_used)]
 
+pub mod api;
 pub mod error;
+
+pub(crate) mod client;
+mod products;
+pub(crate) mod request;
 
 mod builder;
 pub mod models;
@@ -51,7 +56,18 @@ pub use error::{
     TransportRestError,
 };
 
+pub use api::departures::{ArrivalsBuilder, DeparturesBuilder};
+pub use api::journeys::{JourneysBuilder, RefreshJourneyBuilder};
+pub use api::locations::LocationsBuilder;
+pub use api::nearby::NearbyBuilder;
+pub use api::radar::RadarBuilder;
+pub use api::reachable_from::ReachableFromBuilder;
+pub use api::stations::{StationBuilder, StationsBuilder, StopsSearchBuilder};
+pub use api::stops::StopBuilder;
+pub use api::trips::{TripBuilder, TripsByNameBuilder};
 pub use builder::TransportRestClientBuilder;
+pub use products::ProductSelection;
+pub use request::JourneyPlace;
 
 /// Re-exported [`chrono`] types used by model fields.
 pub mod datetime {
@@ -225,6 +241,23 @@ impl TransportRestClient {
     /// Start configuring a client.
     pub fn builder() -> TransportRestClientBuilder {
         TransportRestClientBuilder::default()
+    }
+}
+
+impl TransportRestClient {
+    /// Base URL all requests are resolved against.
+    pub fn base_url(&self) -> &url::Url {
+        &self.state.base_url
+    }
+
+    /// The configured provider.
+    pub fn provider(&self) -> &Provider {
+        &self.state.provider
+    }
+
+    /// True if this client may use the given endpoint group.
+    pub fn supports(&self, capability: Capability) -> bool {
+        self.state.capabilities.contains(capability)
     }
 }
 
