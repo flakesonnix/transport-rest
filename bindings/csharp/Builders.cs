@@ -43,6 +43,14 @@ public sealed class ProductSelection
     }
 }
 
+internal static class BuilderGuard
+{
+    public static void RequireStatic(bool condition, string parameter, string reason)
+    {
+        if (!condition) throw new InvalidParameterException(parameter, reason);
+    }
+}
+
 public abstract class BuilderBase<T>
 {
     protected readonly TransportRestClient client;
@@ -130,6 +138,12 @@ public sealed class DeparturesBuilder : BoardBuilder<DeparturesResponse>
     {
         RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
         return new DeparturesBuilder(c, $"/stops/{Uri.EscapeDataString(stopId)}/departures");
+    }
+
+    internal static ArrivalsAdapter Arrivals(TransportRestClient c, string stopId)
+    {
+        RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
+        return new ArrivalsAdapter(c, $"/stops/{Uri.EscapeDataString(stopId)}/arrivals", stopId);
     }
 
     private DeparturesBuilder(TransportRestClient client, string path)
