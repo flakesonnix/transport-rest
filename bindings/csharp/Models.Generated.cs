@@ -7,10 +7,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 #nullable enable
-using Ids = IReadOnlyDictionary<string, string>;
-using OpeningHours = IReadOnlyDictionary<string, string>;
-using Products = IReadOnlyDictionary<string, bool>;
-using ServiceDays = IReadOnlyDictionary<string, bool>;
 
 namespace TransportRest.Models;
 
@@ -346,10 +342,10 @@ public class Journey
     public Cycle Cycle { get; set; }
 
     [JsonPropertyName("serviceDays")]
-    public ServiceDays ServiceDays { get; set; }
+    public IReadOnlyDictionary<string, bool> ServiceDays { get; set; }
 
     [JsonPropertyName("scheduledDays")]
-    public ServiceDays ScheduledDays { get; set; }
+    public IReadOnlyDictionary<string, bool> ScheduledDays { get; set; }
 
 }
 
@@ -480,11 +476,11 @@ public class Leg
     public bool? Checkin { get; set; }
 
     [JsonPropertyName("serviceDays")]
-    public ServiceDays ServiceDays { get; set; }
+    public IReadOnlyDictionary<string, bool> ServiceDays { get; set; }
 
     /// <summary>hafas-client style; db-vendo uses serviceDays.</summary>
     [JsonPropertyName("scheduledDays")]
-    public ServiceDays ScheduledDays { get; set; }
+    public IReadOnlyDictionary<string, bool> ScheduledDays { get; set; }
 
 }
 
@@ -723,7 +719,7 @@ public class Remark
     public string Category { get; set; }
 
     [JsonPropertyName("products")]
-    public Products Products { get; set; }
+    public IReadOnlyDictionary<string, bool> Products { get; set; }
 
     [JsonPropertyName("company")]
     public string Company { get; set; }
@@ -762,13 +758,13 @@ public class Station
     public string Name { get; set; }
 
     [JsonPropertyName("station")]
-    public Station Station { get; set; }
+    public Station StationRef { get; set; }
 
     [JsonPropertyName("location")]
     public Location Location { get; set; }
 
     [JsonPropertyName("products")]
-    public Products Products { get; set; }
+    public IReadOnlyDictionary<string, bool> Products { get; set; }
 
     [JsonPropertyName("lines")]
     public IReadOnlyList<Line> Lines { get; set; }
@@ -784,7 +780,7 @@ public class Station
     public IReadOnlyDictionary<string, string> Facilities { get; set; }
 
     [JsonPropertyName("reisezentrumOpeningHours")]
-    public OpeningHours OpeningHours { get; set; }
+    public IReadOnlyDictionary<string, string> OpeningHours { get; set; }
 
     /// <summary>Sub-stops.</summary>
     [JsonPropertyName("stops")]
@@ -822,10 +818,10 @@ public class Stop
     public Location Location { get; set; }
 
     [JsonPropertyName("products")]
-    public Products Products { get; set; }
+    public IReadOnlyDictionary<string, bool> Products { get; set; }
 
     [JsonPropertyName("ids")]
-    public Ids Ids { get; set; }
+    public IReadOnlyDictionary<string, string> Ids { get; set; }
 
     [JsonPropertyName("lines")]
     public IReadOnlyList<Line> Lines { get; set; }
@@ -837,7 +833,7 @@ public class Stop
     public bool? IsMeta { get; set; }
 
     [JsonPropertyName("reisezentrumOpeningHours")]
-    public OpeningHours OpeningHours { get; set; }
+    public IReadOnlyDictionary<string, string> OpeningHours { get; set; }
 
     /// <summary>Open value set: low/medium/high/...</summary>
     [JsonPropertyName("loadFactor")]
@@ -1048,10 +1044,10 @@ public class Trip
     public bool? Checkin { get; set; }
 
     [JsonPropertyName("serviceDays")]
-    public ServiceDays ServiceDays { get; set; }
+    public IReadOnlyDictionary<string, bool> ServiceDays { get; set; }
 
     [JsonPropertyName("scheduledDays")]
-    public ServiceDays ScheduledDays { get; set; }
+    public IReadOnlyDictionary<string, bool> ScheduledDays { get; set; }
 
 }
 

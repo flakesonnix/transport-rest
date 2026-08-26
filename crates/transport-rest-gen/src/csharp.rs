@@ -70,7 +70,15 @@ pub fn cs_type(ty: &str, nullable: bool) -> String {
 pub fn emit(ir: &Ir) -> String {
     let enum_names: std::collections::HashSet<&str> =
         ir.rest.enums.keys().map(String::as_str).collect();
-    let cs_type_local = |ty: &str, nullable: bool| -> String {
+    // Expand IR aliases to their concrete C# types at reference sites
+    // (avoids file-level using-aliases, which broke under SDK 10).
+    let alias_targets: Vec<(&str, String)> = ir
+        .rest
+        .aliases
+        .iter()
+        .map(|(name, def)| (name.as_str(), cs_type(&def.type_, false)))
+        .collect();
+    let cs_type_local = move |ty: &str, nullable: bool| -> String {
         if enum_names.contains(ty) {
             return if nullable {
                 "string?".into()
@@ -78,18 +86,21 @@ pub fn emit(ir: &Ir) -> String {
                 "string".into()
             };
         }
+        if let Some((_, expanded)) = alias_targets.iter().find(|(name, _)| *name == ty) {
+            let base = expanded.clone();
+            let is_value_type = matches!(
+                base.as_str(),
+                "long" | "double" | "bool" | "System.DateTimeOffset"
+            );
+            if nullable && is_value_type && !base.ends_with('?') {
+                return format!("{base}?");
+            }
+            return base;
+        }
         cs_type(ty, nullable)
     };
     let mut out = String::from(HEADER);
 
-    // using-aliases must precede every namespace element (CS1529).
-    for (name, def) in &ir.rest.aliases {
-        out.push_str(&format!(
-            "using {} = {};\n",
-            name,
-            cs_type(&def.type_, false)
-        ));
-    }
     out.push_str("\nnamespace TransportRest.Models;\n\n");
 
     for (name, def) in &ir.rest.enums {
@@ -131,6 +142,10 @@ pub fn emit(ir: &Ir) -> String {
             let mut prop = pascal(&f.name);
             if prop == "Type" {
                 prop = "WireType".to_string(); // avoid clash with union discriminators
+            }
+            if prop == *name {
+                // CS0542: member names cannot equal the enclosing type.
+                prop = format!("{prop}Ref");
             }
             let doc = f
                 .doc

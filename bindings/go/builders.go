@@ -4,7 +4,6 @@ package transportrest
 import (
 	"context"
 	"strings"
-	"time"
 )
 
 // JourneyPlace describes from/to/via places of journey queries.
