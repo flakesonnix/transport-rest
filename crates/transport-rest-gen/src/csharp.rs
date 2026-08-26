@@ -78,26 +78,25 @@ pub fn emit(ir: &Ir) -> String {
         .iter()
         .map(|(name, def)| (name.as_str(), cs_type(&def.type_, false)))
         .collect();
+    // Nullability policy: reference types are ALWAYS annotated nullable
+    // (the wire may omit them); value types only when the field is optional.
     let cs_type_local = move |ty: &str, nullable: bool| -> String {
-        if enum_names.contains(ty) {
-            return if nullable {
-                "string?".into()
-            } else {
-                "string".into()
-            };
+        let base = if enum_names.contains(ty) {
+            "string".to_string()
+        } else if let Some((_, expanded)) = alias_targets.iter().find(|(name, _)| *name == ty) {
+            expanded.clone()
+        } else {
+            cs_type(ty, false)
+        };
+        let is_value_type = matches!(
+            base.as_str(),
+            "long" | "double" | "bool" | "System.DateTimeOffset"
+        );
+        if !is_value_type || nullable {
+            format!("{base}?")
+        } else {
+            base
         }
-        if let Some((_, expanded)) = alias_targets.iter().find(|(name, _)| *name == ty) {
-            let base = expanded.clone();
-            let is_value_type = matches!(
-                base.as_str(),
-                "long" | "double" | "bool" | "System.DateTimeOffset"
-            );
-            if nullable && is_value_type && !base.ends_with('?') {
-                return format!("{base}?");
-            }
-            return base;
-        }
-        cs_type(ty, nullable)
     };
     let mut out = String::from(HEADER);
 

@@ -205,30 +205,30 @@ public class Departure
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("tripId")]
-    public string TripId { get; set; }
+    public string? TripId { get; set; }
 
     [JsonPropertyName("stop")]
-    public StopOrStation Stop { get; set; }
+    public StopOrStation? Stop { get; set; }
 
     /// <summary>Current vehicle position (radar).</summary>
     [JsonPropertyName("location")]
-    public Location Location { get; set; }
+    public Location? Location { get; set; }
 
     [JsonPropertyName("line")]
-    public Line Line { get; set; }
+    public Line? Line { get; set; }
 
     [JsonPropertyName("direction")]
-    public string Direction { get; set; }
+    public string? Direction { get; set; }
 
     /// <summary>Origin of the vehicle (arrivals boards).</summary>
     [JsonPropertyName("provenance")]
-    public string Provenance { get; set; }
+    public string? Provenance { get; set; }
 
     [JsonPropertyName("origin")]
-    public Place Origin { get; set; }
+    public Place? Origin { get; set; }
 
     [JsonPropertyName("destination")]
-    public Place Destination { get; set; }
+    public Place? Destination { get; set; }
 
     /// <summary>Realtime time; null if cancelled.</summary>
     [JsonPropertyName("when")]
@@ -246,41 +246,41 @@ public class Departure
 
     /// <summary>Realtime platform; null if cancelled.</summary>
     [JsonPropertyName("platform")]
-    public string Platform { get; set; }
+    public string? Platform { get; set; }
 
     [JsonPropertyName("plannedPlatform")]
-    public string PlannedPlatform { get; set; }
+    public string? PlannedPlatform { get; set; }
 
     [JsonPropertyName("prognosedPlatform")]
-    public string PrognosedPlatform { get; set; }
+    public string? PrognosedPlatform { get; set; }
 
     [JsonPropertyName("prognosisType")]
     public string? PrognosisType { get; set; }
 
     [JsonPropertyName("remarks")]
-    public IReadOnlyList<Remark> Remarks { get; set; }
+    public IReadOnlyList<Remark>? Remarks { get; set; }
 
     [JsonPropertyName("cancelled")]
     public bool? Cancelled { get; set; }
 
     [JsonPropertyName("loadFactor")]
-    public string LoadFactor { get; set; }
+    public string? LoadFactor { get; set; }
 
     [JsonPropertyName("previousStopovers")]
-    public IReadOnlyList<Stopover> PreviousStopovers { get; set; }
+    public IReadOnlyList<Stopover>? PreviousStopovers { get; set; }
 
     [JsonPropertyName("nextStopovers")]
-    public IReadOnlyList<Stopover> NextStopovers { get; set; }
+    public IReadOnlyList<Stopover>? NextStopovers { get; set; }
 
     /// <summary>Radar frames.</summary>
     [JsonPropertyName("frames")]
-    public IReadOnlyList<Frame> Frames { get; set; }
+    public IReadOnlyList<Frame>? Frames { get; set; }
 
     [JsonPropertyName("polyline")]
-    public Polyline Polyline { get; set; }
+    public Polyline? Polyline { get; set; }
 
     [JsonPropertyName("currentTripPosition")]
-    public Location CurrentTripPosition { get; set; }
+    public Location? CurrentTripPosition { get; set; }
 
 }
 
@@ -292,10 +292,10 @@ public class Frame
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("origin")]
-    public Place Origin { get; set; }
+    public Place? Origin { get; set; }
 
     [JsonPropertyName("destination")]
-    public Place Destination { get; set; }
+    public Place? Destination { get; set; }
 
     [JsonPropertyName("t")]
     public double? T { get; set; }
@@ -311,7 +311,7 @@ public class GeometryPoint
 
     /// <summary>[longitude, latitude].</summary>
     [JsonPropertyName("coordinates")]
-    public IReadOnlyList<double> Coordinates { get; set; }
+    public IReadOnlyList<double>? Coordinates { get; set; }
 
 }
 
@@ -323,29 +323,29 @@ public class Journey
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>Pass to refresh_journey for realtime updates.</summary>
     [JsonPropertyName("refreshToken")]
-    public string RefreshToken { get; set; }
+    public string? RefreshToken { get; set; }
 
     [JsonPropertyName("legs")]
-    public IReadOnlyList<Leg> Legs { get; set; }
+    public IReadOnlyList<Leg>? Legs { get; set; }
 
     [JsonPropertyName("remarks")]
-    public IReadOnlyList<Remark> Remarks { get; set; }
+    public IReadOnlyList<Remark>? Remarks { get; set; }
 
     [JsonPropertyName("price")]
-    public Price Price { get; set; }
+    public Price? Price { get; set; }
 
     [JsonPropertyName("cycle")]
-    public Cycle Cycle { get; set; }
+    public Cycle? Cycle { get; set; }
 
     [JsonPropertyName("serviceDays")]
-    public IReadOnlyDictionary<string, bool> ServiceDays { get; set; }
+    public IReadOnlyDictionary<string, bool>? ServiceDays { get; set; }
 
     [JsonPropertyName("scheduledDays")]
-    public IReadOnlyDictionary<string, bool> ScheduledDays { get; set; }
+    public IReadOnlyDictionary<string, bool>? ScheduledDays { get; set; }
 
 }
 
@@ -357,23 +357,23 @@ public class Leg
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("tripId")]
-    public string TripId { get; set; }
+    public string? TripId { get; set; }
 
     [JsonPropertyName("origin")]
-    public Place Origin { get; set; }
+    public Place? Origin { get; set; }
 
     [JsonPropertyName("destination")]
-    public Place Destination { get; set; }
+    public Place? Destination { get; set; }
 
     /// <summary>Absent for walking/transfer legs.</summary>
     [JsonPropertyName("line")]
-    public Line Line { get; set; }
+    public Line? Line { get; set; }
 
     [JsonPropertyName("direction")]
-    public string Direction { get; set; }
+    public string? Direction { get; set; }
 
     [JsonPropertyName("operator")]
-    public Operator Operator { get; set; }
+    public Operator? Operator { get; set; }
 
     [JsonPropertyName("departure")]
     public DateTimeOffset? Departure { get; set; }
@@ -389,13 +389,13 @@ public class Leg
     public long? DepartureDelay { get; set; }
 
     [JsonPropertyName("departurePlatform")]
-    public string DeparturePlatform { get; set; }
+    public string? DeparturePlatform { get; set; }
 
     [JsonPropertyName("plannedDeparturePlatform")]
-    public string PlannedDeparturePlatform { get; set; }
+    public string? PlannedDeparturePlatform { get; set; }
 
     [JsonPropertyName("prognosedDeparturePlatform")]
-    public string PrognosedDeparturePlatform { get; set; }
+    public string? PrognosedDeparturePlatform { get; set; }
 
     [JsonPropertyName("departurePrognosisType")]
     public string? DeparturePrognosisType { get; set; }
@@ -414,22 +414,22 @@ public class Leg
     public long? ArrivalDelay { get; set; }
 
     [JsonPropertyName("arrivalPlatform")]
-    public string ArrivalPlatform { get; set; }
+    public string? ArrivalPlatform { get; set; }
 
     [JsonPropertyName("plannedArrivalPlatform")]
-    public string PlannedArrivalPlatform { get; set; }
+    public string? PlannedArrivalPlatform { get; set; }
 
     [JsonPropertyName("prognosedArrivalPlatform")]
-    public string PrognosedArrivalPlatform { get; set; }
+    public string? PrognosedArrivalPlatform { get; set; }
 
     [JsonPropertyName("arrivalPrognosisType")]
     public string? ArrivalPrognosisType { get; set; }
 
     [JsonPropertyName("stopovers")]
-    public IReadOnlyList<Stopover> Stopovers { get; set; }
+    public IReadOnlyList<Stopover>? Stopovers { get; set; }
 
     [JsonPropertyName("remarks")]
-    public IReadOnlyList<Remark> Remarks { get; set; }
+    public IReadOnlyList<Remark>? Remarks { get; set; }
 
     [JsonPropertyName("walking")]
     public bool? Walking { get; set; }
@@ -452,35 +452,35 @@ public class Leg
     public bool? Cancelled { get; set; }
 
     [JsonPropertyName("loadFactor")]
-    public string LoadFactor { get; set; }
+    public string? LoadFactor { get; set; }
 
     [JsonPropertyName("cycle")]
-    public Cycle Cycle { get; set; }
+    public Cycle? Cycle { get; set; }
 
     [JsonPropertyName("alternatives")]
-    public IReadOnlyList<Departure> Alternatives { get; set; }
+    public IReadOnlyList<Departure>? Alternatives { get; set; }
 
     [JsonPropertyName("polyline")]
-    public Polyline Polyline { get; set; }
+    public Polyline? Polyline { get; set; }
 
     [JsonPropertyName("price")]
-    public Price Price { get; set; }
+    public Price? Price { get; set; }
 
     [JsonPropertyName("schedule")]
     public long? Schedule { get; set; }
 
     [JsonPropertyName("currentLocation")]
-    public Location CurrentLocation { get; set; }
+    public Location? CurrentLocation { get; set; }
 
     [JsonPropertyName("checkin")]
     public bool? Checkin { get; set; }
 
     [JsonPropertyName("serviceDays")]
-    public IReadOnlyDictionary<string, bool> ServiceDays { get; set; }
+    public IReadOnlyDictionary<string, bool>? ServiceDays { get; set; }
 
     /// <summary>hafas-client style; db-vendo uses serviceDays.</summary>
     [JsonPropertyName("scheduledDays")]
-    public IReadOnlyDictionary<string, bool> ScheduledDays { get; set; }
+    public IReadOnlyDictionary<string, bool>? ScheduledDays { get; set; }
 
 }
 
@@ -492,32 +492,32 @@ public class Line
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("additionalName")]
-    public string AdditionalName { get; set; }
+    public string? AdditionalName { get; set; }
 
     [JsonPropertyName("adminCode")]
-    public string AdminCode { get; set; }
+    public string? AdminCode { get; set; }
 
     [JsonPropertyName("fahrtNr")]
-    public string FahrtNr { get; set; }
+    public string? FahrtNr { get; set; }
 
     /// <summary>Profile-specific product key (open string).</summary>
     [JsonPropertyName("product")]
-    public string Product { get; set; }
+    public string? Product { get; set; }
 
     [JsonPropertyName("productName")]
-    public string ProductName { get; set; }
+    public string? ProductName { get; set; }
 
     [JsonPropertyName("mode")]
     public string? Mode { get; set; }
 
     [JsonPropertyName("operator")]
-    public Operator Operator { get; set; }
+    public Operator? Operator { get; set; }
 
     [JsonPropertyName("express")]
     public bool? Express { get; set; }
@@ -532,17 +532,17 @@ public class Line
     public long? Nr { get; set; }
 
     [JsonPropertyName("symbol")]
-    public string Symbol { get; set; }
+    public string? Symbol { get; set; }
 
     [JsonPropertyName("public")]
     public bool? Public { get; set; }
 
     [JsonPropertyName("directions")]
-    public IReadOnlyList<string> Directions { get; set; }
+    public IReadOnlyList<string>? Directions { get; set; }
 
     /// <summary>Route ids.</summary>
     [JsonPropertyName("routes")]
-    public IReadOnlyList<string> Routes { get; set; }
+    public IReadOnlyList<string>? Routes { get; set; }
 
 }
 
@@ -554,16 +554,16 @@ public class Location
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("poi")]
     public bool? Poi { get; set; }
 
     [JsonPropertyName("address")]
-    public string Address { get; set; }
+    public string? Address { get; set; }
 
     [JsonPropertyName("latitude")]
     public double? Latitude { get; set; }
@@ -588,25 +588,25 @@ public class Movement
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("direction")]
-    public string Direction { get; set; }
+    public string? Direction { get; set; }
 
     [JsonPropertyName("tripId")]
-    public string TripId { get; set; }
+    public string? TripId { get; set; }
 
     [JsonPropertyName("line")]
-    public Line Line { get; set; }
+    public Line? Line { get; set; }
 
     [JsonPropertyName("location")]
-    public Location Location { get; set; }
+    public Location? Location { get; set; }
 
     [JsonPropertyName("nextStopovers")]
-    public IReadOnlyList<Stopover> NextStopovers { get; set; }
+    public IReadOnlyList<Stopover>? NextStopovers { get; set; }
 
     [JsonPropertyName("frames")]
-    public IReadOnlyList<Frame> Frames { get; set; }
+    public IReadOnlyList<Frame>? Frames { get; set; }
 
     [JsonPropertyName("polyline")]
-    public Polyline Polyline { get; set; }
+    public Polyline? Polyline { get; set; }
 
 }
 
@@ -618,10 +618,10 @@ public class Operator
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
 }
 
@@ -633,7 +633,7 @@ public class Polyline
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("features")]
-    public IReadOnlyList<PolylineFeature> Features { get; set; }
+    public IReadOnlyList<PolylineFeature>? Features { get; set; }
 
 }
 
@@ -645,10 +645,10 @@ public class PolylineFeature
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("properties")]
-    public LocationResult Properties { get; set; }
+    public LocationResult? Properties { get; set; }
 
     [JsonPropertyName("geometry")]
-    public GeometryPoint Geometry { get; set; }
+    public GeometryPoint? Geometry { get; set; }
 
 }
 
@@ -663,10 +663,10 @@ public class Price
     public double? Amount { get; set; }
 
     [JsonPropertyName("currency")]
-    public string Currency { get; set; }
+    public string? Currency { get; set; }
 
     [JsonPropertyName("hint")]
-    public string Hint { get; set; }
+    public string? Hint { get; set; }
 
 }
 
@@ -682,7 +682,7 @@ public class ReachableDuration
     public long? Duration { get; set; }
 
     [JsonPropertyName("stations")]
-    public IReadOnlyList<LocationResult> Stations { get; set; }
+    public IReadOnlyList<LocationResult>? Stations { get; set; }
 
 }
 
@@ -694,35 +694,35 @@ public class Remark
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("type")]
-    public string Kind { get; set; }
+    public string? Kind { get; set; }
 
     [JsonPropertyName("code")]
-    public string Code { get; set; }
+    public string? Code { get; set; }
 
     [JsonPropertyName("summary")]
-    public string Summary { get; set; }
+    public string? Summary { get; set; }
 
     [JsonPropertyName("text")]
-    public string Text { get; set; }
+    public string? Text { get; set; }
 
     [JsonPropertyName("tripId")]
-    public string TripId { get; set; }
+    public string? TripId { get; set; }
 
     /// <summary>Warning id.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("priority")]
     public long? Priority { get; set; }
 
     [JsonPropertyName("category")]
-    public string Category { get; set; }
+    public string? Category { get; set; }
 
     [JsonPropertyName("products")]
-    public IReadOnlyDictionary<string, bool> Products { get; set; }
+    public IReadOnlyDictionary<string, bool>? Products { get; set; }
 
     [JsonPropertyName("company")]
-    public string Company { get; set; }
+    public string? Company { get; set; }
 
     [JsonPropertyName("validFrom")]
     public DateTimeOffset? ValidFrom { get; set; }
@@ -734,13 +734,13 @@ public class Remark
     public DateTimeOffset? Modified { get; set; }
 
     [JsonPropertyName("affectedLines")]
-    public IReadOnlyList<Line> AffectedLines { get; set; }
+    public IReadOnlyList<Line>? AffectedLines { get; set; }
 
     [JsonPropertyName("fromStops")]
-    public IReadOnlyList<LocationResult> FromStops { get; set; }
+    public IReadOnlyList<LocationResult>? FromStops { get; set; }
 
     [JsonPropertyName("toStops")]
-    public IReadOnlyList<LocationResult> ToStops { get; set; }
+    public IReadOnlyList<LocationResult>? ToStops { get; set; }
 
 }
 
@@ -752,45 +752,45 @@ public class Station
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("station")]
-    public Station StationRef { get; set; }
+    public Station? StationRef { get; set; }
 
     [JsonPropertyName("location")]
-    public Location Location { get; set; }
+    public Location? Location { get; set; }
 
     [JsonPropertyName("products")]
-    public IReadOnlyDictionary<string, bool> Products { get; set; }
+    public IReadOnlyDictionary<string, bool>? Products { get; set; }
 
     [JsonPropertyName("lines")]
-    public IReadOnlyList<Line> Lines { get; set; }
+    public IReadOnlyList<Line>? Lines { get; set; }
 
     [JsonPropertyName("isMeta")]
     public bool? IsMeta { get; set; }
 
     /// <summary>Region ids.</summary>
     [JsonPropertyName("regions")]
-    public IReadOnlyList<string> Regions { get; set; }
+    public IReadOnlyList<string>? Regions { get; set; }
 
     [JsonPropertyName("facilities")]
-    public IReadOnlyDictionary<string, string> Facilities { get; set; }
+    public IReadOnlyDictionary<string, string>? Facilities { get; set; }
 
     [JsonPropertyName("reisezentrumOpeningHours")]
-    public IReadOnlyDictionary<string, string> OpeningHours { get; set; }
+    public IReadOnlyDictionary<string, string>? OpeningHours { get; set; }
 
     /// <summary>Sub-stops.</summary>
     [JsonPropertyName("stops")]
-    public IReadOnlyList<LocationResult> Stops { get; set; }
+    public IReadOnlyList<LocationResult>? Stops { get; set; }
 
     [JsonPropertyName("entrances")]
-    public IReadOnlyList<Location> Entrances { get; set; }
+    public IReadOnlyList<Location>? Entrances { get; set; }
 
     [JsonPropertyName("transitAuthority")]
-    public string TransitAuthority { get; set; }
+    public string? TransitAuthority { get; set; }
 
     [JsonPropertyName("distance")]
     public double? Distance { get; set; }
@@ -805,42 +805,42 @@ public class Stop
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>Parent station.</summary>
     [JsonPropertyName("station")]
-    public Station Station { get; set; }
+    public Station? Station { get; set; }
 
     [JsonPropertyName("location")]
-    public Location Location { get; set; }
+    public Location? Location { get; set; }
 
     [JsonPropertyName("products")]
-    public IReadOnlyDictionary<string, bool> Products { get; set; }
+    public IReadOnlyDictionary<string, bool>? Products { get; set; }
 
     [JsonPropertyName("ids")]
-    public IReadOnlyDictionary<string, string> Ids { get; set; }
+    public IReadOnlyDictionary<string, string>? Ids { get; set; }
 
     [JsonPropertyName("lines")]
-    public IReadOnlyList<Line> Lines { get; set; }
+    public IReadOnlyList<Line>? Lines { get; set; }
 
     [JsonPropertyName("entrances")]
-    public IReadOnlyList<Location> Entrances { get; set; }
+    public IReadOnlyList<Location>? Entrances { get; set; }
 
     [JsonPropertyName("isMeta")]
     public bool? IsMeta { get; set; }
 
     [JsonPropertyName("reisezentrumOpeningHours")]
-    public IReadOnlyDictionary<string, string> OpeningHours { get; set; }
+    public IReadOnlyDictionary<string, string>? OpeningHours { get; set; }
 
     /// <summary>Open value set: low/medium/high/...</summary>
     [JsonPropertyName("loadFactor")]
-    public string LoadFactor { get; set; }
+    public string? LoadFactor { get; set; }
 
     [JsonPropertyName("transitAuthority")]
-    public string TransitAuthority { get; set; }
+    public string? TransitAuthority { get; set; }
 
     [JsonPropertyName("distance")]
     public double? Distance { get; set; }
@@ -855,7 +855,7 @@ public class Stopover
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("stop")]
-    public StopOrStation Stop { get; set; }
+    public StopOrStation? Stop { get; set; }
 
     /// <summary>Null/absent on the first stopover.</summary>
     [JsonPropertyName("arrival")]
@@ -872,13 +872,13 @@ public class Stopover
     public long? ArrivalDelay { get; set; }
 
     [JsonPropertyName("arrivalPlatform")]
-    public string ArrivalPlatform { get; set; }
+    public string? ArrivalPlatform { get; set; }
 
     [JsonPropertyName("plannedArrivalPlatform")]
-    public string PlannedArrivalPlatform { get; set; }
+    public string? PlannedArrivalPlatform { get; set; }
 
     [JsonPropertyName("prognosedArrivalPlatform")]
-    public string PrognosedArrivalPlatform { get; set; }
+    public string? PrognosedArrivalPlatform { get; set; }
 
     [JsonPropertyName("arrivalPrognosisType")]
     public string? ArrivalPrognosisType { get; set; }
@@ -898,19 +898,19 @@ public class Stopover
     public long? DepartureDelay { get; set; }
 
     [JsonPropertyName("departurePlatform")]
-    public string DeparturePlatform { get; set; }
+    public string? DeparturePlatform { get; set; }
 
     [JsonPropertyName("plannedDeparturePlatform")]
-    public string PlannedDeparturePlatform { get; set; }
+    public string? PlannedDeparturePlatform { get; set; }
 
     [JsonPropertyName("prognosedDeparturePlatform")]
-    public string PrognosedDeparturePlatform { get; set; }
+    public string? PrognosedDeparturePlatform { get; set; }
 
     [JsonPropertyName("departurePrognosisType")]
     public string? DeparturePrognosisType { get; set; }
 
     [JsonPropertyName("remarks")]
-    public IReadOnlyList<Remark> Remarks { get; set; }
+    public IReadOnlyList<Remark>? Remarks { get; set; }
 
     /// <summary>Vehicle passes without stopping.</summary>
     [JsonPropertyName("passBy")]
@@ -933,22 +933,22 @@ public class Trip
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("origin")]
-    public Place Origin { get; set; }
+    public Place? Origin { get; set; }
 
     [JsonPropertyName("destination")]
-    public Place Destination { get; set; }
+    public Place? Destination { get; set; }
 
     [JsonPropertyName("line")]
-    public Line Line { get; set; }
+    public Line? Line { get; set; }
 
     [JsonPropertyName("direction")]
-    public string Direction { get; set; }
+    public string? Direction { get; set; }
 
     [JsonPropertyName("operator")]
-    public Operator Operator { get; set; }
+    public Operator? Operator { get; set; }
 
     [JsonPropertyName("departure")]
     public DateTimeOffset? Departure { get; set; }
@@ -963,13 +963,13 @@ public class Trip
     public long? DepartureDelay { get; set; }
 
     [JsonPropertyName("departurePlatform")]
-    public string DeparturePlatform { get; set; }
+    public string? DeparturePlatform { get; set; }
 
     [JsonPropertyName("plannedDeparturePlatform")]
-    public string PlannedDeparturePlatform { get; set; }
+    public string? PlannedDeparturePlatform { get; set; }
 
     [JsonPropertyName("prognosedDeparturePlatform")]
-    public string PrognosedDeparturePlatform { get; set; }
+    public string? PrognosedDeparturePlatform { get; set; }
 
     [JsonPropertyName("departurePrognosisType")]
     public string? DeparturePrognosisType { get; set; }
@@ -987,22 +987,22 @@ public class Trip
     public long? ArrivalDelay { get; set; }
 
     [JsonPropertyName("arrivalPlatform")]
-    public string ArrivalPlatform { get; set; }
+    public string? ArrivalPlatform { get; set; }
 
     [JsonPropertyName("plannedArrivalPlatform")]
-    public string PlannedArrivalPlatform { get; set; }
+    public string? PlannedArrivalPlatform { get; set; }
 
     [JsonPropertyName("prognosedArrivalPlatform")]
-    public string PrognosedArrivalPlatform { get; set; }
+    public string? PrognosedArrivalPlatform { get; set; }
 
     [JsonPropertyName("arrivalPrognosisType")]
     public string? ArrivalPrognosisType { get; set; }
 
     [JsonPropertyName("stopovers")]
-    public IReadOnlyList<Stopover> Stopovers { get; set; }
+    public IReadOnlyList<Stopover>? Stopovers { get; set; }
 
     [JsonPropertyName("remarks")]
-    public IReadOnlyList<Remark> Remarks { get; set; }
+    public IReadOnlyList<Remark>? Remarks { get; set; }
 
     [JsonPropertyName("walking")]
     public bool? Walking { get; set; }
@@ -1020,34 +1020,34 @@ public class Trip
     public bool? Cancelled { get; set; }
 
     [JsonPropertyName("loadFactor")]
-    public string LoadFactor { get; set; }
+    public string? LoadFactor { get; set; }
 
     [JsonPropertyName("cycle")]
-    public Cycle Cycle { get; set; }
+    public Cycle? Cycle { get; set; }
 
     [JsonPropertyName("alternatives")]
-    public IReadOnlyList<Departure> Alternatives { get; set; }
+    public IReadOnlyList<Departure>? Alternatives { get; set; }
 
     [JsonPropertyName("polyline")]
-    public Polyline Polyline { get; set; }
+    public Polyline? Polyline { get; set; }
 
     [JsonPropertyName("price")]
-    public Price Price { get; set; }
+    public Price? Price { get; set; }
 
     [JsonPropertyName("schedule")]
     public long? Schedule { get; set; }
 
     [JsonPropertyName("currentLocation")]
-    public Location CurrentLocation { get; set; }
+    public Location? CurrentLocation { get; set; }
 
     [JsonPropertyName("checkin")]
     public bool? Checkin { get; set; }
 
     [JsonPropertyName("serviceDays")]
-    public IReadOnlyDictionary<string, bool> ServiceDays { get; set; }
+    public IReadOnlyDictionary<string, bool>? ServiceDays { get; set; }
 
     [JsonPropertyName("scheduledDays")]
-    public IReadOnlyDictionary<string, bool> ScheduledDays { get; set; }
+    public IReadOnlyDictionary<string, bool>? ScheduledDays { get; set; }
 
 }
 
@@ -1059,7 +1059,7 @@ public class ArrivalsResponse
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("arrivals")]
-    public IReadOnlyList<Departure> Arrivals { get; set; }
+    public IReadOnlyList<Departure>? Arrivals { get; set; }
 
     [JsonPropertyName("realtimeDataUpdatedAt")]
     public long? RealtimeDataUpdatedAt { get; set; }
@@ -1074,7 +1074,7 @@ public class DeparturesResponse
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("departures")]
-    public IReadOnlyList<Departure> Departures { get; set; }
+    public IReadOnlyList<Departure>? Departures { get; set; }
 
     [JsonPropertyName("realtimeDataUpdatedAt")]
     public long? RealtimeDataUpdatedAt { get; set; }
@@ -1089,7 +1089,7 @@ public class JourneyResponse
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("journey")]
-    public Journey Journey { get; set; }
+    public Journey? Journey { get; set; }
 
     [JsonPropertyName("realtimeDataUpdatedAt")]
     public long? RealtimeDataUpdatedAt { get; set; }
@@ -1104,13 +1104,13 @@ public class JourneysResponse
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("journeys")]
-    public IReadOnlyList<Journey> Journeys { get; set; }
+    public IReadOnlyList<Journey>? Journeys { get; set; }
 
     [JsonPropertyName("earlierRef")]
-    public string EarlierRef { get; set; }
+    public string? EarlierRef { get; set; }
 
     [JsonPropertyName("laterRef")]
-    public string LaterRef { get; set; }
+    public string? LaterRef { get; set; }
 
     [JsonPropertyName("realtimeDataUpdatedAt")]
     public long? RealtimeDataUpdatedAt { get; set; }
@@ -1125,7 +1125,7 @@ public class RadarResponse
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("movements")]
-    public IReadOnlyList<Movement> Movements { get; set; }
+    public IReadOnlyList<Movement>? Movements { get; set; }
 
     [JsonPropertyName("realtimeDataUpdatedAt")]
     public long? RealtimeDataUpdatedAt { get; set; }
@@ -1140,7 +1140,7 @@ public class ReachableFromResponse
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("reachable")]
-    public IReadOnlyList<ReachableDuration> Reachable { get; set; }
+    public IReadOnlyList<ReachableDuration>? Reachable { get; set; }
 
     [JsonPropertyName("realtimeDataUpdatedAt")]
     public long? RealtimeDataUpdatedAt { get; set; }
@@ -1155,7 +1155,7 @@ public class TripResponse
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("trip")]
-    public Trip Trip { get; set; }
+    public Trip? Trip { get; set; }
 
     [JsonPropertyName("realtimeDataUpdatedAt")]
     public long? RealtimeDataUpdatedAt { get; set; }
@@ -1170,7 +1170,7 @@ public class TripsResponse
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("trips")]
-    public IReadOnlyList<Trip> Trips { get; set; }
+    public IReadOnlyList<Trip>? Trips { get; set; }
 
     [JsonPropertyName("realtimeDataUpdatedAt")]
     public long? RealtimeDataUpdatedAt { get; set; }
