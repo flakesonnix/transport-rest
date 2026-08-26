@@ -23,9 +23,9 @@ type (
 
 // Cycle – Cycle times of a line/trip in minutes.
 type Cycle struct {
-	Min *int64 `json:"min,omitempty"`
-	Max *int64 `json:"max,omitempty"`
-	Nr  *int64 `json:"nr,omitempty"`
+	Min *float64 `json:"min,omitempty"`
+	Max *float64 `json:"max,omitempty"`
+	Nr  *float64 `json:"nr,omitempty"`
 }
 
 // Departure – A departure or arrival board entry (OpenAPI schema name: Alternative).
@@ -45,7 +45,7 @@ type Departure struct {
 	PlannedWhen   *time.Time `json:"plannedWhen,omitempty"`
 	PrognosedWhen *time.Time `json:"prognosedWhen,omitempty"`
 	// Seconds; null when unknown.
-	Delay *int64 `json:"delay,omitempty"`
+	Delay *float64 `json:"delay,omitempty"`
 	// Realtime platform; null if cancelled.
 	Platform          *string        `json:"platform,omitempty"`
 	PlannedPlatform   *string        `json:"plannedPlatform,omitempty"`
@@ -101,7 +101,7 @@ type Leg struct {
 	PlannedDeparture   *time.Time `json:"plannedDeparture,omitempty"`
 	PrognosedDeparture *time.Time `json:"prognosedDeparture,omitempty"`
 	// Seconds.
-	DepartureDelay             *int64         `json:"departureDelay,omitempty"`
+	DepartureDelay             *float64       `json:"departureDelay,omitempty"`
 	DeparturePlatform          *string        `json:"departurePlatform,omitempty"`
 	PlannedDeparturePlatform   *string        `json:"plannedDeparturePlatform,omitempty"`
 	PrognosedDeparturePlatform *string        `json:"prognosedDeparturePlatform,omitempty"`
@@ -110,7 +110,7 @@ type Leg struct {
 	PlannedArrival             *time.Time     `json:"plannedArrival,omitempty"`
 	PrognosedArrival           *time.Time     `json:"prognosedArrival,omitempty"`
 	// Seconds.
-	ArrivalDelay             *int64         `json:"arrivalDelay,omitempty"`
+	ArrivalDelay             *float64       `json:"arrivalDelay,omitempty"`
 	ArrivalPlatform          *string        `json:"arrivalPlatform,omitempty"`
 	PlannedArrivalPlatform   *string        `json:"plannedArrivalPlatform,omitempty"`
 	PrognosedArrivalPlatform *string        `json:"prognosedArrivalPlatform,omitempty"`
@@ -130,7 +130,7 @@ type Leg struct {
 	Alternatives    []Departure  `json:"alternatives,omitempty"`
 	Polyline        *Polyline    `json:"polyline,omitempty"`
 	Price           *Price       `json:"price,omitempty"`
-	Schedule        *int64       `json:"schedule,omitempty"`
+	Schedule        *float64     `json:"schedule,omitempty"`
 	CurrentLocation *Location    `json:"currentLocation,omitempty"`
 	Checkin         *bool        `json:"checkin,omitempty"`
 	ServiceDays     *ServiceDays `json:"serviceDays,omitempty"`
@@ -153,7 +153,7 @@ type Line struct {
 	Express     *bool     `json:"express,omitempty"`
 	Metro       *bool     `json:"metro,omitempty"`
 	Night       *bool     `json:"night,omitempty"`
-	Nr          *int64    `json:"nr,omitempty"`
+	Nr          *float64  `json:"nr,omitempty"`
 	Symbol      *string   `json:"symbol,omitempty"`
 	Public      *bool     `json:"public,omitempty"`
 	Directions  []string  `json:"directions,omitempty"`
@@ -212,7 +212,7 @@ type Price struct {
 // ReachableDuration – Reachability result: travel duration and reachable stations.
 type ReachableDuration struct {
 	// Seconds.
-	Duration *int64           `json:"duration,omitempty"`
+	Duration *float64         `json:"duration,omitempty"`
 	Stations []LocationResult `json:"stations,omitempty"`
 }
 
@@ -225,7 +225,7 @@ type Remark struct {
 	TripId  *string     `json:"tripId,omitempty"`
 	// Warning id.
 	Id            *string          `json:"id,omitempty"`
-	Priority      *int64           `json:"priority,omitempty"`
+	Priority      *float64         `json:"priority,omitempty"`
 	Category      *string          `json:"category,omitempty"`
 	Products      *Products        `json:"products,omitempty"`
 	Company       *string          `json:"company,omitempty"`
@@ -284,7 +284,7 @@ type Stopover struct {
 	PlannedArrival   *time.Time `json:"plannedArrival,omitempty"`
 	PrognosedArrival *time.Time `json:"prognosedArrival,omitempty"`
 	// Seconds.
-	ArrivalDelay             *int64         `json:"arrivalDelay,omitempty"`
+	ArrivalDelay             *float64       `json:"arrivalDelay,omitempty"`
 	ArrivalPlatform          *string        `json:"arrivalPlatform,omitempty"`
 	PlannedArrivalPlatform   *string        `json:"plannedArrivalPlatform,omitempty"`
 	PrognosedArrivalPlatform *string        `json:"prognosedArrivalPlatform,omitempty"`
@@ -294,7 +294,7 @@ type Stopover struct {
 	PlannedDeparture   *time.Time `json:"plannedDeparture,omitempty"`
 	PrognosedDeparture *time.Time `json:"prognosedDeparture,omitempty"`
 	// Seconds.
-	DepartureDelay             *int64         `json:"departureDelay,omitempty"`
+	DepartureDelay             *float64       `json:"departureDelay,omitempty"`
 	DeparturePlatform          *string        `json:"departurePlatform,omitempty"`
 	PlannedDeparturePlatform   *string        `json:"plannedDeparturePlatform,omitempty"`
 	PrognosedDeparturePlatform *string        `json:"prognosedDeparturePlatform,omitempty"`
@@ -318,7 +318,7 @@ type Trip struct {
 	Departure                  *time.Time     `json:"departure,omitempty"`
 	PlannedDeparture           *time.Time     `json:"plannedDeparture,omitempty"`
 	PrognosedDeparture         *time.Time     `json:"prognosedDeparture,omitempty"`
-	DepartureDelay             *int64         `json:"departureDelay,omitempty"`
+	DepartureDelay             *float64       `json:"departureDelay,omitempty"`
 	DeparturePlatform          *string        `json:"departurePlatform,omitempty"`
 	PlannedDeparturePlatform   *string        `json:"plannedDeparturePlatform,omitempty"`
 	PrognosedDeparturePlatform *string        `json:"prognosedDeparturePlatform,omitempty"`
@@ -326,7 +326,7 @@ type Trip struct {
 	Arrival                    *time.Time     `json:"arrival,omitempty"`
 	PlannedArrival             *time.Time     `json:"plannedArrival,omitempty"`
 	PrognosedArrival           *time.Time     `json:"prognosedArrival,omitempty"`
-	ArrivalDelay               *int64         `json:"arrivalDelay,omitempty"`
+	ArrivalDelay               *float64       `json:"arrivalDelay,omitempty"`
 	ArrivalPlatform            *string        `json:"arrivalPlatform,omitempty"`
 	PlannedArrivalPlatform     *string        `json:"plannedArrivalPlatform,omitempty"`
 	PrognosedArrivalPlatform   *string        `json:"prognosedArrivalPlatform,omitempty"`
@@ -343,7 +343,7 @@ type Trip struct {
 	Alternatives               []Departure    `json:"alternatives,omitempty"`
 	Polyline                   *Polyline      `json:"polyline,omitempty"`
 	Price                      *Price         `json:"price,omitempty"`
-	Schedule                   *int64         `json:"schedule,omitempty"`
+	Schedule                   *float64       `json:"schedule,omitempty"`
 	CurrentLocation            *Location      `json:"currentLocation,omitempty"`
 	Checkin                    *bool          `json:"checkin,omitempty"`
 	ServiceDays                *ServiceDays   `json:"serviceDays,omitempty"`
@@ -353,19 +353,19 @@ type Trip struct {
 // ArrivalsResponse – Response of GET /stops/{id}/arrivals.
 type ArrivalsResponse struct {
 	Arrivals              []Departure `json:"arrivals"`
-	RealtimeDataUpdatedAt *int64      `json:"realtimeDataUpdatedAt,omitempty"`
+	RealtimeDataUpdatedAt *float64    `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // DeparturesResponse – Response of GET /stops/{id}/departures.
 type DeparturesResponse struct {
 	Departures            []Departure `json:"departures"`
-	RealtimeDataUpdatedAt *int64      `json:"realtimeDataUpdatedAt,omitempty"`
+	RealtimeDataUpdatedAt *float64    `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // JourneyResponse – Response of GET /journeys/{ref}.
 type JourneyResponse struct {
 	Journey               *Journey `json:"journey"`
-	RealtimeDataUpdatedAt *int64   `json:"realtimeDataUpdatedAt,omitempty"`
+	RealtimeDataUpdatedAt *float64 `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // JourneysResponse – Response of GET /journeys.
@@ -373,29 +373,29 @@ type JourneysResponse struct {
 	Journeys              []Journey `json:"journeys"`
 	EarlierRef            *string   `json:"earlierRef,omitempty"`
 	LaterRef              *string   `json:"laterRef,omitempty"`
-	RealtimeDataUpdatedAt *int64    `json:"realtimeDataUpdatedAt,omitempty"`
+	RealtimeDataUpdatedAt *float64  `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // RadarResponse – Response of GET /radar.
 type RadarResponse struct {
 	Movements             []Movement `json:"movements"`
-	RealtimeDataUpdatedAt *int64     `json:"realtimeDataUpdatedAt,omitempty"`
+	RealtimeDataUpdatedAt *float64   `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // ReachableFromResponse – Response of GET /stops/reachable-from.
 type ReachableFromResponse struct {
 	Reachable             []ReachableDuration `json:"reachable"`
-	RealtimeDataUpdatedAt *int64              `json:"realtimeDataUpdatedAt,omitempty"`
+	RealtimeDataUpdatedAt *float64            `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // TripResponse – Response of GET /trips/{id}.
 type TripResponse struct {
-	Trip                  *Trip  `json:"trip"`
-	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
+	Trip                  *Trip    `json:"trip"`
+	RealtimeDataUpdatedAt *float64 `json:"realtimeDataUpdatedAt,omitempty"`
 }
 
 // TripsResponse – Response of GET /trips (trips by name).
 type TripsResponse struct {
-	Trips                 []Trip `json:"trips"`
-	RealtimeDataUpdatedAt *int64 `json:"realtimeDataUpdatedAt,omitempty"`
+	Trips                 []Trip   `json:"trips"`
+	RealtimeDataUpdatedAt *float64 `json:"realtimeDataUpdatedAt,omitempty"`
 }

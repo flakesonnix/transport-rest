@@ -167,7 +167,7 @@ func TestCapabilityGating(t *testing.T) {
 func TestUnknownFieldsAreIgnored(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		_, _ = w.Write([]byte(`{"type":"stop","id":"futuristic","brandNewField":[1,2]}`))
+		_, _ = w.Write([]byte(`[{"type":"stop","id":"futuristic","brandNewField":[1,2]}]`))
 	}))
 	defer srv.Close()
 

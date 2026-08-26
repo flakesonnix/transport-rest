@@ -26,7 +26,9 @@ pub fn go_type(ty: &str) -> String {
     }
     match ty {
         "string" => "string".into(),
-        "int" => "int64".into(),
+        // Upstream mixes integers and floats for the same fields (delays!),
+        // so decode all numbers as float64.
+        "int" => "float64".into(),
         "float" => "float64".into(),
         "bool" => "bool".into(),
         "datetime" => "*time.Time".into(),
