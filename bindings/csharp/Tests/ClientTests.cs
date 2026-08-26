@@ -70,10 +70,10 @@ public class ClientTests
     }
 
     [Fact]
-    public void MissingQuery_ThrowsBeforeRequest()
+    public async Task MissingQuery_ThrowsBeforeRequest()
     {
         using var client = new TransportRestClient(baseUrl: "http://127.0.0.1:1/");
         var builder = client.Locations();
-        Assert.Throws<InvalidParameterException>(() => builder.GetAsync());
+        await Assert.ThrowsAsync<InvalidParameterException>(() => builder.GetAsync());
     }
 }
