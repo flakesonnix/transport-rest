@@ -242,7 +242,7 @@ public sealed class TransportRestClient : IDisposable
     public LocationsBuilder Locations() => new(this);
 
     public DeparturesBuilder Departures(string stopId) => DeparturesBuilder.Departures(this, stopId);
-    public ArrivalsBuilder Arrivals(string stopId) => ArrivalsBuilder.Arrivals(this, stopId);
+    public ArrivalsAdapter Arrivals(string stopId) => DeparturesBuilder.Arrivals(this, stopId);
 
     public JourneysBuilder Journeys(JourneyPlace from, JourneyPlace to) => new(this, from, to);
 

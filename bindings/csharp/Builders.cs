@@ -43,7 +43,7 @@ public sealed class ProductSelection
     }
 }
 
-internal abstract class BuilderBase<T>
+public abstract class BuilderBase<T>
 {
     protected readonly TransportRestClient client;
     private readonly Func<JsonElement, T> parse;

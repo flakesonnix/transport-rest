@@ -46,7 +46,7 @@ func TestLocationsHappyPath(t *testing.T) {
 	if len(result) != 2 {
 		t.Fatalf("expected 2 results, got %d", len(result))
 	}
-	if result[0].ID == nil || *result[0].ID != "8011160" {
+	if result[0]["id"] != "8011160" {
 		t.Fatalf("stop id mismatch: %+v", result[0])
 	}
 }
@@ -176,7 +176,7 @@ func TestUnknownFieldsAreIgnored(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Get: %v", err)
 	}
-	if len(stop) != 1 || stop[0].Type == nil || *stop[0].Type != "stop" {
+	if len(stop) != 1 || stop[0]["type"] != "stop" {
 		t.Fatalf("unexpected: %+v", stop)
 	}
 }
