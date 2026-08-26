@@ -3,6 +3,10 @@
 // </auto-generated>
 
 using System.Text.Json.Serialization;
+using Ids = IReadOnlyDictionary<string, string>;
+using OpeningHours = IReadOnlyDictionary<string, string>;
+using Products = IReadOnlyDictionary<string, bool>;
+using ServiceDays = IReadOnlyDictionary<string, bool>;
 
 namespace TransportRest.Models;
 
@@ -151,14 +155,6 @@ public enum WalkingSpeed : string
     fast,
 }
 
-/// <summary>External identifiers (e.g. dhid, MDV, NASA).</summary>
-using Ids = IReadOnlyDictionary<string, string>;
-/// <summary>Weekday abbreviation -> hours string.</summary>
-using OpeningHours = IReadOnlyDictionary<string, string>;
-/// <summary>Profile-specific product flags keyed by product name.</summary>
-using Products = IReadOnlyDictionary<string, bool>;
-/// <summary>ISO date -> served. db-vendo: serviceDays; hafas-client: scheduledDays.</summary>
-using ServiceDays = IReadOnlyDictionary<string, bool>;
 /// <summary>Cycle times of a line/trip in minutes.</summary>
 public class Cycle
 {

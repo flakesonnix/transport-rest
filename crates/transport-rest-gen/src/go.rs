@@ -38,7 +38,11 @@ pub fn go_type(ty: &str) -> String {
 pub fn emit(ir: &Ir) -> String {
     let mut out = String::from(HEADER);
 
-    out.push_str("// Enums and aliases are represented as their underlying scalar types;\n// see schema/types.json for the known values.\ntype (\n\tMode = string\n\tPrognosisType = string\n\tRemarkKind = string\n\tDbProfile = string\n\tProducts = map[string]bool\n\tIds = map[string]string\n\tServiceDays = map[string]bool\n\tOpeningHours = map[string]string\n)\n\n");
+    out.push_str("// Enums and aliases are represented as their underlying scalar types;\n// see schema/types.json for the known values. Tagged unions decode as raw JSON\n// objects; dispatch on their \"type\" field.\ntype (\n\tMode = string\n\tPrognosisType = string\n\tRemarkKind = string\n\tDbProfile = string\n\tProducts = map[string]bool\n\tIds = map[string]string\n\tServiceDays = map[string]bool\n\tOpeningHours = map[string]string\n");
+    for name in ir.rest.unions.keys() {
+        out.push_str(&format!("\t{name} = map[string]any\n"));
+    }
+    out.push_str(")\n\n");
 
     for (name, def) in ir.rest.models.iter().chain(ir.rest.envelopes.iter()) {
         if let Some(doc) = &def.doc {

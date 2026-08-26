@@ -5,16 +5,20 @@ package transportrest
 import "time"
 
 // Enums and aliases are represented as their underlying scalar types;
-// see schema/types.json for the known values.
+// see schema/types.json for the known values. Tagged unions decode as raw JSON
+// objects; dispatch on their "type" field.
 type (
-	Mode          = string
-	PrognosisType = string
-	RemarkKind    = string
-	DbProfile     = string
-	Products      = map[string]bool
-	Ids           = map[string]string
-	ServiceDays   = map[string]bool
-	OpeningHours  = map[string]string
+	Mode           = string
+	PrognosisType  = string
+	RemarkKind     = string
+	DbProfile      = string
+	Products       = map[string]bool
+	Ids            = map[string]string
+	ServiceDays    = map[string]bool
+	OpeningHours   = map[string]string
+	LocationResult = map[string]any
+	Place          = map[string]any
+	StopOrStation  = map[string]any
 )
 
 // Cycle – Cycle times of a line/trip in minutes.
