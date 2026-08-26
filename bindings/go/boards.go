@@ -10,17 +10,17 @@ import (
 // boardOptions carries the shared board query state; each exported builder
 // owns a copy and exposes fluent setters returning its own type.
 type boardOptions struct {
-	when                  *time.Time
-	direction             *string
-	duration              *int
-	results               *int
-	stopovers             *bool
+	when                   *time.Time
+	direction              *string
+	duration               *int
+	results                *int
+	stopovers              *bool
 	includeRelatedStations *bool
-	linesOfStops          *bool
-	remarks               *bool
-	language              *string
-	moreStops             []string
-	products              []queryParam
+	linesOfStops           *bool
+	remarks                *bool
+	language               *string
+	moreStops              []string
+	products               []queryParam
 }
 
 func (o *boardOptions) encode(into []queryParam) []queryParam {
@@ -75,10 +75,16 @@ func (c *Client) Departures(ctx context.Context, stopID string) *DeparturesBuild
 }
 
 func (b *DeparturesBuilder) When(t time.Time) *DeparturesBuilder { b.opts.when = ptrOf(t); return b }
-func (b *DeparturesBuilder) Direction(d string) *DeparturesBuilder { b.opts.direction = ptrOf(d); return b }
+func (b *DeparturesBuilder) Direction(d string) *DeparturesBuilder {
+	b.opts.direction = ptrOf(d)
+	return b
+}
 func (b *DeparturesBuilder) Duration(m int) *DeparturesBuilder { b.opts.duration = ptrOf(m); return b }
-func (b *DeparturesBuilder) Results(n int) *DeparturesBuilder { b.opts.results = ptrOf(n); return b }
-func (b *DeparturesBuilder) Stopovers(v bool) *DeparturesBuilder { b.opts.stopovers = ptrOf(v); return b }
+func (b *DeparturesBuilder) Results(n int) *DeparturesBuilder  { b.opts.results = ptrOf(n); return b }
+func (b *DeparturesBuilder) Stopovers(v bool) *DeparturesBuilder {
+	b.opts.stopovers = ptrOf(v)
+	return b
+}
 func (b *DeparturesBuilder) IncludeRelatedStations(v bool) *DeparturesBuilder {
 	b.opts.includeRelatedStations = ptrOf(v)
 	return b
@@ -88,7 +94,10 @@ func (b *DeparturesBuilder) LinesOfStops(v bool) *DeparturesBuilder {
 	return b
 }
 func (b *DeparturesBuilder) Remarks(v bool) *DeparturesBuilder { b.opts.remarks = ptrOf(v); return b }
-func (b *DeparturesBuilder) Language(l string) *DeparturesBuilder { b.opts.language = ptrOf(l); return b }
+func (b *DeparturesBuilder) Language(l string) *DeparturesBuilder {
+	b.opts.language = ptrOf(l)
+	return b
+}
 func (b *DeparturesBuilder) MoreStops(ids []string) *DeparturesBuilder {
 	b.opts.moreStops = ids
 	return b
@@ -122,11 +131,11 @@ func (c *Client) Arrivals(ctx context.Context, stopID string) *ArrivalsBuilder {
 		path: "/stops/" + encodePathSegment(stopID) + "/arrivals"}
 }
 
-func (b *ArrivalsBuilder) When(t time.Time) *ArrivalsBuilder { b.opts.when = ptrOf(t); return b }
+func (b *ArrivalsBuilder) When(t time.Time) *ArrivalsBuilder   { b.opts.when = ptrOf(t); return b }
 func (b *ArrivalsBuilder) Direction(d string) *ArrivalsBuilder { b.opts.direction = ptrOf(d); return b }
-func (b *ArrivalsBuilder) Duration(m int) *ArrivalsBuilder { b.opts.duration = ptrOf(m); return b }
-func (b *ArrivalsBuilder) Results(n int) *ArrivalsBuilder { b.opts.results = ptrOf(n); return b }
-func (b *ArrivalsBuilder) Stopovers(v bool) *ArrivalsBuilder { b.opts.stopovers = ptrOf(v); return b }
+func (b *ArrivalsBuilder) Duration(m int) *ArrivalsBuilder     { b.opts.duration = ptrOf(m); return b }
+func (b *ArrivalsBuilder) Results(n int) *ArrivalsBuilder      { b.opts.results = ptrOf(n); return b }
+func (b *ArrivalsBuilder) Stopovers(v bool) *ArrivalsBuilder   { b.opts.stopovers = ptrOf(v); return b }
 func (b *ArrivalsBuilder) IncludeRelatedStations(v bool) *ArrivalsBuilder {
 	b.opts.includeRelatedStations = ptrOf(v)
 	return b
@@ -135,8 +144,8 @@ func (b *ArrivalsBuilder) LinesOfStops(v bool) *ArrivalsBuilder {
 	b.opts.linesOfStops = ptrOf(v)
 	return b
 }
-func (b *ArrivalsBuilder) Remarks(v bool) *ArrivalsBuilder { b.opts.remarks = ptrOf(v); return b }
-func (b *ArrivalsBuilder) Language(l string) *ArrivalsBuilder { b.opts.language = ptrOf(l); return b }
+func (b *ArrivalsBuilder) Remarks(v bool) *ArrivalsBuilder         { b.opts.remarks = ptrOf(v); return b }
+func (b *ArrivalsBuilder) Language(l string) *ArrivalsBuilder      { b.opts.language = ptrOf(l); return b }
 func (b *ArrivalsBuilder) MoreStops(ids []string) *ArrivalsBuilder { b.opts.moreStops = ids; return b }
 func (b *ArrivalsBuilder) Products(configure func(*ProductSelection) *ProductSelection) *ArrivalsBuilder {
 	b.opts.products = configure(&ProductSelection{}).entries

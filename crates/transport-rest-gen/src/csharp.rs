@@ -95,7 +95,7 @@ pub fn emit(ir: &Ir) -> String {
     for (name, def) in &ir.rest.enums {
         out.push_str(&format!(
             "/// <summary>{} Open enum: unknown wire values are valid strings.</summary>\npublic static class {}\n{{\n",
-            def.doc.as_deref().unwrap_or_else(|| name.as_str()),
+            def.doc.as_deref().unwrap_or(name.as_str()),
             name
         ));
         for v in &def.values {
