@@ -150,7 +150,7 @@ public sealed record JourneyPlace
     public static JourneyPlace Poi(string id, double lat, double lon) =>
         new() { Form = "poi", Id = id, Latitude = lat, Longitude = lon };
     public static JourneyPlace Address(double lat, double lon, string address) =>
-        new() { Form = "address", Latitude = lat, Longitude = lon, Address = address };
+        new() { Form = "address", Latitude = lat, Longitude = lon, Address_ = address };
 
     public string? Form { get; init; }
     public string? Id { get; init; }

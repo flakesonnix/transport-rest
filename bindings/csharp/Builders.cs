@@ -126,18 +126,15 @@ public abstract class BoardBuilder<T> : BuilderBase<T>
 
 public sealed class DeparturesBuilder : BoardBuilder<DeparturesResponse>
 {
-    internal static DeparturesBuilder Departures(TransportRestClient c, string stopId) =>
-        new(c, $"/stops/{Uri.EscapeDataString(stopId)}/departures");
-
-    internal static ArrivalsAdapter Arrivals(TransportRestClient c, string stopId) =>
-        new(c, $"/stops/{Uri.EscapeDataString(stopId)}/arrivals");
+    internal static DeparturesBuilder Departures(TransportRestClient c, string stopId)
+    {
+        RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
+        return new DeparturesBuilder(c, $"/stops/{Uri.EscapeDataString(stopId)}/departures");
+    }
 
     private DeparturesBuilder(TransportRestClient client, string path)
         : base(client, path,
-            d => JsonSerializer.Deserialize<DeparturesResponse>(d)!)
-    {
-        Require(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
-    }
+            d => JsonSerializer.Deserialize<DeparturesResponse>(d)!) { }
 }
 
 public sealed class ArrivalsAdapter
@@ -145,8 +142,9 @@ public sealed class ArrivalsAdapter
     private readonly TransportRestClient client;
     private readonly string path;
 
-    internal ArrivalsAdapter(TransportRestClient client, string path)
+    internal ArrivalsAdapter(TransportRestClient client, string path, string stopId)
     {
+        RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
         this.client = client;
         this.path = path;
     }
