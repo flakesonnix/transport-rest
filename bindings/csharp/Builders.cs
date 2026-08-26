@@ -136,13 +136,13 @@ public sealed class DeparturesBuilder : BoardBuilder<DeparturesResponse>
 {
     internal static DeparturesBuilder Departures(TransportRestClient c, string stopId)
     {
-        RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
+        BuilderGuard.RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
         return new DeparturesBuilder(c, $"/stops/{Uri.EscapeDataString(stopId)}/departures");
     }
 
     internal static ArrivalsAdapter Arrivals(TransportRestClient c, string stopId)
     {
-        RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
+        BuilderGuard.RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
         return new ArrivalsAdapter(c, $"/stops/{Uri.EscapeDataString(stopId)}/arrivals", stopId);
     }
 
@@ -158,7 +158,7 @@ public sealed class ArrivalsAdapter
 
     internal ArrivalsAdapter(TransportRestClient client, string path, string stopId)
     {
-        RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
+        BuilderGuard.RequireStatic(!string.IsNullOrWhiteSpace(stopId), "stop_id", "must not be empty");
         this.client = client;
         this.path = path;
     }
