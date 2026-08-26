@@ -1,5 +1,8 @@
 # transport-rest
 
+[![CI](https://github.com/flakesonnix/transport-rest/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/flakesonnix/transport-rest/actions/workflows/ci.yml)
+
+
 > Typed, multi-language client libraries for the [transport.rest](https://transport.rest)
 > public transit APIs — Deutsche Bahn, BVG/VBB Berlin & Brandenburg, Poland and
 > any compatible self-hosted instance.
