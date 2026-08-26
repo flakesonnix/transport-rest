@@ -3,12 +3,18 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <PackageId>TransportRest</PackageId>
     <Version>0.1.0</Version>
     <Authors>natasha</Authors>
     <Description>Typed client for the transport.rest public transit APIs (DB, BVG, VBB, Poland)</Description>
     <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/natasha/transport-rest</RepositoryUrl>
+    <RepositoryUrl>https://github.com/flakesonnix/transport-rest</RepositoryUrl>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="Client.cs" />
+    <Compile Include="Builders.cs" />
+    <Compile Include="Models.Generated.cs" />
+  </ItemGroup>
 </Project>
