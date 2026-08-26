@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using TransportRest;
 using TransportRest.Models;
+using Xunit;
 
 namespace TransportRest.Tests;
 
