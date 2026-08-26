@@ -145,8 +145,8 @@ public class CapabilityNotSupportedException : TransportRestException
 /// <summary>A place referenced by journey queries.</summary>
 public sealed record JourneyPlace
 {
-    public static JourneyPlace StopId(string id) => new() { Form = "id", Id = id };
-    public static JourneyPlace Name(string name) => new() { Form = "name", Name = name };
+    public static JourneyPlace FromStopId(string id) => new() { Form = "id", Id = id };
+    public static JourneyPlace FromName(string name) => new() { Form = "name", Name = name };
     public static JourneyPlace Poi(string id, double lat, double lon) =>
         new() { Form = "poi", Id = id, Latitude = lat, Longitude = lon };
     public static JourneyPlace Address(double lat, double lon, string address) =>

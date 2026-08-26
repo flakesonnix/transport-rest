@@ -1,4 +1,4 @@
-// Handwritten board (departures/arrivals) & journey & trip builders.
+// Handwritten departure/arrival board builders for the transport.rest Go binding.
 package transportrest
 
 import (
@@ -7,195 +7,147 @@ import (
 	"time"
 )
 
-func validateStopID(id string) error {
-	if strings.TrimSpace(id) == "" {
-		return &InvalidParameterError{Parameter: "stop_id", Reason: "must not be empty"}
-	}
-	return nil
+// boardOptions carries the shared board query state; each exported builder
+// owns a copy and exposes fluent setters returning its own type.
+type boardOptions struct {
+	when                  *time.Time
+	direction             *string
+	duration              *int
+	results               *int
+	stopovers             *bool
+	includeRelatedStations *bool
+	linesOfStops          *bool
+	remarks               *bool
+	language              *string
+	moreStops             []string
+	products              []queryParam
 }
 
-type boardBuilder struct {
+func (o *boardOptions) encode(into []queryParam) []queryParam {
+	if o.when != nil {
+		into = append(into, queryParam{"when", o.when.UTC().Format(time.RFC3339)})
+	}
+	if o.direction != nil {
+		into = append(into, queryParam{"direction", *o.direction})
+	}
+	if o.duration != nil {
+		into = append(into, queryParam{"duration", intStr(*o.duration)})
+	}
+	if o.results != nil {
+		into = append(into, queryParam{"results", intStr(*o.results)})
+	}
+	if o.stopovers != nil {
+		into = append(into, queryParam{"stopovers", formatBool(*o.stopovers)})
+	}
+	if o.includeRelatedStations != nil {
+		into = append(into, queryParam{"includeRelatedStations", formatBool(*o.includeRelatedStations)})
+	}
+	if o.linesOfStops != nil {
+		into = append(into, queryParam{"linesOfStops", formatBool(*o.linesOfStops)})
+	}
+	if o.remarks != nil {
+		into = append(into, queryParam{"remarks", formatBool(*o.remarks)})
+	}
+	if o.language != nil {
+		into = append(into, queryParam{"language", *o.language})
+	}
+	if len(o.moreStops) > 0 {
+		into = append(into, queryParam{"moreStops", strings.Join(o.moreStops, ",")})
+	}
+	into = append(into, o.products...)
+	return into
+}
+
+func ptrOf[T any](v T) *T { return &v }
+
+// DeparturesBuilder queries the departure board of a stop.
+type DeparturesBuilder struct {
 	client *Client
 	ctx    context.Context
 	path   string
-	params []queryParam
-	when   *time.Time
+	opts   boardOptions
 }
 
-func (b *boardBuilder) When(t time.Time) *boardBuilder { b.when = &t; return b }
-func (b *boardBuilder) Direction(d string) *boardBuilder {
-	b.params = append(b.params, queryParam{"direction", d})
-	return b
-}
-func (b *boardBuilder) Duration(m int) *boardBuilder {
-	b.params = append(b.params, queryParam{"duration", intStr(m)})
-	return b
-}
-func (b *boardBuilder) Results(n int) *boardBuilder {
-	b.params = append(b.params, queryParam{"results", intStr(n)})
-	return b
-}
-func (b *boardBuilder) Stopovers(v bool) *boardBuilder {
-	b.params = append(b.params, queryParam{"stopovers", formatBool(v)})
-	return b
-}
-func (b *boardBuilder) IncludeRelatedStations(v bool) *boardBuilder {
-	b.params = append(b.params, queryParam{"includeRelatedStations", formatBool(v)})
-	return b
-}
-func (b *boardBuilder) LinesOfStops(v bool) *boardBuilder {
-	b.params = append(b.params, queryParam{"linesOfStops", formatBool(v)})
-	return b
-}
-func (b *boardBuilder) Remarks(v bool) *boardBuilder {
-	b.params = append(b.params, queryParam{"remarks", formatBool(v)})
-	return b
-}
-func (b *boardBuilder) Language(l string) *boardBuilder {
-	b.params = append(b.params, queryParam{"language", l})
-	return b
-}
-func (b *boardBuilder) MoreStops(ids []string) *boardBuilder {
-	b.params = append(b.params, queryParam{"moreStops", strings.Join(ids, ",")})
-	return b
-}
-func (b *boardBuilder) Products(configure func(*ProductSelection) *ProductSelection) *boardBuilder {
-	sel := configure(&ProductSelection{})
-	b.params = append(b.params, sel.entries...)
-	return b
-}
-
-func (b *boardBuilder) encode() []queryParam {
-	all := []queryParam{}
-	if b.when != nil {
-		all = append(all, queryParam{"when", b.when.UTC().Format("2006-01-02T15:04:05Z07:00")})
-	}
-	return append(all, b.params...)
-}
-
-// Departures queries the departure board of a stop.
+// Departures starts a departure board query.
 func (c *Client) Departures(ctx context.Context, stopID string) *DeparturesBuilder {
-	return &DeparturesBuilder{boardBuilder{client: c, ctx: ctx,
-		path: "/stops/" + encodePathSegment(stopID) + "/departures"}}
+	return &DeparturesBuilder{client: c, ctx: ctx,
+		path: "/stops/" + encodePathSegment(stopID) + "/departures"}
 }
 
-// Arrivals queries the arrival board of a stop.
-func (c *Client) Arrivals(ctx context.Context, stopID string) *ArrivalsBuilder {
-	return &ArrivalsBuilder{boardBuilder{client: c, ctx: ctx,
-		path: "/stops/" + encodePathSegment(stopID) + "/arrivals"}}
+func (b *DeparturesBuilder) When(t time.Time) *DeparturesBuilder { b.opts.when = ptrOf(t); return b }
+func (b *DeparturesBuilder) Direction(d string) *DeparturesBuilder { b.opts.direction = ptrOf(d); return b }
+func (b *DeparturesBuilder) Duration(m int) *DeparturesBuilder { b.opts.duration = ptrOf(m); return b }
+func (b *DeparturesBuilder) Results(n int) *DeparturesBuilder { b.opts.results = ptrOf(n); return b }
+func (b *DeparturesBuilder) Stopovers(v bool) *DeparturesBuilder { b.opts.stopovers = ptrOf(v); return b }
+func (b *DeparturesBuilder) IncludeRelatedStations(v bool) *DeparturesBuilder {
+	b.opts.includeRelatedStations = ptrOf(v)
+	return b
 }
-
-type DeparturesBuilder struct{ boardBuilder }
+func (b *DeparturesBuilder) LinesOfStops(v bool) *DeparturesBuilder {
+	b.opts.linesOfStops = ptrOf(v)
+	return b
+}
+func (b *DeparturesBuilder) Remarks(v bool) *DeparturesBuilder { b.opts.remarks = ptrOf(v); return b }
+func (b *DeparturesBuilder) Language(l string) *DeparturesBuilder { b.opts.language = ptrOf(l); return b }
+func (b *DeparturesBuilder) MoreStops(ids []string) *DeparturesBuilder {
+	b.opts.moreStops = ids
+	return b
+}
+func (b *DeparturesBuilder) Products(configure func(*ProductSelection) *ProductSelection) *DeparturesBuilder {
+	b.opts.products = configure(&ProductSelection{}).entries
+	return b
+}
 
 // Get executes the departure board query.
 func (b *DeparturesBuilder) Get() (*DeparturesResponse, error) {
 	var out DeparturesResponse
-	if err := b.client.getJSON(b.ctx, b.path, b.encode(), &out, ""); err != nil {
+	params := b.opts.encode(nil)
+	if err := b.client.getJSON(b.ctx, b.path, params, &out, ""); err != nil {
 		return nil, err
 	}
 	return &out, nil
 }
 
-type ArrivalsBuilder struct{ boardBuilder }
+// ArrivalsBuilder queries the arrival board of a stop.
+type ArrivalsBuilder struct {
+	client *Client
+	ctx    context.Context
+	path   string
+	opts   boardOptions
+}
+
+// Arrivals starts an arrival board query.
+func (c *Client) Arrivals(ctx context.Context, stopID string) *ArrivalsBuilder {
+	return &ArrivalsBuilder{client: c, ctx: ctx,
+		path: "/stops/" + encodePathSegment(stopID) + "/arrivals"}
+}
+
+func (b *ArrivalsBuilder) When(t time.Time) *ArrivalsBuilder { b.opts.when = ptrOf(t); return b }
+func (b *ArrivalsBuilder) Direction(d string) *ArrivalsBuilder { b.opts.direction = ptrOf(d); return b }
+func (b *ArrivalsBuilder) Duration(m int) *ArrivalsBuilder { b.opts.duration = ptrOf(m); return b }
+func (b *ArrivalsBuilder) Results(n int) *ArrivalsBuilder { b.opts.results = ptrOf(n); return b }
+func (b *ArrivalsBuilder) Stopovers(v bool) *ArrivalsBuilder { b.opts.stopovers = ptrOf(v); return b }
+func (b *ArrivalsBuilder) IncludeRelatedStations(v bool) *ArrivalsBuilder {
+	b.opts.includeRelatedStations = ptrOf(v)
+	return b
+}
+func (b *ArrivalsBuilder) LinesOfStops(v bool) *ArrivalsBuilder {
+	b.opts.linesOfStops = ptrOf(v)
+	return b
+}
+func (b *ArrivalsBuilder) Remarks(v bool) *ArrivalsBuilder { b.opts.remarks = ptrOf(v); return b }
+func (b *ArrivalsBuilder) Language(l string) *ArrivalsBuilder { b.opts.language = ptrOf(l); return b }
+func (b *ArrivalsBuilder) MoreStops(ids []string) *ArrivalsBuilder { b.opts.moreStops = ids; return b }
+func (b *ArrivalsBuilder) Products(configure func(*ProductSelection) *ProductSelection) *ArrivalsBuilder {
+	b.opts.products = configure(&ProductSelection{}).entries
+	return b
+}
 
 // Get executes the arrival board query.
 func (b *ArrivalsBuilder) Get() (*ArrivalsResponse, error) {
 	var out ArrivalsResponse
-	if err := b.client.getJSON(b.ctx, b.path, b.encode(), &out, ""); err != nil {
-		return nil, err
-	}
-	return &out, nil
-}
-
-// Journeys starts a route search.
-func (c *Client) Journeys(ctx context.Context, from, to JourneyPlace) *JourneysBuilder {
-	return &JourneysBuilder{client: c, ctx: ctx, from: from, to: to}
-}
-
-type JourneysBuilder struct {
-	client *Client
-	ctx    context.Context
-	from   JourneyPlace
-	to     JourneyPlace
-	via    *JourneyPlace
-	params []queryParam
-}
-
-func (b *JourneysBuilder) Via(p JourneyPlace) *JourneysBuilder { b.via = &p; return b }
-func (b *JourneysBuilder) Departure(t time.Time) *JourneysBuilder {
-	b.params = append(b.params, queryParam{"departure", t.UTC().Format(time.RFC3339)})
-	return b
-}
-func (b *JourneysBuilder) Arrival(t time.Time) *JourneysBuilder {
-	b.params = append(b.params, queryParam{"arrival", t.UTC().Format(time.RFC3339)})
-	return b
-}
-func (b *JourneysBuilder) EarlierThan(ref string) *JourneysBuilder {
-	b.params = append(b.params, queryParam{"earlierThan", ref})
-	return b
-}
-func (b *JourneysBuilder) LaterThan(ref string) *JourneysBuilder {
-	b.params = append(b.params, queryParam{"laterThan", ref})
-	return b
-}
-func (b *JourneysBuilder) Results(n int) *JourneysBuilder {
-	b.params = append(b.params, queryParam{"results", intStr(n)})
-	return b
-}
-func (b *JourneysBuilder) Transfers(n int) *JourneysBuilder {
-	b.params = append(b.params, queryParam{"transfers", intStr(n)})
-	return b
-}
-func (b *JourneysBuilder) Products(configure func(*ProductSelection) *ProductSelection) *JourneysBuilder {
-	sel := configure(&ProductSelection{})
-	b.params = append(b.params, sel.entries...)
-	return b
-}
-
-// Get executes the journey search.
-func (b *JourneysBuilder) Get() (*JourneysResponse, error) {
-	params := b.from.encode("from")
-	params = append(params, b.to.encode("to")...)
-	if b.via != nil {
-		params = append(params, b.via.encode("via")...)
-	}
-	params = append(params, b.params...)
-	var out JourneysResponse
-	if err := b.client.getJSON(b.ctx, "/journeys", params, &out, ""); err != nil {
-		return nil, err
-	}
-	return &out, nil
-}
-
-// Trip fetches one trip by ID.
-func (c *Client) Trip(ctx context.Context, id string) *TripBuilder {
-	return &TripBuilder{client: c, ctx: ctx, path: "/trips/" + encodePathSegment(id)}
-}
-
-type TripBuilder struct {
-	client *Client
-	ctx    context.Context
-	path   string
-	params []queryParam
-}
-
-func (b *TripBuilder) Stopovers(v bool) *TripBuilder {
-	b.params = append(b.params, queryParam{"stopovers", formatBool(v)})
-	return b
-}
-func (b *TripBuilder) Remarks(v bool) *TripBuilder {
-	b.params = append(b.params, queryParam{"remarks", formatBool(v)})
-	return b
-}
-func (b *TripBuilder) Polyline(v bool) *TripBuilder {
-	b.params = append(b.params, queryParam{"polyline", formatBool(v)})
-	return b
-}
-
-// Get executes the trip lookup.
-func (b *TripBuilder) Get() (*TripResponse, error) {
-	var out TripResponse
-	if err := b.client.getJSON(b.ctx, b.path, b.params, &out, ""); err != nil {
+	params := b.opts.encode(nil)
+	if err := b.client.getJSON(b.ctx, b.path, params, &out, ""); err != nil {
 		return nil, err
 	}
 	return &out, nil

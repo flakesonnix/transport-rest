@@ -5,6 +5,8 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
+#nullable enable
 using Ids = IReadOnlyDictionary<string, string>;
 using OpeningHours = IReadOnlyDictionary<string, string>;
 using Products = IReadOnlyDictionary<string, bool>;
@@ -12,149 +14,149 @@ using ServiceDays = IReadOnlyDictionary<string, bool>;
 
 namespace TransportRest.Models;
 
-/// <summary>Accessibility</summary>
-public enum Accessibility : string
+/// <summary>Accessibility Open enum: unknown wire values are valid strings.</summary>
+public static class Accessibility
 {
-    [JsonStringEnumMemberName("partial")]
-    partial,
-    [JsonStringEnumMemberName("complete")]
-    complete,
+    /// <summary>Wire value <c>partial</c>.</summary>
+    public const string partial = "partial";
+    /// <summary>Wire value <c>complete</c>.</summary>
+    public const string complete = "complete";
 }
 
-/// <summary>AgeGroup</summary>
-public enum AgeGroup : string
+/// <summary>AgeGroup Open enum: unknown wire values are valid strings.</summary>
+public static class AgeGroup
 {
-    [JsonStringEnumMemberName("B")]
-    B,
-    [JsonStringEnumMemberName("E")]
-    E,
-    [JsonStringEnumMemberName("K")]
-    K,
-    [JsonStringEnumMemberName("S")]
-    S,
-    [JsonStringEnumMemberName("Y")]
-    Y,
+    /// <summary>Wire value <c>B</c>.</summary>
+    public const string B = "B";
+    /// <summary>Wire value <c>E</c>.</summary>
+    public const string E = "E";
+    /// <summary>Wire value <c>K</c>.</summary>
+    public const string K = "K";
+    /// <summary>Wire value <c>S</c>.</summary>
+    public const string S = "S";
+    /// <summary>Wire value <c>Y</c>.</summary>
+    public const string Y = "Y";
 }
 
-/// <summary>db-vendo backend profile selector of the DB instance.</summary>
-public enum DbProfile : string
+/// <summary>db-vendo backend profile selector of the DB instance. Open enum: unknown wire values are valid strings.</summary>
+public static class DbProfile
 {
-    [JsonStringEnumMemberName("dbnav")]
-    dbnav,
-    [JsonStringEnumMemberName("db")]
-    db,
-    [JsonStringEnumMemberName("dbweb")]
-    dbweb,
+    /// <summary>Wire value <c>dbnav</c>.</summary>
+    public const string dbnav = "dbnav";
+    /// <summary>Wire value <c>db</c>.</summary>
+    public const string db = "db";
+    /// <summary>Wire value <c>dbweb</c>.</summary>
+    public const string dbweb = "dbweb";
 }
 
-/// <summary>LoyaltyCard</summary>
-public enum LoyaltyCard : string
+/// <summary>LoyaltyCard Open enum: unknown wire values are valid strings.</summary>
+public static class LoyaltyCard
 {
-    [JsonStringEnumMemberName("bahncard-1st-25")]
-    bahncard_1st_25,
-    [JsonStringEnumMemberName("bahncard-2nd-25")]
-    bahncard_2nd_25,
-    [JsonStringEnumMemberName("bahncard-1st-50")]
-    bahncard_1st_50,
-    [JsonStringEnumMemberName("bahncard-2nd-50")]
-    bahncard_2nd_50,
-    [JsonStringEnumMemberName("bahncard-1st-100")]
-    bahncard_1st_100,
-    [JsonStringEnumMemberName("bahncard-2nd-100")]
-    bahncard_2nd_100,
-    [JsonStringEnumMemberName("vorteilscard")]
-    vorteilscard,
-    [JsonStringEnumMemberName("halbtaxabo")]
-    halbtaxabo,
-    [JsonStringEnumMemberName("generalabonnement-1st")]
-    generalabonnement_1st,
-    [JsonStringEnumMemberName("generalabonnement-2nd")]
-    generalabonnement_2nd,
-    [JsonStringEnumMemberName("nl-40")]
-    nl_40,
-    [JsonStringEnumMemberName("at-klimaticket")]
-    at_klimaticket,
+    /// <summary>Wire value <c>bahncard-1st-25</c>.</summary>
+    public const string bahncard_1st_25 = "bahncard-1st-25";
+    /// <summary>Wire value <c>bahncard-2nd-25</c>.</summary>
+    public const string bahncard_2nd_25 = "bahncard-2nd-25";
+    /// <summary>Wire value <c>bahncard-1st-50</c>.</summary>
+    public const string bahncard_1st_50 = "bahncard-1st-50";
+    /// <summary>Wire value <c>bahncard-2nd-50</c>.</summary>
+    public const string bahncard_2nd_50 = "bahncard-2nd-50";
+    /// <summary>Wire value <c>bahncard-1st-100</c>.</summary>
+    public const string bahncard_1st_100 = "bahncard-1st-100";
+    /// <summary>Wire value <c>bahncard-2nd-100</c>.</summary>
+    public const string bahncard_2nd_100 = "bahncard-2nd-100";
+    /// <summary>Wire value <c>vorteilscard</c>.</summary>
+    public const string vorteilscard = "vorteilscard";
+    /// <summary>Wire value <c>halbtaxabo</c>.</summary>
+    public const string halbtaxabo = "halbtaxabo";
+    /// <summary>Wire value <c>generalabonnement-1st</c>.</summary>
+    public const string generalabonnement_1st = "generalabonnement-1st";
+    /// <summary>Wire value <c>generalabonnement-2nd</c>.</summary>
+    public const string generalabonnement_2nd = "generalabonnement-2nd";
+    /// <summary>Wire value <c>nl-40</c>.</summary>
+    public const string nl_40 = "nl-40";
+    /// <summary>Wire value <c>at-klimaticket</c>.</summary>
+    public const string at_klimaticket = "at-klimaticket";
 }
 
-/// <summary>Means of transport mode (FPTF). Open enum: unknown wire values map to the fallback variant.</summary>
-public enum Mode : string
+/// <summary>Means of transport mode (FPTF). Open enum: unknown wire values map to the fallback variant. Open enum: unknown wire values are valid strings.</summary>
+public static class Mode
 {
-    [JsonStringEnumMemberName("aircraft")]
-    aircraft,
-    [JsonStringEnumMemberName("bicycle")]
-    bicycle,
-    [JsonStringEnumMemberName("bus")]
-    bus,
-    [JsonStringEnumMemberName("car")]
-    car,
-    [JsonStringEnumMemberName("gondola")]
-    gondola,
-    [JsonStringEnumMemberName("taxi")]
-    taxi,
-    [JsonStringEnumMemberName("train")]
-    train,
-    [JsonStringEnumMemberName("walking")]
-    walking,
-    [JsonStringEnumMemberName("watercraft")]
-    watercraft,
+    /// <summary>Wire value <c>aircraft</c>.</summary>
+    public const string aircraft = "aircraft";
+    /// <summary>Wire value <c>bicycle</c>.</summary>
+    public const string bicycle = "bicycle";
+    /// <summary>Wire value <c>bus</c>.</summary>
+    public const string bus = "bus";
+    /// <summary>Wire value <c>car</c>.</summary>
+    public const string car = "car";
+    /// <summary>Wire value <c>gondola</c>.</summary>
+    public const string gondola = "gondola";
+    /// <summary>Wire value <c>taxi</c>.</summary>
+    public const string taxi = "taxi";
+    /// <summary>Wire value <c>train</c>.</summary>
+    public const string train = "train";
+    /// <summary>Wire value <c>walking</c>.</summary>
+    public const string walking = "walking";
+    /// <summary>Wire value <c>watercraft</c>.</summary>
+    public const string watercraft = "watercraft";
 }
 
-/// <summary>Reliability class of a prognosis.</summary>
-public enum PrognosisType : string
+/// <summary>Reliability class of a prognosis. Open enum: unknown wire values are valid strings.</summary>
+public static class PrognosisType
 {
-    [JsonStringEnumMemberName("calculated")]
-    calculated,
-    [JsonStringEnumMemberName("prognosed")]
-    prognosed,
+    /// <summary>Wire value <c>calculated</c>.</summary>
+    public const string calculated = "calculated";
+    /// <summary>Wire value <c>prognosed</c>.</summary>
+    public const string prognosed = "prognosed";
 }
 
-/// <summary>Discriminator of remark objects; FPTF hint/status/warning are merged into one model.</summary>
-public enum RemarkKind : string
+/// <summary>Discriminator of remark objects; FPTF hint/status/warning are merged into one model. Open enum: unknown wire values are valid strings.</summary>
+public static class RemarkKind
 {
-    [JsonStringEnumMemberName("hint")]
-    hint,
-    [JsonStringEnumMemberName("status")]
-    status,
-    [JsonStringEnumMemberName("warning")]
-    warning,
-    [JsonStringEnumMemberName("foreign-id")]
-    foreign_id,
-    [JsonStringEnumMemberName("local-fare-zone")]
-    local_fare_zone,
-    [JsonStringEnumMemberName("stop-dhid")]
-    stop_dhid,
-    [JsonStringEnumMemberName("stop-website")]
-    stop_website,
-    [JsonStringEnumMemberName("transit-authority")]
-    transit_authority,
+    /// <summary>Wire value <c>hint</c>.</summary>
+    public const string hint = "hint";
+    /// <summary>Wire value <c>status</c>.</summary>
+    public const string status = "status";
+    /// <summary>Wire value <c>warning</c>.</summary>
+    public const string warning = "warning";
+    /// <summary>Wire value <c>foreign-id</c>.</summary>
+    public const string foreign_id = "foreign-id";
+    /// <summary>Wire value <c>local-fare-zone</c>.</summary>
+    public const string local_fare_zone = "local-fare-zone";
+    /// <summary>Wire value <c>stop-dhid</c>.</summary>
+    public const string stop_dhid = "stop-dhid";
+    /// <summary>Wire value <c>stop-website</c>.</summary>
+    public const string stop_website = "stop-website";
+    /// <summary>Wire value <c>transit-authority</c>.</summary>
+    public const string transit_authority = "transit-authority";
 }
 
-/// <summary>REALTIME is the default and excludes cancelled journeys; HYBRID includes them and fully supports pagination.</summary>
-public enum RoutingMode : string
+/// <summary>REALTIME is the default and excludes cancelled journeys; HYBRID includes them and fully supports pagination. Open enum: unknown wire values are valid strings.</summary>
+public static class RoutingMode
 {
-    [JsonStringEnumMemberName("FULL")]
-    FULL,
-    [JsonStringEnumMemberName("HYBRID")]
-    HYBRID,
-    [JsonStringEnumMemberName("INFOS")]
-    INFOS,
-    [JsonStringEnumMemberName("OFF")]
-    OFF,
-    [JsonStringEnumMemberName("REALTIME")]
-    REALTIME,
-    [JsonStringEnumMemberName("SERVER_DEFAULT")]
-    SERVER_DEFAULT,
+    /// <summary>Wire value <c>FULL</c>.</summary>
+    public const string FULL = "FULL";
+    /// <summary>Wire value <c>HYBRID</c>.</summary>
+    public const string HYBRID = "HYBRID";
+    /// <summary>Wire value <c>INFOS</c>.</summary>
+    public const string INFOS = "INFOS";
+    /// <summary>Wire value <c>OFF</c>.</summary>
+    public const string OFF = "OFF";
+    /// <summary>Wire value <c>REALTIME</c>.</summary>
+    public const string REALTIME = "REALTIME";
+    /// <summary>Wire value <c>SERVER_DEFAULT</c>.</summary>
+    public const string SERVER_DEFAULT = "SERVER_DEFAULT";
 }
 
-/// <summary>WalkingSpeed</summary>
-public enum WalkingSpeed : string
+/// <summary>WalkingSpeed Open enum: unknown wire values are valid strings.</summary>
+public static class WalkingSpeed
 {
-    [JsonStringEnumMemberName("slow")]
-    slow,
-    [JsonStringEnumMemberName("normal")]
-    normal,
-    [JsonStringEnumMemberName("fast")]
-    fast,
+    /// <summary>Wire value <c>slow</c>.</summary>
+    public const string slow = "slow";
+    /// <summary>Wire value <c>normal</c>.</summary>
+    public const string normal = "normal";
+    /// <summary>Wire value <c>fast</c>.</summary>
+    public const string fast = "fast";
 }
 
 /// <summary>LocationResult - tagged union (stop/station/location or unknown type); kept as raw JSON.</summary>
@@ -257,7 +259,7 @@ public class Departure
     public string PrognosedPlatform { get; set; }
 
     [JsonPropertyName("prognosisType")]
-    public PrognosisType PrognosisType { get; set; }
+    public string? PrognosisType { get; set; }
 
     [JsonPropertyName("remarks")]
     public IReadOnlyList<Remark> Remarks { get; set; }
@@ -400,7 +402,7 @@ public class Leg
     public string PrognosedDeparturePlatform { get; set; }
 
     [JsonPropertyName("departurePrognosisType")]
-    public PrognosisType DeparturePrognosisType { get; set; }
+    public string? DeparturePrognosisType { get; set; }
 
     [JsonPropertyName("arrival")]
     public DateTimeOffset? Arrival { get; set; }
@@ -425,7 +427,7 @@ public class Leg
     public string PrognosedArrivalPlatform { get; set; }
 
     [JsonPropertyName("arrivalPrognosisType")]
-    public PrognosisType ArrivalPrognosisType { get; set; }
+    public string? ArrivalPrognosisType { get; set; }
 
     [JsonPropertyName("stopovers")]
     public IReadOnlyList<Stopover> Stopovers { get; set; }
@@ -516,7 +518,7 @@ public class Line
     public string ProductName { get; set; }
 
     [JsonPropertyName("mode")]
-    public Mode Mode { get; set; }
+    public string? Mode { get; set; }
 
     [JsonPropertyName("operator")]
     public Operator Operator { get; set; }
@@ -696,7 +698,7 @@ public class Remark
     public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 
     [JsonPropertyName("type")]
-    public RemarkKind Kind { get; set; }
+    public string Kind { get; set; }
 
     [JsonPropertyName("code")]
     public string Code { get; set; }
@@ -883,7 +885,7 @@ public class Stopover
     public string PrognosedArrivalPlatform { get; set; }
 
     [JsonPropertyName("arrivalPrognosisType")]
-    public PrognosisType ArrivalPrognosisType { get; set; }
+    public string? ArrivalPrognosisType { get; set; }
 
     /// <summary>Null/absent on the last stopover.</summary>
     [JsonPropertyName("departure")]
@@ -909,7 +911,7 @@ public class Stopover
     public string PrognosedDeparturePlatform { get; set; }
 
     [JsonPropertyName("departurePrognosisType")]
-    public PrognosisType DeparturePrognosisType { get; set; }
+    public string? DeparturePrognosisType { get; set; }
 
     [JsonPropertyName("remarks")]
     public IReadOnlyList<Remark> Remarks { get; set; }
@@ -974,7 +976,7 @@ public class Trip
     public string PrognosedDeparturePlatform { get; set; }
 
     [JsonPropertyName("departurePrognosisType")]
-    public PrognosisType DeparturePrognosisType { get; set; }
+    public string? DeparturePrognosisType { get; set; }
 
     [JsonPropertyName("arrival")]
     public DateTimeOffset? Arrival { get; set; }
@@ -998,7 +1000,7 @@ public class Trip
     public string PrognosedArrivalPlatform { get; set; }
 
     [JsonPropertyName("arrivalPrognosisType")]
-    public PrognosisType ArrivalPrognosisType { get; set; }
+    public string? ArrivalPrognosisType { get; set; }
 
     [JsonPropertyName("stopovers")]
     public IReadOnlyList<Stopover> Stopovers { get; set; }
